@@ -20,3 +20,10 @@
 (use-package faces
   :config
   (set-face-attribute 'default nil :font "SF Mono" :height 140))
+
+(use-package which-key
+  :ensure t
+  :defer 0
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
