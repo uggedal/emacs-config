@@ -11,3 +11,7 @@
 (require 'use-package)
 
 (load-theme 'modus-operandi)
+
+(use-package faces
+  :config
+  (set-face-attribute 'default nil :font "SF Mono" :height 140))
