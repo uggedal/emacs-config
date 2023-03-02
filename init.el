@@ -33,3 +33,12 @@
   :bind (("C-x g" . magit-status)
 	 ("C-x M-g" . magit-dispatch)
 	 ("C-c M-g" . magit-file-dispatch)))
+
+(use-package org
+  :config
+  (setq org-capture-templates
+	'(
+	  ("j" "Journal Entry"
+           entry (file+olp+datetree "~/src/notes/journal.org")
+           "* %?"
+           :empty-lines 1))))
