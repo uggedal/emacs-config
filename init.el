@@ -3,3 +3,7 @@
 (when (and custom-file
            (file-exists-p custom-file))
   (load custom-file nil 'nomessage))
+
+;; Basic settings
+(setq ring-bell-function 'ignore  ; No audible bell
+      use-short-answers t) ; y/n in stead of yes/no
