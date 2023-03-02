@@ -8,4 +8,6 @@
 (setq ring-bell-function 'ignore  ; No audible bell
       use-short-answers t) ; y/n in stead of yes/no
 
+(require 'use-package)
+
 (load-theme 'modus-operandi)
