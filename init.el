@@ -1,3 +1,8 @@
+;; Setup package archive:
+(require 'package)
+(unless package-archive-contents
+  (package-refresh-contents))
+
 ;; Divert customaizations to separate file:
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (and custom-file
