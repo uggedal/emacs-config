@@ -9,12 +9,6 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; Divert customaizations to separate file:
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (and custom-file
-           (file-exists-p custom-file))
-  (load custom-file nil 'nomessage))
-
 ;; Basic settings
 (setq ring-bell-function 'ignore  ; No audible bell
       use-short-answers t) ; y/n in stead of yes/no
@@ -26,6 +20,14 @@
 (use-package faces
   :config
   (set-face-attribute 'default nil :font "SF Mono" :height 140))
+
+(use-package no-littering
+  :ensure t
+  :config
+  (setq auto-save-file-name-transforms
+	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
+	custom-file
+	(no-littering-expand-etc-file-name "custom.el")))
 
 (use-package which-key
   :ensure t
