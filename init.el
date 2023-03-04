@@ -1,4 +1,7 @@
-;; Setup package archive:
+;;
+;; Package archives
+;;
+
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
@@ -9,17 +12,40 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;; Basic settings
-(setq ring-bell-function 'ignore  ; No audible bell
-      use-short-answers t) ; y/n in stead of yes/no
-
 (require 'use-package)
 
-(load-theme 'modus-operandi)
+;;
+;; Basic settings
+;;
 
-(use-package faces
+(setq ring-bell-function 'ignore  ; No audible bell
+      use-short-answers t) ; y/n in stead of yes/no
+(setq-default indent-tabs-mode nil) ; Use space for indent
+
+;;
+;; Appearance
+;;
+
+(load-theme 'modus-operandi)
+(set-face-attribute 'default nil :font "SF Mono" :height 140)
+
+
+;;
+;; Built-in packages
+;;
+
+(use-package org
   :config
-  (set-face-attribute 'default nil :font "SF Mono" :height 140))
+  (setq org-capture-templates
+	'(
+	  ("j" "Journal Entry"
+           entry (file+olp+datetree "~/src/notes/journal.org")
+           "* %?"
+           :empty-lines 1))))
+
+;;
+;; Third party packages
+;;
 
 (use-package no-littering
   :ensure t
@@ -28,11 +54,6 @@
 	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
 	custom-file
 	(no-littering-expand-etc-file-name "custom.el")))
-
-(use-package simple
-  :config
-  ;; Indent with spaces:
-  (setq-default indent-tabs-mode nil))
 
 (use-package which-key
   :ensure t
@@ -47,11 +68,4 @@
 	 ("C-x M-g" . magit-dispatch)
 	 ("C-c M-g" . magit-file-dispatch)))
 
-(use-package org
-  :config
-  (setq org-capture-templates
-	'(
-	  ("j" "Journal Entry"
-           entry (file+olp+datetree "~/src/notes/journal.org")
-           "* %?"
-           :empty-lines 1))))
+
