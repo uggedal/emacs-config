@@ -1,5 +1,11 @@
 ;; Setup package archive:
 (require 'package)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(customize-set-variable 'package-archive-priorities
+                        '(("gnu"    . 99)
+                          ("nongnu" . 80)
+                          ("melpa-stable" . 70)))
 (unless package-archive-contents
   (package-refresh-contents))
 
