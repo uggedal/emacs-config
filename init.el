@@ -19,8 +19,12 @@
 ;;
 
 (setq ring-bell-function 'ignore  ; No audible bell
-      use-short-answers t) ; y/n in stead of yes/no
+      use-short-answers t ; y/n in stead of yes/no
+      ispell-program-name "aspell")
 (setq-default indent-tabs-mode nil) ; Use space for indent
+
+(add-hook 'text-mode-hook #'flyspell-mode)
+(add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
 ;;
 ;; Appearance
