@@ -1,0 +1,3 @@
+* Emacs config
+
+Requires Emacs 29.
