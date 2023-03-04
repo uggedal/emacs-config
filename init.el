@@ -29,6 +29,11 @@
 	custom-file
 	(no-littering-expand-etc-file-name "custom.el")))
 
+(use-package simple
+  :config
+  ;; Indent with spaces:
+  (setq-default indent-tabs-mode nil))
+
 (use-package which-key
   :ensure t
   :defer 0
