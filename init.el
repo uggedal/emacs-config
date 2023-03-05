@@ -31,7 +31,7 @@
 ;;
 
 (load-theme 'modus-operandi)
-(set-face-attribute 'default nil :font "SF Mono" :height 130)
+(set-face-attribute 'default nil :font "SF Mono" :height 140)
 
 
 ;;
