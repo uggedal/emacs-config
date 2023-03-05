@@ -45,6 +45,8 @@
 ;;
 
 (use-package org
+  :bind (("C-c c" . org-capture)
+         ("C-c a" . org-agenda))
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
