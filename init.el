@@ -34,7 +34,8 @@
 ;;
 
 (setq modus-themes-italic-constructs t
-      modus-themes-subtle-line-numbers t)
+      modus-themes-subtle-line-numbers t
+      modus-themes-mode-line '(borderless (padding . 4)))
 
 (load-theme 'modus-operandi)
 
