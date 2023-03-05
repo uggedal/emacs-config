@@ -26,6 +26,9 @@
 (add-hook 'text-mode-hook #'flyspell-mode)
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
+(dolist (mode-hook '(conf-mode-hook prog-mode-hook))
+  (add-hook mode-hook 'display-line-numbers-mode))
+
 ;;
 ;; Appearance
 ;;
