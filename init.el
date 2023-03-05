@@ -41,6 +41,7 @@
 (use-package org
   :config
   (setq org-hide-emphasis-markers t
+        org-startup-indented t
         org-capture-templates
 	'(
 	  ("j" "Journal Entry"
