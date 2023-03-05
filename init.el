@@ -51,6 +51,12 @@
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
+        org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
+        org-todo-keyword-faces '(
+                                 ("NEXT" .
+                                  '(modus-themes-intense-blue org-todo))
+                                 ("DOING" .
+                                  '(modus-themes-intense-yellow org-todo)))
         org-agenda-files '("~/src/notes/journal.org")
         org-capture-templates
 	'(
