@@ -40,7 +40,8 @@
 
 (use-package org
   :config
-  (setq org-capture-templates
+  (setq org-hide-emphasis-markers t
+        org-capture-templates
 	'(
 	  ("j" "Journal Entry"
            entry (file+olp+datetree "~/src/notes/journal.org")
@@ -72,4 +73,6 @@
 	 ("C-x M-g" . magit-dispatch)
 	 ("C-c M-g" . magit-file-dispatch)))
 
-
+(use-package org-appear
+  :ensure t
+  :hook org-mode)
