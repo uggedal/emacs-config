@@ -48,6 +48,7 @@
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
+        org-agenda-files '("~/src/notes/journal.org")
         org-capture-templates
 	'(
 	  ("j" "Journal Entry"
