@@ -9,8 +9,6 @@
                         '(("gnu"    . 99)
                           ("nongnu" . 80)
                           ("melpa-stable" . 70)))
-(unless package-archive-contents
-  (package-refresh-contents))
 
 (require 'use-package)
 
