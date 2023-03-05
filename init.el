@@ -33,7 +33,11 @@
 ;; Appearance
 ;;
 
+(setq modus-themes-italic-constructs t
+      modus-themes-subtle-line-numbers t)
+
 (load-theme 'modus-operandi)
+
 (set-face-attribute 'default nil :font "SF Mono" :height 140)
 
 
