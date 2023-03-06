@@ -36,6 +36,8 @@
 (dolist (mode-hook '(conf-mode-hook prog-mode-hook))
   (add-hook mode-hook 'display-line-numbers-mode))
 
+(save-place-mode 1)
+
 ;;
 ;; Appearance
 ;;
