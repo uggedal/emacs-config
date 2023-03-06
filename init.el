@@ -108,6 +108,11 @@
 	custom-file
 	(no-littering-expand-etc-file-name "custom.el")))
 
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode))
+
 (use-package which-key
   :ensure t
   :defer 0
