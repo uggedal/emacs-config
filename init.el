@@ -116,6 +116,12 @@
   :config
   (vertico-mode))
 
+(use-package marginalia
+  :ensure t
+  :init
+  (setq marginalia-max-relative-age 0)
+  (marginalia-mode))
+
 (use-package corfu
   :ensure t
   :init
