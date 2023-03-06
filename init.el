@@ -122,19 +122,19 @@
   (setq marginalia-max-relative-age 0)
   (marginalia-mode))
 
-(use-package corfu
-  :ensure t
-  :init
-  (setq corfu-cycle t)
-  :config
-  (global-corfu-mode))
-
 (use-package orderless
   :ensure t
   :init
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package corfu
+  :ensure t
+  :init
+  (setq corfu-cycle t)
+  :config
+  (global-corfu-mode))
 
 (defun org-completion-at-point-functions ()
   (add-to-list 'completion-at-point-functions #'cape-ispell))
