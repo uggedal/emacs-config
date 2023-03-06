@@ -60,6 +60,7 @@
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
+        org-cycle-separator-lines 1
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
         org-todo-keyword-faces '(
                                  ("NEXT" .
