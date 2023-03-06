@@ -111,6 +111,7 @@
 (use-package corfu
   :ensure t
   :init
+  (setq corfu-cycle t)
   (global-corfu-mode))
 
 (use-package which-key
