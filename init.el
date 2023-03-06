@@ -18,7 +18,6 @@
 
 (setq ring-bell-function 'ignore  ; No audible bell
       use-short-answers t ; y/n in stead of yes/no
-      ispell-program-name "aspell"
       column-number-mode t)
 (setq-default indent-tabs-mode nil) ; Use space for indent
 
@@ -55,6 +54,11 @@
 
 (use-package ibuffer
   :bind ([remap list-buffers] . ibuffer-list-buffers))
+
+(use-package ispell
+  :config
+  (setq ispell-program-name "aspell"
+        ispell-silently-savep t))
 
 (use-package org
   :bind (("C-c c" . org-capture)
