@@ -24,6 +24,10 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (setq mac-option-modifier nil
+        mac-command-modifier 'meta))
+
 (add-hook 'text-mode-hook #'flyspell-mode)
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
