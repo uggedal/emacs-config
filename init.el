@@ -73,6 +73,8 @@
                                   '(modus-themes-intense-blue org-todo))
                                  ("DOING" .
                                   '(modus-themes-intense-yellow org-todo)))
+        org-startup-with-inline-images t
+        org-image-actual-width 1000
         org-agenda-files '("~/src/notes/journal.org")
         org-capture-templates
 	'(
