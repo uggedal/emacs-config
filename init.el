@@ -50,7 +50,6 @@
 
 (set-face-attribute 'default nil :font "SF Mono" :height 140)
 
-
 ;;
 ;; Built-in packages
 ;;
@@ -62,6 +61,9 @@
   :config
   (setq ispell-program-name "aspell"
         ispell-silently-savep t))
+
+(use-package hippie-exp
+  :bind ([remap dabbrev-expand] . hippie-expand))
 
 (use-package org
   :bind (("C-c c" . org-capture)
