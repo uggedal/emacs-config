@@ -40,6 +40,7 @@
   :config
   (setq column-number-mode t)
   (setq-default indent-tabs-mode nil)
+  (define-key global-map [remap zap-to-char] 'zap-up-to-char)
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
