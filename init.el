@@ -32,7 +32,8 @@
   :init
   (setq ring-bell-function 'ignore
         use-short-answers t
-        tab-always-indent 'complete)
+        tab-always-indent 'complete
+        read-extended-command-predicate #'command-completion-default-include-p)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
           ns-command-modifier 'meta)))
