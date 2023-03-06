@@ -111,3 +111,8 @@
 (use-package org-appear
   :ensure t
   :hook org-mode)
+
+(use-package org-download
+  :ensure t
+  :config
+  (setq org-download-timestamp ""))
