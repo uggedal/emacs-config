@@ -123,6 +123,13 @@
   :config
   (global-corfu-mode))
 
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
 (defun org-completion-at-point-functions ()
   (add-to-list 'completion-at-point-functions #'cape-ispell))
 
