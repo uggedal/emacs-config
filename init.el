@@ -38,7 +38,8 @@
 
 (use-package simple
   :config
-  (setq column-number-mode t)
+  (setq column-number-mode t
+        save-interprogram-paste-before-kill t)
   (setq-default indent-tabs-mode nil)
   (define-key global-map [remap zap-to-char] 'zap-up-to-char)
   :hook ((before-save . delete-trailing-whitespace)
