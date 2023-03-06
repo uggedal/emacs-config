@@ -126,8 +126,7 @@
   :ensure t
   :defer 0
   :config
-  (which-key-mode)
-  (setq which-key-idle-delay 1))
+  (which-key-mode))
 
 (use-package magit
   :ensure t
