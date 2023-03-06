@@ -24,6 +24,8 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
 (when (and (eq system-type 'darwin) (display-graphic-p))
   (setq mac-option-modifier nil
         mac-command-modifier 'meta))
