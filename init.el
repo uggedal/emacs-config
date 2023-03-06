@@ -115,4 +115,6 @@
 (use-package org-download
   :ensure t
   :config
-  (setq org-download-timestamp ""))
+  (setq org-download-timestamp "")
+  (setq-default org-download-image-dir "img"
+                org-download-heading-lvl nil))
