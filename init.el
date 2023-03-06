@@ -31,7 +31,8 @@
 (use-package emacs
   :config
   (setq ring-bell-function 'ignore
-        use-short-answers t)
+        use-short-answers t
+        tab-always-indent 'complete)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
           ns-command-modifier 'meta)))
