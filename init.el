@@ -45,6 +45,9 @@
 ;; Built-in packages
 ;;
 
+(use-package ibuffer
+  :bind ([remap list-buffers] . ibuffer-list-buffers))
+
 (use-package org
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda))
