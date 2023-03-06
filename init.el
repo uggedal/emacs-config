@@ -13,32 +13,6 @@
 (require 'use-package)
 
 ;;
-;; Basic settings
-;;
-
-(setq ring-bell-function 'ignore  ; No audible bell
-      use-short-answers t ; y/n in stead of yes/no
-      column-number-mode t
-      uniquify-buffer-name-style 'forward)
-(setq-default indent-tabs-mode nil) ; Use space for indent
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-(when (and (eq system-type 'darwin) (display-graphic-p))
-  (setq mac-option-modifier nil
-        mac-command-modifier 'meta))
-
-(add-hook 'text-mode-hook #'flyspell-mode)
-(add-hook 'prog-mode-hook #'flyspell-prog-mode)
-
-(dolist (mode-hook '(conf-mode-hook prog-mode-hook))
-  (add-hook mode-hook 'display-line-numbers-mode))
-
-(save-place-mode 1)
-
-;;
 ;; Appearance
 ;;
 
@@ -54,6 +28,35 @@
 ;; Built-in packages
 ;;
 
+(use-package emacs
+  :config
+  (setq ring-bell-function 'ignore
+        use-short-answers t)
+  (when (and (eq system-type 'darwin) (display-graphic-p))
+    (setq ns-alternate-modifier nil
+          ns-command-modifier 'meta)))
+
+(use-package simple
+  :config
+  (setq column-number-mode t)
+  (setq-default indent-tabs-mode nil)
+  :hook ((before-save . delete-trailing-whitespace)
+         (text-mode . turn-on-auto-fill)))
+
+(use-package display-line-numbers
+  :hook (conf-mode prod-mode))
+
+(use-package hippie-exp
+  :bind ([remap dabbrev-expand] . hippie-expand))
+
+(use-package saveplace
+  :config
+  (save-place-mode 1))
+
+(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'forward))
+
 (use-package ibuffer
   :bind ([remap list-buffers] . ibuffer-list-buffers))
 
@@ -62,8 +65,9 @@
   (setq ispell-program-name "aspell"
         ispell-silently-savep t))
 
-(use-package hippie-exp
-  :bind ([remap dabbrev-expand] . hippie-expand))
+(use-package flyspell
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode)))
 
 (use-package org
   :bind (("C-c c" . org-capture)
