@@ -114,9 +114,13 @@
   (setq corfu-cycle t)
   (global-corfu-mode))
 
+(defun org-completion-at-point-functions ()
+  (add-to-list 'completion-at-point-functions #'cape-ispell))
+
 (use-package cape
   :ensure t
-  :bind ([remap dabbrev-expand] . cape-dabbrev))
+  :bind ([remap dabbrev-expand] . cape-dabbrev)
+  :hook (org-mode . org-completion-at-point-functions))
 
 (use-package which-key
   :ensure t
