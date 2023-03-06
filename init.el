@@ -109,6 +109,13 @@
 	custom-file
 	(no-littering-expand-etc-file-name "custom.el")))
 
+(use-package vertico
+  :ensure t
+  :init
+  (setq vertico-cycle t)
+  :config
+  (vertico-mode))
+
 (use-package corfu
   :ensure t
   :init
