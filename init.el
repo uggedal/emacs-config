@@ -22,6 +22,8 @@
       column-number-mode t)
 (setq-default indent-tabs-mode nil) ; Use space for indent
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (add-hook 'text-mode-hook #'flyspell-mode)
 (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
