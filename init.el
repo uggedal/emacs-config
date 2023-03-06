@@ -114,6 +114,10 @@
   (setq corfu-cycle t)
   (global-corfu-mode))
 
+(use-package cape
+  :ensure t
+  :bind ([remap dabbrev-expand] . cape-dabbrev))
+
 (use-package which-key
   :ensure t
   :defer 0
