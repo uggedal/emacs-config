@@ -18,7 +18,8 @@
 
 (setq ring-bell-function 'ignore  ; No audible bell
       use-short-answers t ; y/n in stead of yes/no
-      column-number-mode t)
+      column-number-mode t
+      uniquify-buffer-name-style 'forward)
 (setq-default indent-tabs-mode nil) ; Use space for indent
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
