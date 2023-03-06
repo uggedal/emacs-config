@@ -29,7 +29,7 @@
 ;;
 
 (use-package emacs
-  :config
+  :init
   (setq ring-bell-function 'ignore
         use-short-answers t
         tab-always-indent 'complete)
@@ -38,11 +38,11 @@
           ns-command-modifier 'meta)))
 
 (use-package simple
-  :config
+  :init
   (setq column-number-mode t
         save-interprogram-paste-before-kill t)
   (setq-default indent-tabs-mode nil)
-  (define-key global-map [remap zap-to-char] 'zap-up-to-char)
+  :bind ([remap zap-to-char] . zap-up-to-char)
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
@@ -58,14 +58,14 @@
   (save-place-mode 1))
 
 (use-package uniquify
-  :config
+  :init
   (setq uniquify-buffer-name-style 'forward))
 
 (use-package ibuffer
   :bind ([remap list-buffers] . ibuffer-list-buffers))
 
 (use-package ispell
-  :config
+  :init
   (setq ispell-program-name "aspell"
         ispell-silently-savep t))
 
@@ -112,6 +112,7 @@
   :ensure t
   :init
   (setq corfu-cycle t)
+  :config
   (global-corfu-mode))
 
 (defun org-completion-at-point-functions ()
@@ -140,7 +141,7 @@
 
 (use-package org-download
   :ensure t
-  :config
+  :init
   (setq org-download-timestamp "")
   (setq-default org-download-image-dir "img"
                 org-download-heading-lvl nil))
