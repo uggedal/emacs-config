@@ -51,6 +51,10 @@
 (use-package hippie-exp
   :bind ([remap dabbrev-expand] . hippie-expand))
 
+(use-package savehist
+  :config
+  (savehist-mode 1))
+
 (use-package saveplace
   :config
   (save-place-mode 1))
