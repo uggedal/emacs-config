@@ -54,6 +54,9 @@
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
+(use-package display-fill-column-indicator
+  :hook (prog-mode . display-fill-column-indicator-mode))
+
 (use-package frame
   :bind (("C-x C-p" . previous-window-any-frame)
          ("C-x C-n" . next-window-any-frame)))
