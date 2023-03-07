@@ -52,6 +52,12 @@
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
+(use-package pixel-scroll
+  :init
+  (pixel-scroll-mode)
+  (pixel-scroll-precision-mode 1)
+  (setq pixel-scroll-precision-large-scroll-height 35.0))
+
 (use-package savehist
   :config
   (savehist-mode 1))
