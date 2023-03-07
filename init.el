@@ -51,6 +51,20 @@
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
+(use-package minibuffer
+  :init
+  (setq completion-styles '(flex basic partial-completion emacs22)
+        completions-format 'one-column
+        completions-max-height 15
+        completion-auto-help 'visible
+        completion-auto-select 'second-tab
+        completion-show-help nil
+        completions-sort nil
+        completions-header-format nil)
+  :bind (:map completion-in-region-mode-map
+              ("C-n" . minibuffer-previous-completion)
+              ("C-p" . minibuffer-next-completion)))
+
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
