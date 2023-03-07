@@ -49,7 +49,7 @@ v;;
          (text-mode . turn-on-auto-fill)))
 
 (use-package display-line-numbers
-  :hook (conf-mode prod-mode))
+  :hook (conf-mode prog-mode))
 
 (use-package savehist
   :config
