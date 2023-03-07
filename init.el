@@ -58,6 +58,10 @@ v;;
   :config
   (save-place-mode 1))
 
+(use-package autorevert
+  :config
+  (global-auto-revert-mode))
+
 (use-package uniquify
   :init
   (setq uniquify-buffer-name-style 'forward))
