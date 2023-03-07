@@ -38,7 +38,9 @@
   (setq-default fill-column 79)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
-          ns-command-modifier 'meta)))
+          ns-command-modifier 'meta))
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil))
 
 (use-package simple
   :init
