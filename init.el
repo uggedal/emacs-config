@@ -54,6 +54,10 @@
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
+(use-package frame
+  :bind (("C-x C-p" . previous-window-any-frame)
+         ("C-x C-n" . next-window-any-frame)))
+
 (use-package pixel-scroll
   :init
   (pixel-scroll-mode)
