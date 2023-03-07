@@ -1,4 +1,4 @@
-;;
+v;;
 ;; Package archives
 ;;
 
@@ -109,52 +109,11 @@
 	custom-file
 	(no-littering-expand-etc-file-name "custom.el")))
 
-(use-package vertico
-  :ensure t
-  :init
-  (setq vertico-cycle t)
-  :config
-  (vertico-mode))
-
-(use-package marginalia
-  :ensure t
-  :init
-  (setq marginalia-max-relative-age 0)
-  (marginalia-mode))
-
-(use-package orderless
-  :ensure t
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
-
-(use-package corfu
-  :ensure t
-  :init
-  (setq corfu-cycle t)
-  :config
-  (global-corfu-mode))
-
-(defun org-completion-at-point-functions ()
-  (add-to-list 'completion-at-point-functions #'cape-ispell))
-
-(use-package cape
-  :ensure t
-  :bind ([remap dabbrev-expand] . cape-dabbrev)
-  :hook (org-mode . org-completion-at-point-functions))
-
 (use-package which-key
   :ensure t
   :defer 0
   :config
   (which-key-mode))
-
-(use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)
-	 ("C-x M-g" . magit-dispatch)
-	 ("C-c M-g" . magit-file-dispatch)))
 
 (use-package org-appear
   :ensure t
