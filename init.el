@@ -33,6 +33,7 @@
   (setq ring-bell-function 'ignore
         use-short-answers t
         tab-always-indent 'complete
+        truncate-lines t
         read-extended-command-predicate #'command-completion-default-include-p)
   (setq-default fill-column 79)
   (when (and (eq system-type 'darwin) (display-graphic-p))
