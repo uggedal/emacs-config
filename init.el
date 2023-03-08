@@ -100,6 +100,10 @@
 (use-package ibuffer
   :bind ([remap list-buffers] . ibuffer-list-buffers))
 
+(use-package dired
+  :config
+  (setq dired-listing-switches "-alFh \"-D %Y-%m-%d %H:%M\""))
+
 (use-package ispell
   :init
   (setq ispell-program-name "aspell"
