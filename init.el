@@ -139,6 +139,10 @@
            :empty-lines 1))))
 
 (use-package eglot
+  :bind (("C-c l d" . flymake-show-buffer-diagnostics)
+         ("C-c l f" . eglot-format)
+         ("C-c l r" . eglot-rename)
+         ("C-c l c" . eglot-code-actions))
   :hook (python-base-mode . eglot-ensure))
 
 (use-package flymake
