@@ -141,6 +141,11 @@
 (use-package eglot
   :hook (python-base-mode . eglot-ensure))
 
+(use-package flymake
+  :bind (:map flymake-mode-map
+              ("M-n" . flymake-goto-next-error)
+              ("M-p" . flymake-goto-prev-error)))
+
 (use-package vc-hooks
   :config
   (setq vc-handled-backends '(Git)))
