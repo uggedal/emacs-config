@@ -139,7 +139,11 @@
            :empty-lines 1))))
 
 (use-package eglot
-   :hook (python-base-mode . eglot-ensure))
+  :hook (python-base-mode . eglot-ensure))
+
+(use-package vc-hooks
+  :config
+  (setq vc-handled-backends '(Git)))
 
 (use-package eldoc
   :config
