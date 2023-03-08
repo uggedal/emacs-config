@@ -138,6 +138,13 @@
            "* %?"
            :empty-lines 1))))
 
+(use-package eglot
+   :hook (python-base-mode . eglot-ensure))
+
+(use-package eldoc
+  :config
+  (setq eldoc-echo-area-use-multiline-p nil))
+
 ;;
 ;; Third party packages
 ;;
