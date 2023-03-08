@@ -22,7 +22,7 @@
 
 (load-theme 'modus-operandi)
 
-(set-face-attribute 'default nil :font "SF Mono" :height 140)
+(set-face-attribute 'default nil :font "SF Mono" :height 130)
 
 ;;
 ;; Built-in packages
