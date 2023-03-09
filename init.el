@@ -27,6 +27,7 @@
         use-short-answers t
         tab-always-indent 'complete
         truncate-lines t
+        sentence-end-double-space nil
         read-extended-command-predicate #'command-completion-default-include-p
         bidi-paragraph-direction 'left-to-right
         bidi-inhibit-bpa t)
@@ -113,10 +114,6 @@
 (use-package dired
   :config
   (setq dired-listing-switches "-alFh \"-D %Y-%m-%d %H:%M\""))
-
-(use-package paragraphs
-  :config
-  (setq sentence-end-double-space nil))
 
 (use-package ispell
   :init
