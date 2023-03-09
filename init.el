@@ -81,6 +81,19 @@
   (pixel-scroll-precision-mode 1)
   (setq pixel-scroll-precision-large-scroll-height 35.0))
 
+(use-package files
+  :config
+  (setq auto-save-file-name-transforms
+        `((".*" ,(concat user-emacs-directory "auto-save/") t))
+        backup-directory-alist
+        `(("." . ,(expand-file-name
+                   (concat user-emacs-directory "backups"))))))
+
+(use-package cus-edit
+  :config
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (load custom-file))
+
 (use-package savehist
   :config
   (savehist-mode 1))
@@ -161,14 +174,6 @@
 ;;
 ;; Third party packages
 ;;
-
-(use-package no-littering
-  :ensure t
-  :config
-  (setq auto-save-file-name-transforms
-	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
-	custom-file
-	(no-littering-expand-etc-file-name "custom.el")))
 
 (use-package which-key
   :ensure t
