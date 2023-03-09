@@ -65,6 +65,8 @@
   :hook (prog-mode . display-fill-column-indicator-mode))
 
 (use-package frame
+  :custom
+  (setq blink-cursor-blinks 1)
   :bind (("C-x C-p" . previous-window-any-frame)
          ("C-x C-n" . next-window-any-frame)))
 
