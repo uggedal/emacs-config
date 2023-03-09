@@ -153,6 +153,8 @@
            :empty-lines 1))))
 
 (use-package eglot
+  :custom
+  (setq eglot-autoshutdown t)
   :bind (("C-c l d" . flymake-show-buffer-diagnostics)
          ("C-c l f" . eglot-format)
          ("C-c l r" . eglot-rename)
