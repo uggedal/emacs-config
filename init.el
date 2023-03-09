@@ -110,6 +110,10 @@
   :config
   (setq dired-listing-switches "-alFh \"-D %Y-%m-%d %H:%M\""))
 
+(use-package paragraphs
+  :config
+  (setq sentence-end-double-space nil))
+
 (use-package ispell
   :init
   (setq ispell-program-name "aspell"
