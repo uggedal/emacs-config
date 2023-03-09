@@ -3,13 +3,6 @@
 ;;
 
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
-(customize-set-variable 'package-archive-priorities
-                        '(("gnu"    . 99)
-                          ("nongnu" . 80)
-                          ("melpa-stable" . 70)))
-
 (require 'use-package)
 
 ;;
@@ -180,14 +173,3 @@
   :defer 0
   :config
   (which-key-mode))
-
-(use-package org-appear
-  :ensure t
-  :hook org-mode)
-
-(use-package org-download
-  :ensure t
-  :init
-  (setq org-download-timestamp "")
-  (setq-default org-download-image-dir "img"
-                org-download-heading-lvl nil))
