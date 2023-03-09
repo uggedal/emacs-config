@@ -69,7 +69,7 @@
 
 (use-package frame
   :custom
-  (setq blink-cursor-blinks 1)
+  (blink-cursor-mode -1)
   :bind (("C-x C-p" . previous-window-any-frame)
          ("C-x C-n" . next-window-any-frame)))
 
