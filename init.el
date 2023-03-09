@@ -84,7 +84,7 @@
 
 (use-package cus-edit
   :config
-  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file))
 
 (use-package savehist
