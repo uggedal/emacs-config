@@ -27,7 +27,9 @@
         use-short-answers t
         tab-always-indent 'complete
         truncate-lines t
-        read-extended-command-predicate #'command-completion-default-include-p)
+        read-extended-command-predicate #'command-completion-default-include-p
+        bidi-paragraph-direction 'left-to-right
+        bidi-inhibit-bpa t)
   (setq-default fill-column 79)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
