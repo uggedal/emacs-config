@@ -47,33 +47,6 @@
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
-(use-package minibuffer
-  :init
-  (setq completion-styles '(flex basic partial-completion emacs22)
-        completion-category-overrides '((file (styles basic substring)))
-        completions-format 'one-column
-        completions-max-height 15
-        completion-auto-help 'visible
-        completion-auto-select 'second-tab
-        completion-show-help nil
-        completions-sort nil
-        completions-header-format nil)
-  :bind (:map completion-in-region-mode-map
-              ("C-n" . minibuffer-previous-completion)
-              ("C-p" . minibuffer-next-completion)))
-
-(use-package icomplete
-  :custom
-  (setq icomplete-delay-completions-threshold 0
-        icomplete-max-delay-chars 0
-        icomplete-compute-delay 0
-        icomplete-in-buffer t
-        icomplete-show-matches-on-no-input t
-        icomplete-prospects-height 10)
-  (icomplete-vertical-mode 1)
-  :bind (:map icomplete-minibuffer-map
-              ("<backspace>" . icomplete-fido-backward-updir)))
-
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
@@ -196,3 +169,28 @@
   :defer 0
   :config
   (which-key-mode))
+
+(use-package vertico
+  :ensure t
+  :init
+  (setq vertico-cycle t)
+  :config
+  (vertico-mode))
+
+(use-package orderless
+  :ensure t
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package cape
+  :ensure t
+  :bind ([remap dabbrev-expand] . cape-dabbrev)
+  :hook (org-mode . (lambda () (add-to-list 'completion-at-point-functions
+                                            #'cape-ispell))))
+
+(use-package consult
+  :ensure t
+  :config
+  (setq completion-in-region-function #'consult-completion-in-region))
