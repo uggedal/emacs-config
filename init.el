@@ -205,7 +205,12 @@
         xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
-  (setq consult-find-args  "find . -not ( -wholename */.git* -prune )")
+  (setq consult-find-args  "find . -not ( -wholename */.git* -prune )"
+        ;; TODO: adapt to unreleased 0.33 changes:
+        consult-ripgrep-args '("rg" "--null" "--line-buffered" "--color=never"
+                              "--max-columns=1000" "--path-separator" "/"
+                              "--smart-case" "--no-heading" "--line-number"
+                              "--hidden" "-g" "!.git" "."))
   :bind (([remap switch-to-buffer] . consult-buffer)
          ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
          ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
