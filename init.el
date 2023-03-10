@@ -204,6 +204,8 @@
   (setq completion-in-region-function #'consult-completion-in-region
         xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
+  :config
+  (setq consult-find-args  "find . -not ( -wholename */.git* -prune )")
   :bind (([remap switch-to-buffer] . consult-buffer)
          ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
          ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
@@ -214,6 +216,7 @@
          ("M-g d" . consult-flymake)
          ("M-g o" . consult-outline)
          ("M-g d" . consult-flymake)
+         ("M-s f" . consult-find)
          :map minibuffer-local-map
          ([remap next-matching-history-element] . consult-history)
          ([remap previous-matching-history-element] . consult-history)))
