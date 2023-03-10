@@ -217,6 +217,7 @@
          ("M-g o" . consult-outline)
          ("M-g d" . consult-flymake)
          ("M-s f" . consult-find)
+         ("M-s g" . consult-ripgrep)
          :map minibuffer-local-map
          ([remap next-matching-history-element] . consult-history)
          ([remap previous-matching-history-element] . consult-history)))
