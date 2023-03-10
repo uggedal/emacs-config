@@ -145,16 +145,10 @@
 (use-package eglot
   :custom
   (setq eglot-autoshutdown t)
-  :bind (("C-c l d" . flymake-show-buffer-diagnostics)
-         ("C-c l f" . eglot-format)
+  :bind (("C-c l f" . eglot-format)
          ("C-c l r" . eglot-rename)
          ("C-c l c" . eglot-code-actions))
   :hook (python-base-mode . eglot-ensure))
-
-(use-package flymake
-  :bind (:map flymake-mode-map
-              ("M-n" . flymake-goto-next-error)
-              ("M-p" . flymake-goto-prev-error)))
 
 (use-package vc-hooks
   :config
@@ -212,6 +206,7 @@
          ([remap isearch-forward] . consult-line)
          ([remap goto-line] . consult-goto-line)
          ([remap yank-pop] . consult-yank-pop)
+         ("M-g d" . consult-flymake)
          :map minibuffer-local-map
          ([remap next-matching-history-element] . consult-history)
          ([remap previous-matching-history-element] . consult-history)))
