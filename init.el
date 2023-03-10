@@ -224,6 +224,8 @@
          ("M-g d" . consult-flymake)
          ("M-s f" . consult-find)
          ("M-s g" . consult-ripgrep)
+         :map org-mode-map
+         ("M-g h" . consult-org-heading)
          :map minibuffer-local-map
          ([remap next-matching-history-element] . consult-history)
          ([remap previous-matching-history-element] . consult-history)))
