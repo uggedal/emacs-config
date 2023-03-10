@@ -43,7 +43,10 @@
   (setq column-number-mode t
         save-interprogram-paste-before-kill t)
   (setq-default indent-tabs-mode nil)
-  :bind ([remap zap-to-char] . zap-up-to-char)
+  :bind (([remap zap-to-char] . zap-up-to-char)
+         ([remap upcase-word] . upcase-dwim)
+         ([remap downcase-word] . downcase-dwim)
+         ([remap capitalize-word] . capitalize-dwim))
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
