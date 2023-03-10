@@ -198,11 +198,15 @@
   :hook (org-mode . (lambda () (add-to-list 'completion-at-point-functions
                                             #'cape-ispell))))
 
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode))
+
 (use-package consult
   :ensure t
   :init
-  (setq completion-in-region-function #'consult-completion-in-region
-        xref-show-xrefs-function #'consult-xref
+  (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
   :config
   (setq consult-find-args  "find . -not ( -wholename */.git* -prune )"
