@@ -197,8 +197,10 @@
 
 (use-package consult
   :ensure t
-  :config
-  (setq completion-in-region-function #'consult-completion-in-region)
+  :init
+  (setq completion-in-region-function #'consult-completion-in-region
+        xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
   :bind (([remap switch-to-buffer] . consult-buffer)
          ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
          ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
