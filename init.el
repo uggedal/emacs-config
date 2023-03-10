@@ -121,7 +121,9 @@
 
 (use-package org
   :bind (("C-c c" . org-capture)
-         ("C-c a" . org-agenda))
+         ("C-c a" . org-agenda)
+         :map org-mode-map
+         ("M-g h" . consult-org-heading))
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
@@ -228,8 +230,6 @@
          ("M-g d" . consult-flymake)
          ("M-s f" . consult-find)
          ("M-s g" . consult-ripgrep)
-         :map org-mode-map
-         ("M-g h" . consult-org-heading)
          :map minibuffer-local-map
          ([remap next-matching-history-element] . consult-history)
          ([remap previous-matching-history-element] . consult-history)))
