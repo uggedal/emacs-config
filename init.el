@@ -80,6 +80,10 @@
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file))
 
+(use-package recentf
+  :config
+  (recentf-mode))
+
 (use-package savehist
   :config
   (savehist-mode 1))
