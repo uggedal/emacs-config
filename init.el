@@ -205,6 +205,8 @@
 
 (use-package diff-hl
   :ensure t
-  :hook
-  (((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode)
-   (dired-mode . diff-hl-dired-mode)))
+  :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
+
+
+(use-package diff-hl-dired
+  :hook (dired-mode . diff-hl-dired-mode))
