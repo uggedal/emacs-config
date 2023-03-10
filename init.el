@@ -211,7 +211,10 @@
          ([remap project-switch-to-buffer] . consult-project-buffer)
          ([remap isearch-forward] . consult-line)
          ([remap goto-line] . consult-goto-line)
-         ([remap yank-pop] . consult-yank-pop)))
+         ([remap yank-pop] . consult-yank-pop)
+         :map minibuffer-local-map
+         ([remap next-matching-history-element] . consult-history)
+         ([remap previous-matching-history-element] . consult-history)))
 
 (use-package diff-hl
   :ensure t
