@@ -201,3 +201,10 @@
   :ensure t
   :config
   (setq completion-in-region-function #'consult-completion-in-region))
+
+
+(use-package diff-hl
+  :ensure t
+  :hook
+  (((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode)
+   (dired-mode . diff-hl-dired-mode)))
