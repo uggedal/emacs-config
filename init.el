@@ -158,6 +158,7 @@
         org-outline-path-complete-in-steps nil
         org-agenda-files '("~/src/notes/journal.org"
                            "~/src/notes/personal.org")
+        org-agenda-span 14
         org-capture-templates
 	'(
 	  ("j" "Journal Entry"
