@@ -124,7 +124,7 @@
 
 (use-package dired
   :config
-  (setq dired-listing-switches "-alFh \"-D %Y-%m-%d %H:%M\""))
+  (setq dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\""))
 
 (use-package ispell
   :init
