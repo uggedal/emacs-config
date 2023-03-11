@@ -34,6 +34,7 @@
         truncate-lines t
         sentence-end-double-space nil
         read-extended-command-predicate #'command-completion-default-include-p
+        enable-recursive-minibuffers t
         bidi-paragraph-direction 'left-to-right
         bidi-inhibit-bpa t)
   (setq-default fill-column 79)
@@ -144,6 +145,7 @@
         org-ellipsis " …"
         org-image-actual-width nil
         org-goto-interface 'outline-path-completion
+        org-special-ctrl-a/e t
         org-outline-path-complete-in-steps nil
         org-agenda-files '("~/src/notes/journal.org")
         org-capture-templates
