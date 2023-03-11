@@ -128,7 +128,8 @@
 
 (use-package ispell
   :init
-  (setq ispell-program-name "aspell"
+  (setenv "LANG" "en_US.UTF-8")
+  (setq ispell-program-name "hunspell"
         ispell-silently-savep t))
 
 (use-package flyspell
