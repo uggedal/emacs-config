@@ -63,8 +63,8 @@
   :hook (prog-mode . display-fill-column-indicator-mode))
 
 (use-package frame
-  :custom
-  (blink-cursor-mode -1)
+  :config
+  (setq blink-cursor-mode -1)
   :bind (("C-x C-p" . previous-window-any-frame)
          ("C-x C-n" . next-window-any-frame)))
 
@@ -156,7 +156,7 @@
            :empty-lines 1))))
 
 (use-package eglot
-  :custom
+  :config
   (setq eglot-autoshutdown t)
   :bind (("C-c l f" . eglot-format)
          ("C-c l r" . eglot-rename)
