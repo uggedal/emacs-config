@@ -14,11 +14,12 @@
 ;; Appearance
 ;;
 
-(setq modus-themes-italic-constructs t
-      modus-themes-subtle-line-numbers t
-      modus-themes-mode-line '(borderless (padding . 4)))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
 
-(load-theme 'modus-operandi)
+(use-package nimbus-theme
+  :ensure t
+  :config
+  (load-theme 'nimbus t))
 
 (set-face-attribute 'default nil :font "SF Mono" :height 130)
 
@@ -153,9 +154,9 @@
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
         org-todo-keyword-faces '(
                                  ("NEXT" .
-                                  '(modus-themes-intense-blue org-todo))
+                                  '(org-level-3 org-todo))
                                  ("DOING" .
-                                  '(modus-themes-intense-yellow org-todo)))
+                                  '(org-level-4 org-todo)))
         org-startup-with-inline-images t
         org-ellipsis " …"
         org-image-actual-width nil
