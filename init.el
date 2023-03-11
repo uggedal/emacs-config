@@ -222,6 +222,16 @@
                               "--max-columns=1000" "--path-separator" "/"
                               "--smart-case" "--no-heading" "--line-number"
                               "--hidden" "-g" "!.git" "."))
+
+  (add-to-list 'consult-buffer-sources
+          `(:name     "Known Project"
+            :narrow   (?P . "Project")
+            :category project
+            :face     consult-project-extra-projects
+            :history  file-name-history
+            :action   ,#'consult--file-action
+            :items    ,#'project-known-project-roots))
+
   :bind (([remap switch-to-buffer] . consult-buffer)
          ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
          ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
