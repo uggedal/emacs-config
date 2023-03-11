@@ -211,7 +211,15 @@
 (use-package corfu
   :ensure t
   :init
-  (global-corfu-mode))
+  (global-corfu-mode)
+  :config
+  (setq corfu-cycle t))
+
+(use-package corfu-echo
+  :after corfu
+  :config
+  (setq corfu-echo-delay t)
+  (corfu-echo-mode))
 
 (use-package consult
   :ensure t
