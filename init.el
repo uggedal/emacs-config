@@ -107,6 +107,10 @@
   :config
   (save-place-mode 1))
 
+(use-package desktop
+  :config
+  (desktop-save-mode))
+
 (use-package autorevert
   :config
   (global-auto-revert-mode))
