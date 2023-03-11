@@ -3,6 +3,11 @@
 ;;
 
 (require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(setq package-archive-priorities '(("gnu"    . 99)
+                                   ("nongnu" . 80)
+                                   ("melpa" . 70)))
 (require 'use-package)
 
 ;;
