@@ -263,3 +263,10 @@
 (use-package org-appear
   :ensure t
   :hook org-mode)
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode))
+  :config
+  (setq markdown-enable-highlighting-syntax t))
