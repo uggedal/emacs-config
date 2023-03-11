@@ -130,7 +130,12 @@
   :init
   (setenv "LANG" "en_US.UTF-8")
   (setq ispell-program-name "hunspell"
-        ispell-silently-savep t))
+        ispell-silently-savep t)
+  :config
+  (let ((dicts "en_US,nb_NO"))
+    (setq ispell-dictionary dicts)
+    (ispell-set-spellchecker-params)
+    (ispell-hunspell-add-multi-dic dicts)))
 
 (use-package flyspell
   :hook ((text-mode . flyspell-mode)
