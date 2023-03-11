@@ -156,7 +156,8 @@
         org-goto-interface 'outline-path-completion
         org-special-ctrl-a/e t
         org-outline-path-complete-in-steps nil
-        org-agenda-files '("~/src/notes/journal.org")
+        org-agenda-files '("~/src/notes/journal.org"
+                           "~/src/notes/personal.org")
         org-capture-templates
 	'(
 	  ("j" "Journal Entry"
