@@ -62,6 +62,10 @@
 (use-package display-fill-column-indicator
   :hook (prog-mode . display-fill-column-indicator-mode))
 
+(use-package so-long
+  :config
+  (global-so-long-mode))
+
 (use-package frame
   :config
   (setq blink-cursor-mode -1)
