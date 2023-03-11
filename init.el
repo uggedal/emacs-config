@@ -23,6 +23,12 @@
 
 (set-face-attribute 'default nil :font "SF Mono" :height 130)
 
+;; Mode line padding:
+(set-face-attribute 'mode-line nil
+                :box '(:line-width 6 :color "#2b2b47"))
+(set-face-attribute 'mode-line-inactive nil
+                :box '(:line-width 6 :color "#2b2b2b"))
+
 ;;
 ;; Built-in packages
 ;;
