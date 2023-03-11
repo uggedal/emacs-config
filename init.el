@@ -203,6 +203,16 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+(use-package marginalia
+  :ensure t
+  :bind (:map minibuffer-local-map
+             ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode)
+  :config
+  (setq marginalia-annotator-registry
+      (assq-delete-all 'file marginalia-annotator-registry)))
+
 (use-package cape
   :ensure t
   :bind ([remap dabbrev-expand] . cape-dabbrev)
