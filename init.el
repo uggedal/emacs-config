@@ -88,13 +88,15 @@
 
 (use-package files
   :config
+  (setq  backup-directory-alist
+         `(("." . ,(expand-file-name
+                    (concat user-emacs-directory "backups"))))
+         confirm-kill-processes nil)
+
   (let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
     (setq auto-save-file-name-transforms
           `((".*" ,auto-save-dir t))
-          backup-directory-alist
-          `(("." . ,(expand-file-name
-                     (concat user-emacs-directory "backups")))))
-    (make-directory (expand-file-name auto-save-dir) t)))
+          (make-directory (expand-file-name auto-save-dir) t))))
 
 (use-package cus-edit
   :config
