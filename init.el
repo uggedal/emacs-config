@@ -262,11 +262,10 @@
         xref-show-definitions-function #'consult-xref)
   :config
   (setq consult-find-args  "find . -not ( -wholename */.git* -prune )"
-        ;; TODO: adapt to unreleased 0.33 changes:
         consult-ripgrep-args '("rg" "--null" "--line-buffered" "--color=never"
                               "--max-columns=1000" "--path-separator" "/"
-                              "--smart-case" "--no-heading" "--line-number"
-                              "--hidden" "-g" "!.git" "."))
+                              "--smart-case" "--no-heading" "--with-filename"
+                              "--line-number" "--hidden" "-g" "!.git"))
 
   (add-to-list 'consult-buffer-sources
           `(:name     "Known Project"
