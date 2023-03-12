@@ -148,6 +148,11 @@
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode)))
 
+(use-package calendar
+  :init
+  (setq calendar-week-start-day 1))
+
+
 (use-package org
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda)
