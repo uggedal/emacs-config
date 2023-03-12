@@ -43,7 +43,8 @@
         read-extended-command-predicate #'command-completion-default-include-p
         enable-recursive-minibuffers t
         bidi-paragraph-direction 'left-to-right
-        bidi-inhibit-bpa t)
+        bidi-inhibit-bpa t
+        x-stretch-cursor t)
   (setq-default fill-column 79)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
@@ -151,7 +152,6 @@
 (use-package calendar
   :init
   (setq calendar-week-start-day 1))
-
 
 (use-package org
   :bind (("C-c c" . org-capture)
