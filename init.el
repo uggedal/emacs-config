@@ -164,6 +164,8 @@
   (setq org-hide-emphasis-markers t
         org-startup-indented t
         org-cycle-separator-lines 1
+        org-blank-before-new-qentry (quote ((heading .t)
+                                           (plain-list-item . nil)))
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
         org-todo-keyword-faces '(
                                  ("NEXT" .
