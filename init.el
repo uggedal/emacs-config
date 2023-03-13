@@ -1,6 +1,6 @@
-;;
-;; Package archives
-;;
+;;;;
+;;;; Package archives
+;;;;
 
 (require 'package)
 (add-to-list 'package-archives
@@ -10,9 +10,9 @@
                                    ("melpa" . 70)))
 (require 'use-package)
 
-;;
-;; Appearance
-;;
+;;;;
+;;;; Appearance
+;;;;
 
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
@@ -29,9 +29,9 @@
 (set-face-attribute 'mode-line-inactive nil
                 :box '(:line-width 6 :color "#2b2b2b"))
 
-;;
-;; Built-in packages
-;;
+;;;;
+;;;; Built-in packages
+;;;;
 
 (use-package emacs
   :init
@@ -202,9 +202,9 @@
   :config
   (setq eldoc-echo-area-use-multiline-p nil))
 
-;;
-;; Third party packages
-;;
+;;;;
+;;;; Third party packages
+;;;;
 
 (use-package which-key
   :ensure t
