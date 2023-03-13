@@ -179,6 +179,7 @@
         org-agenda-files '("~/src/notes/journal.org"
                            "~/src/notes/personal.org")
         org-agenda-span 14
+        org-deadline-warning-days 7
         org-capture-templates
 	'(
 	  ("j" "Journal Entry"
