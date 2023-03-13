@@ -281,7 +281,8 @@
             :face     consult-project-extra-projects
             :history  file-name-history
             :action   ,#'consult--file-action
-            :items    ,#'project-known-project-roots))
+            :items    ,#'project-known-project-roots)
+          'append)
 
   :bind (([remap switch-to-buffer] . consult-buffer)
          ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
