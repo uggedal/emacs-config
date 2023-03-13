@@ -44,7 +44,9 @@
         enable-recursive-minibuffers t
         bidi-paragraph-direction 'left-to-right
         bidi-inhibit-bpa t
-        x-stretch-cursor t)
+        x-stretch-cursor t
+        scroll-conservatively 999
+        scroll-margin 3)
   (setq-default fill-column 79)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
