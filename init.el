@@ -47,7 +47,8 @@
         x-stretch-cursor t
         scroll-conservatively 999
         scroll-margin 3)
-  (setq-default fill-column 79)
+  (setq-default fill-column 79
+                show-trailing-whitespace t)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
           ns-command-modifier 'meta))
@@ -71,6 +72,12 @@
 
 (use-package display-fill-column-indicator
   :hook (prog-mode . display-fill-column-indicator-mode))
+
+(use-package whitespace
+  :config
+  (setq whitespace-line-column 79
+        whitespace-style '(face tabs lines-tail))
+  :hook (prog-mode . whitespace-mode))
 
 (use-package so-long
   :config
