@@ -78,7 +78,7 @@
 
 (use-package frame
   :config
-  (setq blink-cursor-mode -1)
+  (blink-cursor-mode 0)
   :bind (("C-x C-p" . previous-window-any-frame)
          ("C-x C-n" . next-window-any-frame)))
 
