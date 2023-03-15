@@ -48,7 +48,8 @@
         scroll-conservatively 999
         scroll-margin 3)
   (setq-default fill-column 79
-                show-trailing-whitespace t)
+                show-trailing-whitespace t
+                indicate-empty-lines t)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
           ns-command-modifier 'meta))
