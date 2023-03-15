@@ -102,6 +102,7 @@
          `(("." . ,(expand-file-name
                     (concat user-emacs-directory "backups"))))
          confirm-kill-processes nil)
+  (setq-default require-final-newline t)
 
   (let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
     (setq auto-save-file-name-transforms
