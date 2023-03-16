@@ -47,15 +47,15 @@
         x-stretch-cursor t
         scroll-conservatively 999
         scroll-margin 3)
-  (setq-default fill-column 79
-                indicate-empty-lines t)
+  (setq-default fill-column 79)
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
           ns-command-modifier 'meta))
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
   :hook ((prog-mode conf-mode text-mode) .
-         (lambda () (setq show-trailing-whitespace t))))
+         (lambda () (setq show-trailing-whitespace t
+                          indicate-empty-lines t))))
 
 (use-package simple
   :init
