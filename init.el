@@ -327,7 +327,7 @@
 
 
 (use-package diff-hl-dired
-  :hook (dired-mode . diff-hl-dired-mode))
+  :hook (dired-mode))
 
 (use-package org-appear
   :ensure t
