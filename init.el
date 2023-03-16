@@ -160,7 +160,7 @@
     (ispell-hunspell-add-multi-dic dicts)))
 
 (use-package flyspell
-  :hook ((text-mode . flyspell-mode)
+  :hook ((text-mode)
          (prog-mode . flyspell-prog-mode)))
 
 (use-package calendar
