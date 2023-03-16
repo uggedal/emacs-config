@@ -79,7 +79,7 @@
   :config
   (setq whitespace-line-column 79
         whitespace-style '(face tabs lines-tail))
-  :hook (prog-mode . whitespace-mode))
+  :hook (conf-mode prog-mode))
 
 (use-package so-long
   :config
