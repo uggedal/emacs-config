@@ -107,8 +107,8 @@
 
   (let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
     (setq auto-save-file-name-transforms
-          `((".*" ,auto-save-dir t))
-          (make-directory (expand-file-name auto-save-dir) t))))
+          `((".*" ,auto-save-dir t)))
+    (make-directory (expand-file-name auto-save-dir) t)))
 
 (use-package cus-edit
   :config
