@@ -73,7 +73,7 @@
   :hook (conf-mode prog-mode))
 
 (use-package display-fill-column-indicator
-  :hook (prog-mode))
+  :hook (conf-mode prog-mode))
 
 (use-package whitespace
   :config
