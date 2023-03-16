@@ -201,13 +201,19 @@
            "* %?"
            :empty-lines 1))))
 
+(defun my-eglot-format ()
+  (if (eglot-managed-p)
+      (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
+    (remove-hook 'before-save-hook #'eglot-format-buffer)))
+
 (use-package eglot
   :config
   (setq eglot-autoshutdown t)
   :bind (("C-c l f" . eglot-format)
          ("C-c l r" . eglot-rename)
          ("C-c l c" . eglot-code-actions))
-  :hook (python-base-mode . eglot-ensure))
+  :hook ((python-base-mode . eglot-ensure)
+         (eglot-managed-mode . my-eglot-format)))
 
 (use-package vc-hooks
   :config
