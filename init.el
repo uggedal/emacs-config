@@ -333,6 +333,14 @@
   :ensure t
   :hook org-mode)
 
+(use-package ibuffer-project
+  :ensure t
+  :hook (ibuffer . (lambda ()
+                     (setq ibuffer-filter-groups
+                           (ibuffer-project-generate-filter-groups))
+                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
+                       (ibuffer-do-sort-by-project-file-relative)))))
+
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
