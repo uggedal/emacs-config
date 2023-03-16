@@ -190,8 +190,8 @@
         org-goto-interface 'outline-path-completion
         org-special-ctrl-a/e t
         org-outline-path-complete-in-steps nil
-        org-agenda-files '("~/src/notes/work.org"
-                           "~/src/notes/personal.org")
+        org-directory "~/src/notes"
+        org-agenda-files '("work.org" "personal.org")
         org-agenda-span 14
         org-deadline-warning-days 7
         org-capture-templates
