@@ -165,6 +165,10 @@
   (setq dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
   (put 'dired-find-alternate-file 'disabled nil))
 
+(use-package windmove
+  :config
+  (windmove-default-keybindings 'meta))
+
 (use-package ispell
   :init
   (setenv "LANG" "en_US.UTF-8")
