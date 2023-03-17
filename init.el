@@ -295,6 +295,10 @@
   (setq corfu-popupinfo-delay nil)
   (corfu-popupinfo-mode))
 
+(use-package cape
+  :ensure t
+  :bind ([remap dabbrev-expand] . cape-dabbrev))
+
 (use-package diff-hl
   :ensure t
   :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
