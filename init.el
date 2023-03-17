@@ -274,6 +274,18 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode)
+  :config
+  (setq marginalia-max-relative-age 0)
+  (advice-add 'marginalia--time-absolute
+              :override
+              (lambda (time)
+                (let ((system-time-locale "C"))
+                  (format-time-string "%Y-%m-%d %H:%M" time)))))
+
 (use-package corfu
   :ensure t
   :init
