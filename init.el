@@ -289,6 +289,12 @@
   (setq corfu-echo-delay t)
   (corfu-echo-mode))
 
+(use-package corfu-popupinfo
+  :after corfu
+  :config
+  (setq corfu-popupinfo-delay nil)
+  (corfu-popupinfo-mode))
+
 (use-package diff-hl
   :ensure t
   :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
