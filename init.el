@@ -311,6 +311,12 @@
   :ensure t
   :bind ([remap dabbrev-expand] . cape-dabbrev))
 
+(use-package consult
+  :ensure t
+  :init
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
+
 (use-package diff-hl
   :ensure t
   :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
