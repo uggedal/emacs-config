@@ -21,16 +21,44 @@
   :config
   (load-theme 'nimbus t))
 
-(set-face-attribute 'default nil :font "SF Mono" :height 130)
+(use-package faces
+  :config
+  (set-face-attribute 'default nil :font "SF Mono" :height 130)
 
-;; Mode line padding:
-(set-face-attribute 'mode-line nil
-                :box '(:line-width 6 :color "#2b2b47"))
-(set-face-attribute 'mode-line-inactive nil
-                :box '(:line-width 6 :color "#2b2b2b"))
+  ;; Mode line padding:
+  (set-face-attribute 'mode-line nil
+                      :box '(:line-width 6 :color "#2b2b47"))
+  (set-face-attribute 'mode-line-inactive nil
+                      :box '(:line-width 6 :color "#2b2b2b")))
+
+(use-package display-line-numbers
+  :hook (conf-mode prog-mode))
+
+(use-package display-fill-column-indicator
+  :hook (conf-mode prog-mode))
+
+(use-package whitespace
+  :config
+  (setq whitespace-line-column 79
+        whitespace-style '(face tabs lines-tail))
+  :hook (conf-mode prog-mode))
+
+(use-package frame
+  :config
+  (blink-cursor-mode 0))
+
+(use-package pixel-scroll
+  :init
+  (pixel-scroll-mode)
+  (pixel-scroll-precision-mode 1)
+  (setq pixel-scroll-precision-large-scroll-height 35.0))
+
+(use-package uniquify
+  :init
+  (setq uniquify-buffer-name-style 'forward))
 
 ;;;;
-;;;; Built-in packages
+;;;; Core
 ;;;;
 
 (use-package emacs
@@ -47,12 +75,16 @@
         x-stretch-cursor t
         scroll-conservatively 999
         scroll-margin 3)
+
   (setq-default fill-column 79)
+
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
           ns-command-modifier 'meta))
+
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
+
   :hook ((prog-mode conf-mode text-mode) .
          (lambda () (setq show-trailing-whitespace t
                           indicate-empty-lines t))))
@@ -69,33 +101,13 @@
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
-(use-package display-line-numbers
-  :hook (conf-mode prog-mode))
-
-(use-package display-fill-column-indicator
-  :hook (conf-mode prog-mode))
-
-(use-package whitespace
-  :config
-  (setq whitespace-line-column 79
-        whitespace-style '(face tabs lines-tail))
-  :hook (conf-mode prog-mode))
+;;;;
+;;;; Files
+;;;;
 
 (use-package so-long
   :config
   (global-so-long-mode))
-
-(use-package frame
-  :config
-  (blink-cursor-mode 0)
-  :bind (("C-x C-p" . previous-window-any-frame)
-         ("C-x C-n" . next-window-any-frame)))
-
-(use-package pixel-scroll
-  :init
-  (pixel-scroll-mode)
-  (pixel-scroll-precision-mode 1)
-  (setq pixel-scroll-precision-large-scroll-height 35.0))
 
 (use-package files
   :config
@@ -137,9 +149,9 @@
   :config
   (global-auto-revert-mode))
 
-(use-package uniquify
-  :init
-  (setq uniquify-buffer-name-style 'forward))
+;;;;
+;;;; Built-in packages
+;;;;
 
 (use-package ibuffer
   :bind ([remap list-buffers] . ibuffer-list-buffers))
@@ -169,9 +181,7 @@
 
 (use-package org
   :bind (("C-c c" . org-capture)
-         ("C-c a" . org-agenda)
-         :map org-mode-map
-         ("M-g h" . consult-org-heading))
+         ("C-c a" . org-agenda))
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
@@ -195,33 +205,34 @@
         org-agenda-span 14
         org-deadline-warning-days 7
         org-capture-templates
-	'(
-	  ("j" "Journal Entry"
+        '(
+          ("j" "Journal Entry"
            entry (file+olp+datetree "~/src/notes/work.org")
            "* %?"
            :empty-lines 1))))
 
-(defun my-eglot-format ()
-  (if (eglot-managed-p)
-      (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
-    (remove-hook 'before-save-hook #'eglot-format-buffer)))
-
 (use-package eglot
   :config
   (setq eglot-autoshutdown t)
+
+  (defun my-eglot-format ()
+    (if (eglot-managed-p)
+        (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
+      (remove-hook 'before-save-hook #'eglot-format-buffer)))
+
   :bind (("C-c l f" . eglot-format)
          ("C-c l r" . eglot-rename)
          ("C-c l c" . eglot-code-actions))
   :hook ((python-base-mode . eglot-ensure)
          (eglot-managed-mode . my-eglot-format)))
 
-(use-package vc-hooks
-  :config
-  (setq vc-handled-backends '(Git)))
-
 (use-package eldoc
   :config
   (setq eldoc-echo-area-use-multiline-p nil))
+
+(use-package vc-hooks
+  :config
+  (setq vc-handled-backends '(Git)))
 
 ;;;;
 ;;;; Third party packages
@@ -233,93 +244,12 @@
   :config
   (which-key-mode))
 
-(use-package vertico
-  :ensure t
-  :init
-  (setq vertico-cycle t)
-  :config
-  (vertico-mode))
-
-(use-package vertico-directory
-  :after vertico
-  :bind (:map vertico-map
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word)))
-
 (use-package orderless
   :ensure t
   :init
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
-
-(use-package marginalia
-  :ensure t
-  :bind (:map minibuffer-local-map
-             ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode)
-  :config
-  (setq marginalia-annotator-registry
-      (assq-delete-all 'file marginalia-annotator-registry)))
-
-(use-package cape
-  :ensure t
-  :bind ([remap dabbrev-expand] . cape-dabbrev)
-  :hook (org-mode . (lambda () (add-to-list 'completion-at-point-functions
-                                            #'cape-ispell))))
-
-(use-package corfu
-  :ensure t
-  :init
-  (global-corfu-mode)
-  :config
-  (setq corfu-cycle t))
-
-(use-package corfu-echo
-  :after corfu
-  :config
-  (setq corfu-echo-delay t)
-  (corfu-echo-mode))
-
-(use-package consult
-  :ensure t
-  :init
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-  :config
-  (setq consult-find-args  "find . -not ( -wholename */.git* -prune )"
-        consult-ripgrep-args '("rg" "--null" "--line-buffered" "--color=never"
-                              "--max-columns=1000" "--path-separator" "/"
-                              "--smart-case" "--no-heading" "--with-filename"
-                              "--line-number" "--hidden" "-g" "!.git"))
-
-  (add-to-list 'consult-buffer-sources
-          `(:name     "Known Project"
-            :narrow   (?P . "Project")
-            :category project
-            :face     consult-project-extra-projects
-            :history  file-name-history
-            :action   ,#'consult--file-action
-            :items    ,#'project-known-project-roots)
-          'append)
-
-  :bind (([remap switch-to-buffer] . consult-buffer)
-         ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
-         ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
-         ([remap project-switch-to-buffer] . consult-project-buffer)
-         ([remap isearch-forward] . consult-line)
-         ([remap yank-pop] . consult-yank-pop)
-         ([remap goto-line] . consult-goto-line)
-         ("M-g d" . consult-flymake)
-         ("M-g o" . consult-outline)
-         ("M-g d" . consult-flymake)
-         ("M-s f" . consult-find)
-         ("M-s g" . consult-ripgrep)
-         :map minibuffer-local-map
-         ([remap next-matching-history-element] . consult-history)
-         ([remap previous-matching-history-element] . consult-history)))
 
 (use-package diff-hl
   :ensure t
@@ -333,13 +263,9 @@
   :ensure t
   :hook org-mode)
 
-(use-package ibuffer-project
-  :ensure t
-  :hook (ibuffer . (lambda ()
-                     (setq ibuffer-filter-groups
-                           (ibuffer-project-generate-filter-groups))
-                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
-                       (ibuffer-do-sort-by-project-file-relative)))))
+;;;;
+;;;; Programming modes
+;;;;
 
 (use-package markdown-mode
   :ensure t
