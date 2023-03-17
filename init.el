@@ -325,6 +325,10 @@
   :ensure t
   :hook org-mode)
 
+(use-package eat
+  :ensure t
+  :bind (([remap project-shell] . eat-project)))
+
 ;;;;
 ;;;; Programming modes
 ;;;;
