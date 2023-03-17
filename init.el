@@ -278,6 +278,8 @@
   :ensure t
   :init
   (global-corfu-mode)
+  :bind (:map corfu-map
+              ("SPC" . corfu-insert-separator))
   :config
   (setq corfu-cycle t))
 
