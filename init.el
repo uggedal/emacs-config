@@ -270,6 +270,19 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode)
+  :config
+  (setq corfu-cycle t))
+
+(use-package corfu-echo
+  :after corfu
+  :config
+  (setq corfu-echo-delay t)
+  (corfu-echo-mode))
+
 (use-package diff-hl
   :ensure t
   :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
