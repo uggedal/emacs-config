@@ -158,8 +158,12 @@
   :bind ([remap list-buffers] . ibuffer-list-buffers))
 
 (use-package dired
+  :bind (:map dired-mode-map
+         ("RET" . dired-find-alternate-file)
+         ("^" . (lambda () (interactive) (find-alternate-file ".."))))
   :config
-  (setq dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\""))
+  (setq dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
+  (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package ispell
   :init
