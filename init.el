@@ -325,14 +325,15 @@
   :ensure t
   :hook org-mode)
 
-(use-package eat
-  :ensure t
-  :bind ([remap project-shell] . eat-project))
-
 (use-package vterm
   :ensure t
   :bind (:map vterm-mode-map
               ("C-q" . vterm-send-next-key)))
+
+(use-package multi-vterm
+  :ensure t
+  :after vterm
+  :bind ([remap project-shell] . multi-vterm-project))
 
 ;;;;
 ;;;; Programming modes
