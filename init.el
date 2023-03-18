@@ -327,7 +327,12 @@
 
 (use-package eat
   :ensure t
-  :bind (([remap project-shell] . eat-project)))
+  :bind ([remap project-shell] . eat-project))
+
+(use-package vterm
+  :ensure t
+  :bind (:map vterm-mode-map
+              ("C-q" . vterm-send-next-key)))
 
 ;;;;
 ;;;; Programming modes
