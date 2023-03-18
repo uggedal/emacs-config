@@ -239,6 +239,11 @@
   :config
   (setq vc-handled-backends '(Git)))
 
+
+(use-package sh-script
+  :hook (sh-mode . (lambda () (setq indent-tabs-mode t
+                                    sh-basic-offset 8))))
+
 ;;;;
 ;;;; Third party packages
 ;;;;
