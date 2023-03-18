@@ -330,6 +330,12 @@
   :ensure t
   :hook org-mode)
 
+(use-package flyspell-correct
+  :ensure t
+  :after flyspell
+  :bind (:map flyspell-mode-map ([remap flyspell-auto-correct-previous-word] .
+                                 flyspell-correct-wrapper)))
+
 (use-package vterm
   :ensure t
   :bind (:map vterm-mode-map
