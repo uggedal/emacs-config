@@ -45,7 +45,8 @@
 
 (use-package frame
   :config
-  (blink-cursor-mode 0))
+  (blink-cursor-mode 0)
+  :bind ("M-`" . other-frame))
 
 (use-package pixel-scroll
   :init
@@ -338,6 +339,7 @@
 
 (use-package vterm
   :ensure t
+  :hook (vterm-mode . (lambda () define-key vterm-mode-map "M-`" nil))
   :bind (:map vterm-mode-map
               ("C-q" . vterm-send-next-key)))
 
