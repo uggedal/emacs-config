@@ -352,6 +352,9 @@
   :after vterm
   :bind ([remap project-shell] . multi-vterm-project))
 
+(use-package git-commit
+  :ensure t)
+
 ;;;;
 ;;;; Programming modes
 ;;;;
