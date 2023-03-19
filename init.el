@@ -90,7 +90,7 @@
   (put 'downcase-region 'disabled nil)
 
   :hook ((prog-mode conf-mode text-mode) .
-         (lambda () (setq show-trailing-whitespace t
+         (lambda () (setq-local show-trailing-whitespace t
                           indicate-empty-lines t))))
 
 (use-package simple
@@ -253,8 +253,9 @@
   :hook (vterm-mode . goto-address-mode))
 
 (use-package sh-script
-  :hook (sh-mode . (lambda () (setq indent-tabs-mode t
-                                    sh-basic-offset 8))))
+  :config
+  (setq sh-basic-offset 8)
+  :hook (sh-mode . (lambda () (setq-local indent-tabs-mode t))))
 
 ;;;;
 ;;;; Third party packages
