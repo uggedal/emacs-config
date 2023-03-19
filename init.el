@@ -374,3 +374,6 @@
   :mode (("README\\.md\\'" . gfm-mode))
   :config
   (setq markdown-enable-highlighting-syntax t))
+
+(use-package terraform-mode
+  :ensure t)
