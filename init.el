@@ -80,7 +80,8 @@
         scroll-conservatively 999
         scroll-margin 3)
 
-  (setq-default fill-column 79)
+  (setq-default fill-column 79
+                history-length 1000)
 
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
