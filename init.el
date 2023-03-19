@@ -102,6 +102,10 @@
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
+(use-package server
+  :custom
+  (server-start))
+
 ;;;;
 ;;;; Files
 ;;;;
