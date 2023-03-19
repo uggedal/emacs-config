@@ -91,7 +91,7 @@
 
   :hook ((prog-mode conf-mode text-mode) .
          (lambda () (setq-local show-trailing-whitespace t
-                          indicate-empty-lines t))))
+                                indicate-empty-lines t))))
 
 (use-package simple
   :init
