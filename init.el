@@ -139,7 +139,7 @@
 (use-package recentf
   :bind ([remap find-file-read-only] . recentf-open)
   :config
-  (setq recentf-max-saved-items 100)
+  (setq recentf-max-saved-items 1000)
   (recentf-mode))
 
 (use-package savehist
