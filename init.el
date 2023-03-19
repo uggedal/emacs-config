@@ -26,8 +26,7 @@
   (set-face-attribute 'default nil :font "SF Mono" :height 130)
 
   ;; Remove link underline
-  (set-face-attribute 'link nil
-                      :underline nil)
+  (set-face-attribute 'link nil :underline nil)
 
   ;; Mode line padding:
   (set-face-attribute 'mode-line nil
