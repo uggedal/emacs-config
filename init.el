@@ -244,8 +244,8 @@
   :config
   (setq vc-handled-backends '(Git)))
 
-;;(use-package goto-addr
-;;  :hook (vterm-mode . goto-address-mode))
+(use-package goto-addr
+  :hook (vterm-mode . goto-address-mode))
 
 (use-package sh-script
   :hook (sh-mode . (lambda () (setq indent-tabs-mode t
