@@ -244,6 +244,8 @@
   :config
   (setq vc-handled-backends '(Git)))
 
+;;(use-package goto-addr
+;;  :hook (vterm-mode . goto-address-mode))
 
 (use-package sh-script
   :hook (sh-mode . (lambda () (setq indent-tabs-mode t
@@ -343,7 +345,7 @@
 
 (use-package vterm
   :ensure t
-  :hook (vterm-mode . (lambda () (define-key vterm-mode-map "M-`" nil)))
+  :hook (vterm-mode . (lambda () (define-key vterm-mode-map "\M-`" nil)))
   :bind (:map vterm-mode-map
               ("C-q" . vterm-send-next-key)))
 
