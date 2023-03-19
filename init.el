@@ -245,6 +245,8 @@
   (setq vc-handled-backends '(Git)))
 
 (use-package goto-addr
+  :init
+  (setq goto-address-uri-schemes '("http://" "https://"))
   :hook (vterm-mode . goto-address-mode))
 
 (use-package sh-script
