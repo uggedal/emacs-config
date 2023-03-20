@@ -69,6 +69,7 @@
   :init
   (setq ring-bell-function 'ignore
         use-short-answers t
+        create-lockfiles nil
         tab-always-indent 'complete
         truncate-lines t
         sentence-end-double-space nil
