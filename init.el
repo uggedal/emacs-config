@@ -166,6 +166,10 @@
 ;;;; Built-in packages
 ;;;;
 
+(use-package isearch
+  :bind (:map isearch-mode-map
+              ([remap isearch-delete-char] . isearch-del-char)))
+
 (use-package ibuffer
   :bind ([remap list-buffers] . ibuffer-list-buffers))
 
