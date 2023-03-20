@@ -1,3 +1,10 @@
+;;; init.el --- Main configuration
+;;; Commentary:
+
+;; Minimal Emacs configuration. Strive to use built-ins where possible.
+
+;;; Code:
+
 ;;;
 ;;; Package archives
 ;;;
@@ -405,3 +412,6 @@
 
 (use-package terraform-mode
   :ensure t)
+
+(provide 'init)
+;;; init.el ends here
