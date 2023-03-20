@@ -71,7 +71,6 @@
         use-short-answers t
         create-lockfiles nil
         tab-always-indent 'complete
-        truncate-lines t
         sentence-end-double-space nil
         read-extended-command-predicate #'command-completion-default-include-p
         enable-recursive-minibuffers t
@@ -82,7 +81,8 @@
         scroll-margin 3)
 
   (setq-default fill-column 79
-                history-length 1000)
+                history-length 1000
+                truncate-lines t)
 
   (when (and (eq system-type 'darwin) (display-graphic-p))
     (setq ns-alternate-modifier nil
