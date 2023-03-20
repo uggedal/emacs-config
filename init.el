@@ -248,6 +248,7 @@
          (eglot-managed-mode . my-eglot-format)))
 
 (use-package flymake
+  :hook (emacs-lisp-mode-hook . flymake-mode)
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error)))
