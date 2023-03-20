@@ -23,7 +23,7 @@
 
 (use-package faces
   :config
-  (set-face-attribute 'default nil :font "SF Mono" :height 130)
+  (set-face-attribute 'default nil :font "SF Mono" :height 140)
 
   ;; Remove link underline:
   (set-face-attribute 'link nil :underline nil)
