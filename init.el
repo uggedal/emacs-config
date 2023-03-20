@@ -14,8 +14,6 @@
 ;;;; Appearance
 ;;;;
 
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-
 (use-package nimbus-theme
   :ensure t
   :config
