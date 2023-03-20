@@ -47,6 +47,7 @@
 (use-package frame
   :config
   (blink-cursor-mode 0)
+  (keymap-global-unset "C-z")
   :bind ("M-`" . other-frame))
 
 (use-package pixel-scroll
