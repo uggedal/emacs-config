@@ -252,7 +252,7 @@
   :init
   (setq goto-address-uri-schemes '("http://" "https://"))
   :hook ((vterm-mode . goto-address-mode)
-         ((prog-mode conf-mode) . goto-address-prog-mode))))
+         ((prog-mode conf-mode) . goto-address-prog-mode)))
 
 (use-package sh-script
   :config
