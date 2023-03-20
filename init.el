@@ -367,7 +367,6 @@
 
 (use-package multi-vterm
   :ensure t
-  :after vterm
   :bind ([remap project-shell] . multi-vterm-project))
 
 (use-package git-commit
