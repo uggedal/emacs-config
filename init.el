@@ -108,7 +108,7 @@
          (text-mode . turn-on-auto-fill)))
 
 (use-package server
-  :custom
+  :config
   (server-start))
 
 ;;;
