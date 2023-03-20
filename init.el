@@ -155,6 +155,7 @@
 
 (use-package autorevert
   :config
+  (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode))
 
 ;;;;
