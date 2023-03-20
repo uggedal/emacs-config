@@ -120,10 +120,7 @@
 
 (use-package files
   :config
-  (setq  backup-directory-alist
-         `(("." . ,(expand-file-name
-                    (concat user-emacs-directory "backups"))))
-         confirm-kill-processes nil)
+  (setq  make-backup-files nil)
   (setq-default require-final-newline t)
 
   (let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
