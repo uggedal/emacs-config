@@ -367,6 +367,11 @@
 (use-package git-commit
   :ensure t)
 
+(use-package move-dup
+  :ensure t
+  :bind (("M-<up>" . move-dup-move-lines-up)
+         ("M-<down>" . move-dup-move-lines-down)))
+
 ;;;;
 ;;;; Programming modes
 ;;;;
