@@ -247,6 +247,11 @@
   :hook ((python-base-mode . eglot-ensure)
          (eglot-managed-mode . my-eglot-format)))
 
+(use-package flymake
+  :bind (:map flymake-mode-map
+              ("M-n" . flymake-goto-next-error)
+              ("M-p" . flymake-goto-prev-error)))
+
 (use-package eldoc
   :config
   (setq eldoc-echo-area-use-multiline-p nil))
