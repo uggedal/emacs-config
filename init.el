@@ -201,8 +201,7 @@
   (setq calendar-week-start-day 1))
 
 (use-package org
-  :bind (("C-c c" . org-capture)
-         ("C-c a" . org-agenda))
+  :defer t
   :config
   (setq org-hide-emphasis-markers t
         org-startup-indented t
@@ -218,14 +217,24 @@
         org-startup-with-inline-images t
         org-ellipsis " …"
         org-image-actual-width nil
-        org-goto-interface 'outline-path-completion
         org-special-ctrl-a/e t
-        org-outline-path-complete-in-steps nil
         org-directory "~/src/notes"
-        org-agenda-files '("work.org" "personal.org")
-        org-agenda-span 14
-        org-deadline-warning-days 7
-        org-capture-templates
+        org-agenda-files '("work.org" "personal.org")))
+
+(use-package org-goto
+  :after org
+  :config
+  (setq org-goto-interface 'outline-path-completion))
+
+(use-package org-agenda
+  :bind ("C-c a" . org-agenda)
+  :config
+  (setq org-agenda-span 14))
+
+(use-package org-capture
+  :bind ("C-c c" . org-capture)
+  :config
+  (setq org-capture-templates
         '(
           ("j" "Journal Entry"
            entry (file+olp+datetree "~/src/notes/work.org")
