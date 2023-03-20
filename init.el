@@ -81,6 +81,7 @@
         scroll-margin 3)
 
   (setq-default fill-column 79
+                display-fill-column-indicator-character ?\u254e
                 history-length 1000
                 truncate-lines t)
 
