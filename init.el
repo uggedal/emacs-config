@@ -119,6 +119,10 @@
   :config
   (global-so-long-mode))
 
+(use-package subword
+  :config
+  (subword-mode))
+
 (use-package files
   :config
   (setq  make-backup-files nil)
