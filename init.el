@@ -1,6 +1,6 @@
-;;;;
-;;;; Package archives
-;;;;
+;;;
+;;; Package archives
+;;;
 
 (require 'package)
 (add-to-list 'package-archives
@@ -10,9 +10,9 @@
                                    ("melpa" . 70)))
 (require 'use-package)
 
-;;;;
-;;;; Appearance
-;;;;
+;;;
+;;; Appearance
+;;;
 
 (use-package nimbus-theme
   :ensure t
@@ -60,9 +60,9 @@
   :init
   (setq uniquify-buffer-name-style 'forward))
 
-;;;;
-;;;; Core
-;;;;
+;;;
+;;; Core
+;;;
 
 (use-package emacs
   :init
@@ -111,9 +111,9 @@
   :custom
   (server-start))
 
-;;;;
-;;;; Files
-;;;;
+;;;
+;;; Files
+;;;
 
 (use-package so-long
   :config
@@ -162,9 +162,9 @@
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode))
 
-;;;;
-;;;; Built-in packages
-;;;;
+;;;
+;;; Built-in packages
+;;;
 
 (use-package isearch
   :bind (:map isearch-mode-map
@@ -272,9 +272,9 @@
   (setq sh-basic-offset 8)
   :hook (sh-mode . (lambda () (setq-local indent-tabs-mode t))))
 
-;;;;
-;;;; Third party packages
-;;;;
+;;;
+;;; Third party packages
+;;;
 
 (use-package which-key
   :ensure t
@@ -383,9 +383,9 @@
   :bind (("M-<up>" . move-dup-move-lines-up)
          ("M-<down>" . move-dup-move-lines-down)))
 
-;;;;
-;;;; Programming modes
-;;;;
+;;;
+;;; Programming modes
+;;;
 
 (use-package markdown-mode
   :ensure t
