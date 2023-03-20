@@ -339,7 +339,8 @@
   :init
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
-  :bind ([remap yank-pop] . consult-yank-from-kill-ring))
+  :bind (([remap yank-pop] . consult-yank-from-kill-ring)
+         ([remap goto-line] . consult-goto-line)))
 
 (use-package diff-hl
   :ensure t
