@@ -1,7 +1,6 @@
 ;; Minimal GUI:
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(custom-set-variables '(tool-bar-mode . nil)
+                      '(scroll-bar-mode nil))
 
 (modify-all-frames-parameters '((ns-appearance . dark)
                                   (ns-transparent-titlebar . t)))
