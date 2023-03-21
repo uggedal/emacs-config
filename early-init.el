@@ -3,8 +3,8 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(modify-all-frames-parameters '((ns-appearance . dark)
+                                  (ns-transparent-titlebar . t)))
 
 ;; No startup screen or echo message:
 (setq inhibit-startup-screen t
