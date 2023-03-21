@@ -331,7 +331,7 @@
   :bind (:map flymake-mode-map
               ("M-n" . flymake-goto-next-error)
               ("M-p" . flymake-goto-prev-error))
-  :hook (emacs-lisp-mode-hook . flymake-mode)_
+  :hook (emacs-lisp-mode-hook . flymake-mode))
 
 (use-package eldoc
   :custom (eldoc-echo-area-use-multiline-p nil "Single-line doc string"))
