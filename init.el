@@ -102,6 +102,14 @@
          (lambda () (setq-local show-trailing-whitespace t
                                 indicate-empty-lines t))))
 
+(use-package server
+  :config
+  (server-start))
+
+;;;
+;;; Editing
+;;;
+
 (use-package simple
   :init
   (setq column-number-mode t
@@ -114,21 +122,18 @@
   :hook ((before-save . delete-trailing-whitespace)
          (text-mode . turn-on-auto-fill)))
 
-(use-package server
+(use-package subword
   :config
-  (server-start))
+  (subword-mode))
+
+(use-package move-dup
+  :ensure t
+  :bind (("M-<up>" . move-dup-move-lines-up)
+         ("M-<down>" . move-dup-move-lines-down)))
 
 ;;;
 ;;; Files
 ;;;
-
-(use-package so-long
-  :config
-  (global-so-long-mode))
-
-(use-package subword
-  :config
-  (subword-mode))
 
 (use-package files
   :config
@@ -145,6 +150,19 @@
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (when (file-exists-p custom-file)
     (load custom-file)))
+
+(use-package so-long
+  :config
+  (global-so-long-mode))
+
+(use-package autorevert
+  :config
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode))
+
+;;;
+;;; History
+;;;
 
 (use-package recentf
   :bind ([remap find-file-read-only] . recentf-open)
@@ -164,13 +182,8 @@
   :config
   (desktop-save-mode))
 
-(use-package autorevert
-  :config
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode))
-
 ;;;
-;;; Built-in packages
+;;; Navigation and Search
 ;;;
 
 (use-package isearch
@@ -188,115 +201,15 @@
   (setq dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
   (put 'dired-find-alternate-file 'disabled nil))
 
-(use-package ispell
-  :init
-  (setenv "LANG" "en_US.UTF-8")
-  (setq ispell-program-name "hunspell"
-        ispell-silently-savep t)
-  :config
-  (let ((dicts "en_US,nb_NO"))
-    (setq ispell-dictionary dicts)
-    (ispell-set-spellchecker-params)
-    (ispell-hunspell-add-multi-dic dicts)))
-
-(use-package flyspell
-  :hook ((text-mode)
-         (prog-mode . flyspell-prog-mode)))
-
-(use-package calendar
-  :init
-  (setq calendar-week-start-day 1))
-
-(use-package org
-  :defer t
-  :config
-  (setq org-hide-emphasis-markers t
-        org-startup-indented t
-        org-cycle-separator-lines 1
-        org-blank-before-new-entry (quote ((heading .t)
-                                           (plain-list-item . nil)))
-        org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
-        org-todo-keyword-faces '(
-                                 ("NEXT" .
-                                  '(org-level-3 org-todo))
-                                 ("DOING" .
-                                  '(org-level-4 org-todo)))
-        org-startup-with-inline-images t
-        org-ellipsis " …"
-        org-image-actual-width nil
-        org-special-ctrl-a/e t
-        org-directory "~/src/notes"
-        org-agenda-files '("work.org" "personal.org")))
-
-(use-package org-goto
-  :after org
-  :config
-  (setq org-goto-interface 'outline-path-completion))
-
-(use-package org-agenda
-  :bind ("C-c a" . org-agenda)
-  :config
-  (setq org-agenda-span 14))
-
-(use-package org-capture
-  :bind ("C-c c" . org-capture)
-  :config
-  (setq org-capture-templates
-        '(
-          ("j" "Journal Entry"
-           entry (file+olp+datetree "~/src/notes/work.org")
-           "* %?"
-           :empty-lines 1))))
-
-(use-package eglot
-  :config
-  (setq eglot-autoshutdown t)
-
-  (defun my-eglot-format ()
-    (if (eglot-managed-p)
-        (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
-      (remove-hook 'before-save-hook #'eglot-format-buffer)))
-
-  :bind (("C-c l f" . eglot-format)
-         ("C-c l r" . eglot-rename)
-         ("C-c l c" . eglot-code-actions))
-  :hook ((python-base-mode . eglot-ensure)
-         (eglot-managed-mode . my-eglot-format)))
-
-(use-package flymake
-  :hook (emacs-lisp-mode-hook . flymake-mode)
-  :bind (:map flymake-mode-map
-              ("M-n" . flymake-goto-next-error)
-              ("M-p" . flymake-goto-prev-error)))
-
-(use-package eldoc
-  :config
-  (setq eldoc-echo-area-use-multiline-p nil))
-
-(use-package vc-hooks
-  :config
-  (setq vc-handled-backends '(Git)))
-
 (use-package goto-addr
   :init
   (setq goto-address-uri-schemes '("http://" "https://"))
   :hook ((vterm-mode . goto-address-mode)
          ((prog-mode conf-mode) . goto-address-prog-mode)))
 
-(use-package sh-script
-  :config
-  (setq sh-basic-offset 8)
-  :hook (sh-mode . (lambda () (setq-local indent-tabs-mode t))))
-
 ;;;
-;;; Third party packages
+;;; Completion
 ;;;
-
-(use-package which-key
-  :ensure t
-  :defer 0
-  :config
-  (which-key-mode))
 
 (use-package vertico
   :ensure t
@@ -342,15 +255,13 @@
 
 (use-package corfu-echo
   :after corfu
-  :config
-  (setq corfu-echo-delay t)
-  (corfu-echo-mode))
+  :custom (corfu-echo-delay t)
+  :config (corfu-echo-mode))
 
 (use-package corfu-popupinfo
   :after corfu
-  :config
-  (setq corfu-popupinfo-delay nil)
-  (corfu-popupinfo-mode))
+  :custom (corfu-popupinfo-delay nil)
+  :config (corfu-popupinfo-mode))
 
 (use-package cape
   :ensure t
@@ -358,11 +269,40 @@
 
 (use-package consult
   :ensure t
-  :init
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+  :custom
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
   :bind (([remap yank-pop] . consult-yank-from-kill-ring)
          ([remap goto-line] . consult-goto-line)))
+
+;;;
+;;; Shell
+;;;
+
+(use-package vterm
+  :ensure t
+  :preface
+  (defun unbind-vterm-meta-backtick ()
+    "For making other-frame binding work"
+    (keymap-set vterm-mode-map "M-`" nil))
+  :defines vterm-mode-map
+  :bind (:map vterm-mode-map
+              ("C-q" . vterm-send-next-key))
+  :hook (vterm-mode . unbind-vterm-meta-backtick))
+
+(use-package multi-vterm
+  :ensure t
+  :bind ([remap project-shell] . multi-vterm-project))
+
+;;;
+;;; VCS
+;;;
+
+(use-package vc-hooks
+  :custom (vc-handled-backends '(Git) "Only enable git backend"))
+
+(use-package git-commit
+  :ensure t)
 
 (use-package diff-hl
   :ensure t
@@ -371,47 +311,127 @@
 (use-package diff-hl-dired
   :hook (dired-mode))
 
-(use-package org-appear
-  :ensure t
-  :hook org-mode)
+;;;
+;;; IDE
+;;;
+
+(use-package eglot
+  :preface (defun toggle-eglot-format-hook ()
+             (if (eglot-managed-p)
+                 (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
+               (remove-hook 'before-save-hook #'eglot-format-buffer)))
+  :custom (eglot-autoshutdown t)
+  :bind (("C-c l f" . eglot-format)
+         ("C-c l r" . eglot-rename)
+         ("C-c l c" . eglot-code-actions))
+  :hook ((python-base-mode . eglot-ensure)
+         (eglot-managed-mode . toggle-eglot-format-hook)))
+
+(use-package flymake
+  :bind (:map flymake-mode-map
+              ("M-n" . flymake-goto-next-error)
+              ("M-p" . flymake-goto-prev-error))
+  :hook (emacs-lisp-mode-hook . flymake-mode)_
+
+(use-package eldoc
+  :custom (eldoc-echo-area-use-multiline-p nil "Single-line doc string"))
+
+;;;
+;;; Writing
+;;;
+
+(use-package ispell
+  :custom
+  (ispell-program-name "hunspell")
+  (ispell-silently-savep t)
+  (ispell-dictionary "en_US,nb_NO")
+  :init
+  (setenv "LANG" "en_US.UTF-8")
+  :config
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_US,nb_NO"))
+
+(use-package flyspell
+  :hook ((text-mode)
+         (prog-mode . flyspell-prog-mode)))
 
 (use-package flyspell-correct
   :ensure t
   :after flyspell
-  :bind (:map flyspell-mode-map ([remap flyspell-auto-correct-previous-word] .
-                                 flyspell-correct-wrapper)))
+  :bind (:map flyspell-mode-map
+              ([remap flyspell-auto-correct-previous-word] .
+               flyspell-correct-wrapper)))
 
-(use-package vterm
+(use-package calendar
+  :custom (calendar-week-start-day 1))
+
+(use-package org
+  :defer t
+  :custom
+  (org-hide-emphasis-markers t)
+  (org-startup-indented t)
+  (org-cycle-separator-lines 1)
+  (org-blank-before-new-entry (quote ((heading .t) (plain-list-item . nil))))
+  (org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE")))
+  (org-todo-keyword-faces '(("NEXT" . '(org-level-3 org-todo))
+                            ("DOING" . '(org-level-4 org-todo))))
+  (org-startup-with-inline-images t)
+  (org-ellipsis " …")
+  (org-image-actual-width nil)
+  (org-special-ctrl-a/e t)
+  (org-directory "~/src/notes")
+  (org-agenda-files '("work.org" "personal.org")))
+
+(use-package org-goto
+  :after org
+  :custom (org-goto-interface 'outline-path-completion))
+
+(use-package org-agenda
+  :custom (org-agenda-span 14)
+  :bind ("C-c a" . org-agenda))
+
+(use-package org-capture
+  :custom (org-capture-templates
+           '(
+             ("j" "Journal Entry"
+              entry (file+olp+datetree "~/src/notes/work.org")
+              "* %?"
+              :empty-lines 1)))
+  :bind ("C-c c" . org-capture))
+
+(use-package org-appear
   :ensure t
-  :hook (vterm-mode . (lambda () (keymap-set vterm-mode-map "M-`" nil)))
-  :bind (:map vterm-mode-map
-              ("C-q" . vterm-send-next-key)))
-
-(use-package multi-vterm
-  :ensure t
-  :bind ([remap project-shell] . multi-vterm-project))
-
-(use-package git-commit
-  :ensure t)
-
-(use-package move-dup
-  :ensure t
-  :bind (("M-<up>" . move-dup-move-lines-up)
-         ("M-<down>" . move-dup-move-lines-down)))
+  :hook org-mode)
 
 ;;;
 ;;; Programming modes
 ;;;
 
+(use-package sh-script
+  :preface (defun enable-indent-tabs-mode ()
+             (setq-local indent-tabs-mode t))
+  :custom (sh-basic-offset 8)
+  :hook (sh-mode . enable-indent-tabs-mode))
+
 (use-package markdown-mode
   :ensure t
-  :commands (markdown-mode gfm-mode)
+  :custom (markdown-enable-highlighting-syntax t "Highlight code blocks")
   :mode (("README\\.md\\'" . gfm-mode))
-  :config
-  (setq markdown-enable-highlighting-syntax t))
+  :commands (markdown-mode gfm-mode))
 
 (use-package terraform-mode
   :ensure t)
+
+;;;
+;;; Misc
+;;;
+
+(use-package which-key
+  :ensure t
+  :defer 0
+  :functions which-key-mode
+  :config
+  (which-key-mode))
 
 (provide 'init)
 ;;; init.el ends here
