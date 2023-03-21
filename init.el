@@ -316,8 +316,11 @@
 
 (use-package eglot
   :preface (defun toggle-eglot-format-hook ()
-            (if (and (fboundp 'eglot-managed-p) (eglot-managed-p))
-                (add-hook 'before-save-hook 'eglot-format-buffer -10 t)
+             (if (and (fboundp 'eglot-managed-p) (eglot-managed-p))
+                 ;; Places hook before (-10) Eglot's willSave notification,
+                 ;; so that that notification reports the actual contents that
+                 ;; will be saved:
+                 (add-hook 'before-save-hook 'eglot-format-buffer -10 t)
                (remove-hook 'before-save-hook 'eglot-format-buffer)))
   :custom (eglot-autoshutdown t)
   :bind (("C-c l f" . eglot-format)
