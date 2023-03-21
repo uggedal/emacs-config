@@ -316,9 +316,9 @@
 
 (use-package eglot
   :preface (defun toggle-eglot-format-hook ()
-             (if (eglot-managed-p)
-                 (add-hook 'before-save-hook #'eglot-format-buffer -10 t)
-               (remove-hook 'before-save-hook #'eglot-format-buffer)))
+            (if (and (fboundp 'eglot-managed-p) (eglot-managed-p))
+                (add-hook 'before-save-hook 'eglot-format-buffer -10 t)
+               (remove-hook 'before-save-hook 'eglot-format-buffer)))
   :custom (eglot-autoshutdown t)
   :bind (("C-c l f" . eglot-format)
          ("C-c l r" . eglot-rename)
@@ -347,8 +347,10 @@
   :init
   (setenv "LANG" "en_US.UTF-8")
   :config
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_US,nb_NO"))
+  (if (fboundp 'ispell-set-spellchecker-params)
+      (ispell-set-spellchecker-params))
+  (if (fboundp 'ispell-hunspell-add-multi-dic)
+      (ispell-hunspell-add-multi-dic "en_US,nb_NO")))
 
 (use-package flyspell
   :hook ((text-mode)
