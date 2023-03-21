@@ -251,9 +251,16 @@
   :ensure t
   :defines corfu-map
   :functions global-corfu-mode
+  :preface (defun corfu-enable-in-minibuffer ()
+             "Enable for M-: and M-!"
+             (when (where-is-internal #'completion-at-point
+                                      (list (current-local-map)))
+               (setq-local corfu-echo-delay nil)
+               (corfu-mode)))
   :custom (corfu-cycle t)
   :bind (:map corfu-map
               ("SPC" . corfu-insert-separator))
+  :hook (minibuffer-setup . corfu-enable-in-minibuffer)
   :init (global-corfu-mode))
 
 (use-package corfu-echo
