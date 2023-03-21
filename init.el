@@ -21,23 +21,21 @@
 ;;; Appearance
 ;;;
 
+(use-package faces
+  :custom-face
+  (default ((t (:font "SF Mono" :height 130)))))
+
 (use-package nimbus-theme
   :ensure t
-  :config
-  (load-theme 'nimbus t))
-
-(use-package faces
-  :config
-  (set-face-attribute 'default nil :font "SF Mono" :height 130)
-
+  :custom-face
   ;; Remove link underline:
-  (set-face-attribute 'link nil :underline nil)
+  (link ((t (:underline nil))))
 
   ;; Mode line padding:
-  (set-face-attribute 'mode-line nil
-                      :box '(:line-width 6 :color "#2b2b47"))
-  (set-face-attribute 'mode-line-inactive nil
-                      :box '(:line-width 6 :color "#2b2b2b")))
+  (mode-line ((t (:box (:line-width 6 :color "#2b2b47")))))
+  (mode-line-inactive ((t (:box (:line-width 6 :color "#2b2b2b")))))
+  :config (load-theme 'nimbus t))
+
 
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
@@ -46,75 +44,84 @@
   :hook (conf-mode prog-mode))
 
 (use-package whitespace
-  :config
-  (setq whitespace-line-column 79
-        whitespace-style '(face tabs lines-tail))
+  :custom
+  (whitespace-line-column 79 "Highlight lines above this column")
+  (whitespace-style '(face tabs lines-tail) "Show tabs and tailing whitespace")
   :hook (conf-mode prog-mode))
 
 (use-package frame
   :config
   (blink-cursor-mode 0)
+  ;; Disable suspend frame:
   (keymap-global-unset "C-z")
   :bind ("M-`" . other-frame))
 
 (use-package pixel-scroll
-  :init
+  :custom (pixel-scroll-precision-large-scroll-height 35.0)
+  :config
   (pixel-scroll-mode)
-  (pixel-scroll-precision-mode 1)
-  (setq pixel-scroll-precision-large-scroll-height 35.0))
+  (pixel-scroll-precision-mode 1))
 
 (use-package uniquify
-  :init
-  (setq uniquify-buffer-name-style 'forward))
+  :custom (uniquify-buffer-name-style 'forward "a/f.txt and b/f.txt"))
 
 ;;;
 ;;; Core
 ;;;
 
 (use-package emacs
-  :init
-  (setq ring-bell-function 'ignore
-        use-short-answers t
-        create-lockfiles nil
-        tab-always-indent 'complete
-        sentence-end-double-space nil
-        read-extended-command-predicate #'command-completion-default-include-p
-        enable-recursive-minibuffers t
-        bidi-paragraph-direction 'left-to-right
-        bidi-inhibit-bpa t
-        x-stretch-cursor t
-        scroll-conservatively 999
-        scroll-margin 3)
+  :custom
+  (ring-bell-function 'ignore)
+  (use-short-answers t)
 
-  (setq-default fill-column 79
-                display-fill-column-indicator-character ?\u254e
-                history-length 1000
-                truncate-lines t)
+  (create-lockfiles nil)
 
-  (when (and (eq system-type 'darwin) (display-graphic-p))
-    (setq ns-alternate-modifier nil
-          ns-command-modifier 'meta))
+  (read-extended-command-predicate
+   #'command-completion-default-include-p
+   "Hide commands in M-x not applicable to active mode")
+  (enable-recursive-minibuffers
+   t
+   "Allow minibuffer commands while in minibuffer")
 
-  (put 'upcase-region 'disabled nil)
-  (put 'downcase-region 'disabled nil)
+  ;; Disable right-to-left text:
+  (bidi-paragraph-direction 'left-to-right)
+  (bidi-inhibit-bpa t)
+
+  (tab-always-indent 'complete "TAB first indents then completes")
+  (x-stretch-cursor t "Make cursor fill entire tab width")
+  (sentence-end-double-space nil)
+
+  (scroll-conservatively 101 "Make point follow scrolling")
+  (scroll-margin 3 "Always show 3 lines above/below when scrolling")
+
+  (fill-column 79 "Line wrap automatically beyond this column")
+  (display-fill-column-indicator-character ?\u254e "Dashed indicator line")
+  (truncate-lines t "Do not display line continuation lines")
+
+  (history-length 1000)
+
+  (ns-alternate-modifier nil)
+  (ns-command-modifier 'meta)
 
   :hook ((prog-mode conf-mode text-mode) .
          (lambda () (setq-local show-trailing-whitespace t
-                                indicate-empty-lines t))))
+                                indicate-empty-lines t)))
+  :config
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil))
 
 (use-package server
-  :config
-  (server-start))
+  :config (server-start))
 
 ;;;
 ;;; Editing
 ;;;
 
 (use-package simple
-  :init
-  (setq column-number-mode t
-        save-interprogram-paste-before-kill t)
-  (setq-default indent-tabs-mode nil)
+  :custom
+  (column-number-mode t)
+  (save-interprogram-paste-before-kill t)
+  (indent-tabs-mode nil)
   :bind (([remap zap-to-char] . zap-up-to-char)
          ([remap upcase-word] . upcase-dwim)
          ([remap downcase-word] . downcase-dwim)
@@ -123,8 +130,7 @@
          (text-mode . turn-on-auto-fill)))
 
 (use-package subword
-  :config
-  (subword-mode))
+  :config (subword-mode))
 
 (use-package move-dup
   :ensure t
@@ -136,14 +142,12 @@
 ;;;
 
 (use-package files
-  :config
-  (setq  make-backup-files nil)
-  (setq-default require-final-newline t)
-
-  (let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
-    (setq auto-save-file-name-transforms
-          `((".*" ,auto-save-dir t)))
-    (make-directory (expand-file-name auto-save-dir) t)))
+  :preface (setq auto-save-dir (concat user-emacs-directory "auto-save/"))
+  :custom
+  (make-backup-files nil)
+  (require-final-newline t)
+  (auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
+  :config (make-directory (expand-file-name auto-save-dir) t))
 
 (use-package cus-edit
   :custom (custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -206,8 +210,7 @@
   :ensure t
   :functions vertico-mode
   :custom (vertico-cycle t)
-  :config
-  (vertico-mode))
+  :config (vertico-mode))
 
 (use-package vertico-directory
   :after vertico
@@ -229,12 +232,11 @@
   :functions marginalia-mode
   :custom (marginalia-max-relative-age 0)
   :init (marginalia-mode)
-  :config
-  (advice-add 'marginalia--time-absolute
-              :override
-              (lambda (time)
-                (let ((system-time-locale "C"))
-                  (format-time-string "%Y-%m-%d %H:%M" time)))))
+  :config (advice-add 'marginalia--time-absolute
+                      :override
+                      (lambda (time)
+                        (let ((system-time-locale "C"))
+                          (format-time-string "%Y-%m-%d %H:%M" time)))))
 
 (use-package corfu
   :ensure t
@@ -424,8 +426,7 @@
   :ensure t
   :defer 0
   :functions which-key-mode
-  :config
-  (which-key-mode))
+  :config (which-key-mode))
 
 (provide 'init)
 ;;; init.el ends here
