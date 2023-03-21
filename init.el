@@ -34,7 +34,6 @@
   (mode-line-inactive ((t (:box (:line-width 6 :color "#2b2b2b")))))
   :config (load-theme 'nimbus t))
 
-
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
