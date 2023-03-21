@@ -6,7 +6,7 @@
 ;;; Code:
 
 ;;;
-;;; Package archives
+;;; Bootstrap
 ;;;
 
 (require 'package)
@@ -22,8 +22,7 @@
 ;;;
 
 (use-package faces
-  :custom-face
-  (default ((t (:font "SF Mono" :height 130)))))
+  :custom-face (default ((t (:font "SF Mono" :height 130)))))
 
 (use-package nimbus-theme
   :ensure t
