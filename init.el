@@ -192,6 +192,7 @@
 ;;;
 
 (use-package isearch
+  :custom (isearch-lazy-count t)
   :bind (:map isearch-mode-map
               ([remap isearch-delete-char] . isearch-del-char)))
 
