@@ -95,6 +95,12 @@
   (display-fill-column-indicator-character ?\u254e "Dashed indicator line")
   (truncate-lines t "Do not display line continuation lines")
 
+  (echo-keystrokes 1e-6 "Show unfinished keystrokes immediately")
+
+  (initial-scratch-message nil)
+
+  (kill-buffer-query-functions nil "Don't ask to kill buffers with processes")
+
   (history-length 1000)
 
   (ns-alternate-modifier nil)
