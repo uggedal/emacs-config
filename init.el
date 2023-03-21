@@ -139,10 +139,10 @@
 (use-package subword
   :config (subword-mode))
 
-(use-package move-dup
+(use-package move-text
   :ensure t
-  :bind (("M-<up>" . move-dup-move-lines-up)
-         ("M-<down>" . move-dup-move-lines-down)))
+  :bind (("M-<up>" . move-text-up)
+         ("M-<down>" . move-text-down)))
 
 ;;;
 ;;; Files
