@@ -15,7 +15,6 @@
 (setq package-archive-priorities '(("gnu"    . 99)
                                    ("nongnu" . 80)
                                    ("melpa" . 70)))
-(require 'use-package)
 
 ;;;
 ;;; Appearance
