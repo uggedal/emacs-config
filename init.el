@@ -178,6 +178,7 @@
   :config (recentf-mode))
 
 (use-package savehist
+  :custom (savehist-additional-variables '(search-ring regexp-search-ring))
   :config (savehist-mode 1))
 
 (use-package saveplace
