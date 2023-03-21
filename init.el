@@ -113,6 +113,10 @@
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil))
 
+(use-package menu-bar
+  ;; Don't use selection when killing buffer:
+  :bind ([remap kill-buffer] . kill-this-buffer))
+
 (use-package server
   :config (server-start))
 
