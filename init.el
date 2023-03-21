@@ -146,41 +146,34 @@
     (make-directory (expand-file-name auto-save-dir) t)))
 
 (use-package cus-edit
-  :config
-  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-  (when (file-exists-p custom-file)
-    (load custom-file)))
+  :custom (custom-file (expand-file-name "custom.el" user-emacs-directory))
+  :config (when (file-exists-p custom-file)
+            (load custom-file)))
 
 (use-package so-long
-  :config
-  (global-so-long-mode))
+  :config (global-so-long-mode))
 
 (use-package autorevert
-  :config
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode))
+  :custom (global-auto-revert-non-file-buffers t)
+  :config (global-auto-revert-mode))
 
 ;;;
 ;;; History
 ;;;
 
 (use-package recentf
+  :custom (recentf-max-saved-items 1000)
   :bind ([remap find-file-read-only] . recentf-open)
-  :config
-  (setq recentf-max-saved-items 1000)
-  (recentf-mode))
+  :config (recentf-mode))
 
 (use-package savehist
-  :config
-  (savehist-mode 1))
+  :config (savehist-mode 1))
 
 (use-package saveplace
-  :config
-  (save-place-mode 1))
+  :config (save-place-mode 1))
 
 (use-package desktop
-  :config
-  (desktop-save-mode))
+  :config (desktop-save-mode))
 
 ;;;
 ;;; Navigation and Search
@@ -194,16 +187,14 @@
   :bind ([remap list-buffers] . ibuffer-list-buffers))
 
 (use-package dired
+  :custom (dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
   :bind (:map dired-mode-map
          ("RET" . dired-find-alternate-file)
          ("^" . (lambda () (interactive) (find-alternate-file ".."))))
-  :config
-  (setq dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
-  (put 'dired-find-alternate-file 'disabled nil))
+  :config (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package goto-addr
-  :init
-  (setq goto-address-uri-schemes '("http://" "https://"))
+  :custom (goto-address-uri-schemes '("http://" "https://"))
   :hook ((vterm-mode . goto-address-mode)
          ((prog-mode conf-mode) . goto-address-prog-mode)))
 
@@ -213,13 +204,14 @@
 
 (use-package vertico
   :ensure t
-  :init
-  (setq vertico-cycle t)
+  :functions vertico-mode
+  :custom (vertico-cycle t)
   :config
   (vertico-mode))
 
 (use-package vertico-directory
   :after vertico
+  :defines vertico-map
   :bind (:map vertico-map
               ("RET" . vertico-directory-enter)
               ("DEL" . vertico-directory-delete-char)
@@ -227,17 +219,17 @@
 
 (use-package orderless
   :ensure t
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package marginalia
   :ensure t
-  :init
-  (marginalia-mode)
+  :functions marginalia-mode
+  :custom (marginalia-max-relative-age 0)
+  :init (marginalia-mode)
   :config
-  (setq marginalia-max-relative-age 0)
   (advice-add 'marginalia--time-absolute
               :override
               (lambda (time)
@@ -246,20 +238,22 @@
 
 (use-package corfu
   :ensure t
-  :init
-  (global-corfu-mode)
+  :defines corfu-map
+  :functions global-corfu-mode
+  :custom (corfu-cycle t)
   :bind (:map corfu-map
               ("SPC" . corfu-insert-separator))
-  :config
-  (setq corfu-cycle t))
+  :init (global-corfu-mode))
 
 (use-package corfu-echo
   :after corfu
+  :functions corfu-echo-mode
   :custom (corfu-echo-delay t)
   :config (corfu-echo-mode))
 
 (use-package corfu-popupinfo
   :after corfu
+  :functions corfu-popupinfo-mode
   :custom (corfu-popupinfo-delay nil)
   :config (corfu-popupinfo-mode))
 
