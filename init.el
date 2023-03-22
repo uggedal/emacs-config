@@ -51,7 +51,9 @@
   (blink-cursor-mode 0)
   ;; Disable suspend frame:
   (keymap-global-unset "C-z")
-  :bind ("M-`" . other-frame))
+  :bind (("M-`" . other-frame)
+         ("C-<tab>" . next-multiframe-window)
+         ("C-S-<tab>" . previous-multiframe-window)))
 
 (use-package pixel-scroll
   :custom (pixel-scroll-precision-large-scroll-height 35.0)
