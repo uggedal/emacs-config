@@ -46,15 +46,6 @@
   (whitespace-style '(face tabs lines-tail) "Show tabs and tailing whitespace")
   :hook (conf-mode prog-mode))
 
-(use-package frame
-  :config
-  (blink-cursor-mode 0)
-  ;; Disable suspend frame:
-  (keymap-global-unset "C-z")
-  :bind (("M-`" . other-frame)
-         ("C-<tab>" . next-multiframe-window)
-         ("C-S-<tab>" . previous-multiframe-window)))
-
 (use-package pixel-scroll
   :custom (pixel-scroll-precision-large-scroll-height 35.0)
   :config
@@ -197,6 +188,18 @@
 ;;;
 ;;; Navigation and Search
 ;;;
+
+(use-package frame
+  :config
+  (blink-cursor-mode 0)
+  ;; Disable suspend frame:
+  (keymap-global-unset "C-z")
+  :bind (("C-<tab>" . next-multiframe-window)
+         ("C-S-<tab>" . previous-multiframe-window)))
+
+(use-package ns-win
+  :bind (("M-`" . ns-next-frame)
+         ("M-~" . ns-prev-frame)))
 
 (use-package isearch
   :custom (isearch-lazy-count t)
