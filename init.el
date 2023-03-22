@@ -101,6 +101,7 @@
 
   (kill-buffer-query-functions nil "Don't ask to kill buffers with processes")
 
+  (history-delete-duplicates t)
   (history-length 1000)
 
   (ns-alternate-modifier nil)
@@ -128,6 +129,7 @@
   :custom
   (column-number-mode t)
   (save-interprogram-paste-before-kill t)
+  (kill-do-not-save-duplicates t)
   (indent-tabs-mode nil)
   :bind (([remap zap-to-char] . zap-up-to-char)
          ([remap upcase-word] . upcase-dwim)
