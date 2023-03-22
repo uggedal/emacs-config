@@ -180,7 +180,10 @@
   :config (recentf-mode))
 
 (use-package savehist
-  :custom (savehist-additional-variables '(search-ring regexp-search-ring))
+  :custom (savehist-additional-variables '(search-ring
+                                           regexp-search-ring
+                                           last-kbd-macro
+                                           shell-command-history))
   :config (savehist-mode 1))
 
 (use-package saveplace
