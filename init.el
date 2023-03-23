@@ -347,6 +347,10 @@
   :bind (:map git-commit-mode-map
               ("M-r" . commit-message-completion)))
 
+(use-package diff-mode
+  :defer
+  :custom (diff-font-lock-prettify t))
+
 (use-package diff-hl
   :ensure t
   :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
