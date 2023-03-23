@@ -357,7 +357,9 @@
 
 (use-package diff-hl
   :ensure t
-  :hook ((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode))
+  :hook (((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode)
+         (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+         (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
 
 (use-package diff-hl-dired
   :hook (dired-mode))
