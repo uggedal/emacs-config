@@ -327,6 +327,10 @@
 (use-package vc-hooks
   :custom (vc-handled-backends '(Git) "Only enable git backend"))
 
+(use-package log-edit
+  :custom
+  (log-edit-comment-ring (make-ring 1000)))
+
 (use-package git-commit
   :ensure t)
 
