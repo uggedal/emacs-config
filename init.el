@@ -451,6 +451,9 @@
               :empty-lines 1)))
   :bind ("C-c c" . org-capture))
 
+(use-package ol
+  :bind ("C-c l" . org-store-link))
+
 (use-package org-appear
   :ensure t
   :hook org-mode)
