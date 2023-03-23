@@ -334,7 +334,7 @@
 
 (use-package git-commit
   :ensure t
-  :defiens git-commit-mode-map
+  :defines git-commit-mode-map
   :preface (defun commit-message-completion ()
              (interactive)
              (require 'dash)
