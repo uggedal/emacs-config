@@ -332,7 +332,18 @@
   (log-edit-comment-ring (make-ring 1000)))
 
 (use-package git-commit
-  :ensure t)
+  :ensure t
+  :preface (defun commit-message-completion ()
+             (interactive)
+             (require 'dash)
+             (insert (completing-read
+                      "History: "
+                      (delete-dups
+                       ;; Remove unnecessary newlines (at beg and end).
+                       (mapcar (lambda (text) (string-trim text))
+                               (ring-elements log-edit-comment-ring))))))
+  :bind (:map git-commit-mode-map
+              ("M-r" . commit-message-completion)))
 
 (use-package diff-hl
   :ensure t
