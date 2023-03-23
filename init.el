@@ -316,6 +316,10 @@
   :ensure t
   :bind ([remap project-shell] . multi-vterm-project))
 
+(use-package with-editor
+  :ensure t
+  :hook (vterm-mode . with-editor-export-editor))
+
 ;;;
 ;;; VCS
 ;;;
