@@ -349,6 +349,7 @@
 
 (use-package magit
   :ensure t
+  :custom (magit-diff-refine-hunk 'all)
   :bind ("C-x g" . magit-status))
 
 (use-package diff-mode
