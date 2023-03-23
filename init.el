@@ -176,7 +176,8 @@
   :custom (savehist-additional-variables '(search-ring
                                            regexp-search-ring
                                            last-kbd-macro
-                                           shell-command-history))
+                                           shell-command-history
+                                           log-edit-comment-ring))
   :config (savehist-mode 1))
 
 (use-package saveplace
