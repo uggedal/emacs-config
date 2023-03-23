@@ -347,6 +347,10 @@
   :bind (:map git-commit-mode-map
               ("M-r" . commit-message-completion)))
 
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
+
 (use-package diff-mode
   :defer
   :custom (diff-font-lock-prettify t))
