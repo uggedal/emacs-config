@@ -261,7 +261,7 @@
 (use-package corfu
   :ensure t
   :defines corfu-map
-  :functions global-corfu-mode
+  :functions (corfu-mode global-corfu-mode)
   :preface (defun corfu-enable-in-minibuffer ()
              "Enable for M-: and M-!"
              (when (where-is-internal #'completion-at-point
