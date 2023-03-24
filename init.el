@@ -335,6 +335,7 @@
 (use-package git-commit
   :ensure t
   :defines git-commit-mode-map
+  :functions ring-elements
   :preface (defun commit-message-completion ()
              (interactive)
              (require 'dash)
