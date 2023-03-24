@@ -440,7 +440,9 @@
   (org-image-actual-width nil)
   (org-special-ctrl-a/e t)
   (org-directory "~/src/notes")
-  (org-agenda-files '("work.org" "personal.org")))
+  (org-agenda-files '("work.org" "personal.org"))
+  :bind (:map org-mode-map
+              ("C-M-<up>" . org-up-element)))
 
 (use-package org-goto
   :after org
