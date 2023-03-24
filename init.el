@@ -325,6 +325,35 @@
 ;;; VCS
 ;;;
 
+(use-package vc
+  :bind ("C-x v p" . vc-commit-and-push)
+  :config
+  (defun vc-commit-and-push ()
+    "Commit with static message and push"
+    (interactive)
+    (let* ((vc-fileset (vc-deduce-fileset nil t 'state-model-only-files))
+           (backend (car vc-fileset))
+           (files (nth 1 vc-fileset))
+           (state (nth 3 vc-fileset))
+           (model (nth 4 vc-fileset)))
+      (cond
+       ((eq state 'up-to-date)
+        (message "Fileset is up-to-date"))
+       ((vc-compatible-state state 'edited)
+        (let ((ready-for-commit files))
+          (save-excursion
+            (dolist (file files)
+              (let ((visited (get-file-buffer file)))
+                (when (and (not (eq model 'implicit))
+                           (eq state 'up-to-date)
+                           (not (and visited (buffer-modified-p))))
+                  (vc-revert-file file)
+                  (setq ready-for-commit (delete file ready-for-commit))))))
+          (if (not ready-for-commit)
+              (message "No files remain to be committed")
+            (vc-checkin ready-for-commit backend "sync")
+            (vc-call-backend backend 'push nil))))))))
+
 (use-package vc-hooks
   :custom (vc-handled-backends '(Git) "Only enable git backend"))
 
