@@ -372,7 +372,7 @@
            (vc-git-command nil 0 nil "commit" "-am" "sync")
            (vc-git-command nil 0 nil "push")
            (diff-hl-update)
-           (message "Committed pushed")
+           (message "Committed and pushed")
            t))))
 
 (use-package diff-mode
