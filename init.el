@@ -439,7 +439,6 @@
   :custom
   (org-hide-emphasis-markers t)
   (org-startup-indented t)
-  (org-cycle-separator-lines 1)
   (org-blank-before-new-entry (quote ((heading .t) (plain-list-item . nil))))
   (org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE")))
   (org-startup-with-inline-images t)
@@ -455,6 +454,10 @@
   :after org
   :custom (org-todo-keyword-faces '(("NEXT" . '(org-level-3 org-todo))
                                     ("DOING" . '(org-level-4 org-todo)))))
+
+(use-package org-cycle
+  :after org
+  :custom (org-cycle-separator-lines 1))
 
 (use-package org-goto
   :after org
