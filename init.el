@@ -33,17 +33,13 @@
 (load-theme 'nimbus t)
 ;; Remove link underline:
 (set-face-attribute 'link nil :underline nil)
-
 ;; Mode line padding:
 (set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#2b2b47"))
 (set-face-attribute 'mode-line-inactive nil :box
                     '(:line-width 6 :color "#2b2b2b"))
 
-(use-package display-line-numbers
-  :hook (conf-mode prog-mode))
-
-(use-package display-fill-column-indicator
-  :hook (conf-mode prog-mode))
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
 (use-package whitespace
   :custom
