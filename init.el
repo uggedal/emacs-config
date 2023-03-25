@@ -523,6 +523,15 @@
   :custom
   (help-window-select t))
 
+(use-package helpful
+  :ensure t
+  :bind
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-key] . helpful-key)
+  ([remap display-local-help] . helpful-at-point))
+
 (use-package which-key
   :ensure t
   :defer 0
