@@ -34,6 +34,11 @@
   (mode-line-inactive ((t (:box (:line-width 6 :color "#2b2b2b")))))
   :config (load-theme 'nimbus t))
 
+(use-package hl-line
+  :custom
+  (hl-line-sticky-flag nil "Only highlight line in active buffer")
+  :hook (prog-mode text-mode conf-mode))
+
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
 
