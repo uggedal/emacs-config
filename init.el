@@ -510,6 +510,10 @@
 ;;; Misc
 ;;;
 
+(use-package help
+  :custom
+  (help-window-select t))
+
 (use-package which-key
   :ensure t
   :defer 0
