@@ -79,6 +79,8 @@
 
   (tab-always-indent 'complete "TAB first indents then completes")
   (x-stretch-cursor t "Make cursor fill entire tab width")
+  (cursor-type 'bar "Make it easier to view mark boundaries")
+
   (sentence-end-double-space nil)
 
   (scroll-conservatively 101 "Make point follow scrolling")
