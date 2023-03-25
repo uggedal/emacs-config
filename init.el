@@ -508,7 +508,7 @@
 
 (use-package markdown-mode
   :ensure t
-  :custom (markdown-enable-highlighting-syntax t "Highlight code blocks")
+  :custom (markdown-fontify-code-blocks-natively t "Highlight code blocks")
   :mode (("\\.md\\'" . gfm-mode))
   :commands (markdown-mode gfm-mode))
 
