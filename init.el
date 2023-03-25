@@ -271,20 +271,21 @@
   :custom (corfu-cycle t)
   :bind (:map corfu-map
               ("SPC" . corfu-insert-separator))
-  :hook (minibuffer-setup . corfu-enable-in-minibuffer)
-  :init (global-corfu-mode))
+  :hook ((after-init . global-corfu-mode)
+         (minibuffer-setup . corfu-enable-in-minibuffer)
+         (corfu-mode . corfu-echo-mode)
+         (corfu-mode . corfu-popupinfo-mode)))
+
 
 (use-package corfu-echo
   :after corfu
   :functions corfu-echo-mode
-  :custom (corfu-echo-delay t)
-  :config (corfu-echo-mode))
+  :custom (corfu-echo-delay t))
 
 (use-package corfu-popupinfo
   :after corfu
   :functions corfu-popupinfo-mode
-  :custom (corfu-popupinfo-delay nil)
-  :config (corfu-popupinfo-mode))
+  :custom (corfu-popupinfo-delay nil))
 
 (use-package cape
   :ensure t
