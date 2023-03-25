@@ -55,54 +55,46 @@
 ;;; Core
 ;;;
 
-(use-package emacs
-  :custom
-  (ring-bell-function 'ignore)
-  (use-short-answers t)
+(setopt ring-bell-function 'ignore
+        use-short-answers t
+        create-lockfiles nil
+        ;; Hide commands in M-x not applicable to active mode:
+        read-extended-command-predicate
+        #'command-completion-default-include-p
+        enable-recursive-minibuffers t
+        ;; Disable right-to-left text:
+        bidi-paragraph-direction 'left-to-right
+        bidi-inhibit-bpa t
+        ;;TAB first indents then completes:
+        tab-always-indent 'complete
+        ;;Make cursor fill entire tab width:
+        x-stretch-cursor t
+        sentence-end-double-space nil
+        ;;Make point follow scrolling:
+        scroll-conservatively 101
+        scroll-margin 3
+        fill-column 79
+        ;;Dashed indicator line"
+        display-fill-column-indicator-character ?\u254e
+        ;;Do not display line continuation lines:
+        truncate-lines t
+        ;;Show unfinished keystrokes immediately:
+        echo-keystrokes 1e-6
+        initial-scratch-message nil
+        ;;Don't ask to kill buffers with processes:
+        kill-buffer-query-functions nil
+        history-delete-duplicates t
+        history-length 1000
+        ns-alternate-modifier nil
+        ns-command-modifier 'meta)
 
-  (create-lockfiles nil)
+(dolist (mode-hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+         (add-hook mode-hook
+                   (lambda () (setq-local show-trailing-whitespace t
+                                          indicate-empty-lines t))))
 
-  (read-extended-command-predicate
-   #'command-completion-default-include-p
-   "Hide commands in M-x not applicable to active mode")
-  (enable-recursive-minibuffers
-   t
-   "Allow minibuffer commands while in minibuffer")
-
-  ;; Disable right-to-left text:
-  (bidi-paragraph-direction 'left-to-right)
-  (bidi-inhibit-bpa t)
-
-  (tab-always-indent 'complete "TAB first indents then completes")
-  (x-stretch-cursor t "Make cursor fill entire tab width")
-
-  (sentence-end-double-space nil)
-
-  (scroll-conservatively 101 "Make point follow scrolling")
-  (scroll-margin 3 "Always show 3 lines above/below when scrolling")
-
-  (fill-column 79 "Line wrap automatically beyond this column")
-  (display-fill-column-indicator-character ?\u254e "Dashed indicator line")
-  (truncate-lines t "Do not display line continuation lines")
-
-  (echo-keystrokes 1e-6 "Show unfinished keystrokes immediately")
-
-  (initial-scratch-message nil)
-
-  (kill-buffer-query-functions nil "Don't ask to kill buffers with processes")
-
-  (history-delete-duplicates t)
-  (history-length 1000)
-
-  (ns-alternate-modifier nil)
-  (ns-command-modifier 'meta)
-
-  :hook ((prog-mode conf-mode text-mode) .
-         (lambda () (setq-local show-trailing-whitespace t
-                                indicate-empty-lines t)))
-  :config
-  (put 'upcase-region 'disabled nil)
-  (put 'downcase-region 'disabled nil))
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 (use-package menu-bar
   ;; Don't use selection when killing buffer:
