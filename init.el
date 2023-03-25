@@ -358,6 +358,7 @@
                    (t
                     (vc-git-command nil 0 nil "commit" "-am" "sync")
                     (vc-git-command nil 0 nil "push")
+                    (diff-hl-update)
                     (message "Committed pushed")
                     t)))
   :ensure t
