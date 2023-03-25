@@ -41,20 +41,15 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
-(use-package whitespace
-  :custom
-  (whitespace-line-column 79 "Highlight lines above this column")
-  (whitespace-style '(face tabs lines-tail) "Show tabs and tailing whitespace")
-  :hook (conf-mode prog-mode))
+(setopt whitespace-line-column 79
+        whitespace-style '(face tabs lines-tail))
+(add-hook 'prog-mode-hook 'whitespace-mode)
 
-(use-package pixel-scroll
-  :custom (pixel-scroll-precision-large-scroll-height 35.0)
-  :config
-  (pixel-scroll-mode)
-  (pixel-scroll-precision-mode 1))
+(setopt pixel-scroll-precision-large-scroll-height 35.0)
+(pixel-scroll-mode)
+(pixel-scroll-precision-mode 1)
 
-(use-package uniquify
-  :custom (uniquify-buffer-name-style 'forward "a/f.txt and b/f.txt"))
+(setopt uniquify-buffer-name-style 'forward)
 
 ;;;
 ;;; Core
