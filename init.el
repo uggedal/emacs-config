@@ -354,19 +354,25 @@
   :custom (magit-diff-refine-hunk 'all)
   :bind (("C-x g" . magit-status)
          ("C-x v p" . automatic-commit-and-push))
-  :config (defun automatic-commit-and-push ()
-          (interactive)
+  :config
+  (require 'vc-git)
+  (require 'diff-hl)
+  (declare-function vc-git-command "vc-git" (buffer okstatus file-or-list
+                                                    &rest flags))
+  (declare-function diff-hl-update "diff-hl" ())
+  (defun automatic-commit-and-push ()
+    (interactive)
 
-          (if (not (buffer-file-name))
-              (error "Non-file buffer!"))
-          (cond ((= 0 (length (magit-unstaged-files)))
-                 (message "No changes to commit"))
-                (t
-                 (vc-git-command nil 0 nil "commit" "-am" "sync")
-                 (vc-git-command nil 0 nil "push")
-                 (diff-hl-update)
-                 (message "Committed pushed")
-                 t))))
+    (if (not (buffer-file-name))
+        (error "Non-file buffer!"))
+    (cond ((= 0 (length (magit-unstaged-files)))
+           (message "No changes to commit"))
+          (t
+           (vc-git-command nil 0 nil "commit" "-am" "sync")
+           (vc-git-command nil 0 nil "push")
+           (diff-hl-update)
+           (message "Committed pushed")
+           t))))
 
 (use-package diff-mode
   :defer
