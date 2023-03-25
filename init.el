@@ -16,23 +16,28 @@
                                    ("nongnu" . 80)
                                    ("melpa" . 70)))
 
+(defun ensure-package (package)
+  (unless (package-installed-p package)
+    (unless (memq package package-archive-contents)
+      (package-refresh-contents))
+    (package-install package)))
+
 ;;;
 ;;; Appearance
 ;;;
 
-(use-package faces
-  :custom-face (default ((t (:font "SF Mono" :height 130)))))
+(set-face-attribute 'default nil :font "SF Mono" :height 130)
 
-(use-package nimbus-theme
-  :ensure t
-  :custom-face
-  ;; Remove link underline:
-  (link ((t (:underline nil))))
 
-  ;; Mode line padding:
-  (mode-line ((t (:box (:line-width 6 :color "#2b2b47")))))
-  (mode-line-inactive ((t (:box (:line-width 6 :color "#2b2b2b")))))
-  :config (load-theme 'nimbus t))
+(ensure-package 'nimbus-theme)
+(load-theme 'nimbus t)
+;; Remove link underline:
+(set-face-attribute 'link nil :underline nil)
+
+;; Mode line padding:
+(set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#2b2b47"))
+(set-face-attribute 'mode-line-inactive nil :box
+                    '(:line-width 6 :color "#2b2b2b"))
 
 (use-package display-line-numbers
   :hook (conf-mode prog-mode))
