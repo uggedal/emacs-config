@@ -509,7 +509,7 @@
 (use-package markdown-mode
   :ensure t
   :custom (markdown-enable-highlighting-syntax t "Highlight code blocks")
-  :mode (("README\\.md\\'" . gfm-mode))
+  :mode (("\\.md\\'" . gfm-mode))
   :commands (markdown-mode gfm-mode))
 
 (use-package terraform-mode
