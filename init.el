@@ -349,9 +349,20 @@
               ("M-r" . commit-message-completion)))
 
 (use-package magit
+  :preface (defun automatic-commit-and-push ()
+             (interactive)
+             (if (not (buffer-file-name))
+                 (error "Non-file buffer!"))
+             (cond ((= 0 (length (magit-unstaged-files)))
+                    (message "No changes to commit"))
+                   (t
+                    (vc-git-command nil 0 nil "commit" "-am" "sync")
+                    (vc-git-command nil 0 nil "push")
+                    t)))
   :ensure t
   :custom (magit-diff-refine-hunk 'all)
-  :bind ("C-x g" . magit-status))
+  :bind (("C-x g" . magit-status)
+         ("C-x v p" . automatic-commit-and-push)))
 
 (use-package diff-mode
   :defer
@@ -365,15 +376,6 @@
 
 (use-package diff-hl-dired
   :hook (dired-mode))
-
-(use-package git-auto-commit-mode
-  :ensure t
-  :defer t
-  :custom
-  (gac-automatically-push-p t)
-  (gac-default-message (lambda (filename) (concat
-                                           (gac-relative-file-name filename)
-                                           ": sync"))))
 
 ;;;
 ;;; IDE
