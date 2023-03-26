@@ -430,6 +430,7 @@
 ;;;
 
 (defun enable-indent-tabs-mode ()
+  "Enable tab indent."
   (setq-local indent-tabs-mode t))
 
 (setopt sh-basic-offset 8)
