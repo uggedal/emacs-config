@@ -188,12 +188,12 @@
 
 (keymap-global-set "C-x C-b" 'ibuffer-list-buffers)
 
-(setopt dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "RET" 'dired-find-alternate-file)
   (keymap-set dired-mode-map "^" (lambda ()
                                    (interactive)
                                    (find-alternate-file "..")))
+  (setopt dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
   (put 'dired-find-alternate-file 'disabled nil))
 
 (setopt goto-address-uri-schemes '("http://" "https://"))
