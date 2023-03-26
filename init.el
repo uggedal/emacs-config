@@ -9,6 +9,10 @@
 ;;; Bootstrap
 ;;;
 
+(setopt custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
@@ -17,6 +21,7 @@
                                    ("melpa" . 70)))
 
 (defun ensure-package (package)
+  "Install PACKAGE if not already installed."
   (unless (package-installed-p package)
     (unless (memq package package-archive-contents)
       (package-refresh-contents))
@@ -96,61 +101,53 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(use-package menu-bar
-  ;; Don't use selection when killing buffer:
-  :bind ([remap kill-buffer] . kill-this-buffer))
+;; Don't need confirmation/selection when killing buffers:
+(keymap-global-set "C-x k" 'kill-this-buffer)
 
-(use-package server
-  :config (server-start))
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;;;
 ;;; Editing
 ;;;
 
-(use-package simple
-  :custom
-  (column-number-mode t)
-  (save-interprogram-paste-before-kill t)
-  (kill-do-not-save-duplicates t)
-  (indent-tabs-mode nil)
-  :bind (([remap zap-to-char] . zap-up-to-char)
-         ([remap upcase-word] . upcase-dwim)
-         ([remap downcase-word] . downcase-dwim)
-         ([remap capitalize-word] . capitalize-dwim))
-  :hook ((before-save . delete-trailing-whitespace)
-         (text-mode . turn-on-auto-fill)))
+(setopt column-number-mode t
+        save-interprogram-paste-before-kill t
+        kill-do-not-save-duplicates t
+        indent-tabs-mode nil)
 
-(use-package subword
-  :config (subword-mode))
+(keymap-global-set "M-z" 'zap-up-to-char)
+(keymap-global-set "M-u" 'upcase-dwim)
+(keymap-global-set "M-l" 'downcase-dwim)
+(keymap-global-set "M-c" 'capitalize-dwim)
 
-(use-package move-text
-  :ensure t
-  :bind (("M-<up>" . move-text-up)
-         ("M-<down>" . move-text-down)))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(subword-mode)
+
+(ensure-package 'move-text)
+(dolist (mode-map '(prog-mode-map text-mode-map conf-mode-map))
+  (keymap-set mode-map "M-<up>" 'move-text-up)
+  (keymap-set mode-map "M-<down>" 'move-text-down))
 
 ;;;
 ;;; Files
 ;;;
 
-(use-package files
-  :preface (setq auto-save-dir (concat user-emacs-directory "auto-save/"))
-  :custom
-  (make-backup-files nil)
-  (require-final-newline t)
-  (auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
-  :config (make-directory (expand-file-name auto-save-dir) t))
 
-(use-package cus-edit
-  :custom (custom-file (expand-file-name "custom.el" user-emacs-directory))
-  :config (when (file-exists-p custom-file)
-            (load custom-file)))
+(setopt make-backup-files nil
+        require-final-newline t)
 
-(use-package so-long
-  :config (global-so-long-mode))
+(let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
+  (setopt auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
+  (make-directory (expand-file-name auto-save-dir) t))
 
-(use-package autorevert
-  :custom (global-auto-revert-non-file-buffers t)
-  :config (global-auto-revert-mode))
+(global-so-long-mode)
+
+(setopt global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode)
 
 ;;;
 ;;; History
