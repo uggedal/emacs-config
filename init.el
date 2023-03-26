@@ -33,17 +33,17 @@
 ;;; Appearance
 ;;;
 
-(set-face-attribute 'default nil :font "SF Mono" :height 130)
-
-
 (ensure-package 'nimbus-theme)
 (load-theme 'nimbus t)
-;; Remove link underline:
-(set-face-attribute 'link nil :underline nil)
-;; Mode line padding:
-(set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#2b2b47"))
-(set-face-attribute 'mode-line-inactive nil :box
-                    '(:line-width 6 :color "#2b2b2b"))
+
+(with-eval-after-load 'faces
+  (set-face-attribute 'default nil :font "SF Mono" :height 130)
+  ;; Remove link underline:
+  (set-face-attribute 'link nil :underline nil)
+  ;; Mode line padding:
+  (set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#2b2b47"))
+  (set-face-attribute 'mode-line-inactive nil :box
+                      '(:line-width 6 :color "#2b2b2b")))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
