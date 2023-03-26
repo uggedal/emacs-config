@@ -429,34 +429,26 @@
 ;;; Programming modes
 ;;;
 
-(use-package sh-script
-  :preface (defun enable-indent-tabs-mode ()
-             (setq-local indent-tabs-mode t))
-  :custom (sh-basic-offset 8)
-  :hook (sh-mode . enable-indent-tabs-mode))
+(defun enable-indent-tabs-mode ()
+  (setq-local indent-tabs-mode t))
 
-(use-package markdown-mode
-  :ensure t
-  :custom (markdown-fontify-code-blocks-natively t "Highlight code blocks")
-  :mode (("\\.md\\'" . gfm-mode))
-  :commands (markdown-mode gfm-mode))
+(setopt sh-basic-offset 8)
+(add-hook 'sh-mode-hook 'enable-indent-tabs-mode)
 
-(use-package terraform-mode
-  :ensure t)
+(ensure-package 'markdown-mode)
+(setopt markdown-fontify-code-blocks-natively t)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+
+(ensure-package 'terraform-mode)
 
 ;;;
 ;;; Misc
 ;;;
 
-(use-package help
-  :custom
-  (help-window-select t))
+(setopt help-window-select t)
 
-(use-package which-key
-  :ensure t
-  :defer 0
-  :functions which-key-mode
-  :config (which-key-mode))
+(ensure-package 'which-key)
+(add-hook 'after-init-hook 'which-key-mode)
 
 (provide 'init)
 ;;; init.el ends here
