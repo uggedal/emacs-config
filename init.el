@@ -453,6 +453,9 @@
 
 (setopt help-window-select t)
 
+(with-eval-after-load 'info
+  (add-to-list 'Info-directory-list "/opt/homebrew/share/info"))
+
 (ensure-package 'which-key)
 (add-hook 'after-init-hook 'which-key-mode)
 
