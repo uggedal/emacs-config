@@ -396,8 +396,8 @@
 (setopt org-hide-emphasis-markers t
         org-startup-indented t
         org-startup-folded t
-        org-blank-before-new-entry (quote ((heading .t)
-                                           (plain-list-item . nil)))
+        org-blank-before-new-entry '((heading . t)
+                                    (plain-list-item . nil))
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
         org-startup-with-inline-images t
         org-ellipsis " …"
