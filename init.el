@@ -188,6 +188,7 @@
 ;; Sane isearch query editing:
 (keymap-set isearch-mode-map "DEL" 'isearch-del-char)
 
+(setopt ibuffer-old-time 24)
 (keymap-global-set "C-x C-b" 'ibuffer-list-buffers)
 
 (with-eval-after-load 'dired
