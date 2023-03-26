@@ -477,5 +477,8 @@
 (ensure-package 'which-key)
 (add-hook 'after-init-hook 'which-key-mode)
 
+;; Make flymake know about our load path (ELPA):
+(setq elisp-flymake-byte-compile-load-path load-path)
+
 (provide 'init)
 ;;; init.el ends here
