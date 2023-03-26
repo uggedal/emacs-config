@@ -284,14 +284,20 @@
 
 ;; FIXME: not working:
 (defun commit-message-completion ()
+  "Search for previous commit messages from history."
   (interactive)
   (require 'dash)
-  (insert (completing-read
-           "History: "
-           (delete-dups
-            ;; Remove unnecessary newlines (at beg and end).
-            (mapcar (lambda (text) (string-trim text))
-                    (ring-elements log-edit-comment-ring))))))
+  (insert (completing-read "History: "
+                           (-remove
+                            (lambda (item)
+                              (string-match-p (regexp-quote "Summary: ") item))
+                            (delete-dups
+                             ;; Remove unnecessary newlines:
+                             (mapcar (lambda (text)
+                                       (string-trim text))
+                                     (ring-elements
+                                      log-edit-comment-ring)))))))
+
 (with-eval-after-load 'git-commit
   (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
 
