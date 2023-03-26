@@ -128,9 +128,9 @@
 (subword-mode)
 
 (ensure-package 'move-text)
-(dolist (mode-map '(prog-mode-map text-mode-map conf-mode-map))
-  (keymap-set mode-map "M-<up>" 'move-text-up)
-  (keymap-set mode-map "M-<down>" 'move-text-down))
+(with-eval-after-load 'prog-mode
+  (keymap-set prog-mode-map "M-<up>" 'move-text-up)
+  (keymap-set prog-mode-map "M-<down>" 'move-text-down))
 
 ;;;
 ;;; Files
