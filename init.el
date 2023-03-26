@@ -441,6 +441,7 @@
 
 (setopt org-agenda-span 14)
 (keymap-global-set "C-c a" 'org-agenda)
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 (setopt org-capture-templates
         '(
