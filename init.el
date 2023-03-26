@@ -14,6 +14,8 @@
   (load custom-file))
 
 (require 'package)
+(unless (bound-and-true-p package--initialized)
+  (package-initialize))
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (setq package-archive-priorities '(("gnu"    . 99)
