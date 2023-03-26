@@ -204,78 +204,59 @@
 ;;; Completion
 ;;;
 
-(use-package vertico
-  :ensure t
-  :functions vertico-mode
-  :custom (vertico-cycle t)
-  :config (vertico-mode))
+(ensure-package 'vertico)
+(setopt vertico-cycle t)
+(vertico-mode)
 
-(use-package vertico-directory
-  :after vertico
-  :defines vertico-map
-  :bind (:map vertico-map
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word)))
+(with-eval-after-load 'vertico
+  (keymap-set vertico-map "RET" 'vertico-directory-enter)
+  (keymap-set vertico-map "DEL" 'vertico-directory-delete-char)
+  (keymap-set vertico-map "M-DEL" 'vertico-directory-delete-word))
 
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+(ensure-package 'orderless)
+(setopt completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion))))
 
-(use-package marginalia
-  :ensure t
-  :functions marginalia-mode
-  :custom (marginalia-max-relative-age 0)
-  :init (marginalia-mode)
-  :config (advice-add 'marginalia--time-absolute
-                      :override
-                      (lambda (time)
-                        (let ((system-time-locale "C"))
-                          (format-time-string "%Y-%m-%d %H:%M" time)))))
+(ensure-package 'marginalia)
+(setopt marginalia-max-relative-age 0)
+(with-eval-after-load 'marginalia
+  (advice-add 'marginalia--time-absolute
+              :override
+              (lambda (time)
+                (let ((system-time-locale "C"))
+                  (format-time-string "%Y-%m-%d %H:%M" time)))))
+(marginalia-mode)
 
-(use-package corfu
-  :ensure t
-  :defines corfu-map
-  :functions (corfu-mode global-corfu-mode)
-  :preface (defun corfu-enable-in-minibuffer ()
-             "Enable for M-: and M-!"
-             (when (where-is-internal #'completion-at-point
-                                      (list (current-local-map)))
-               (setq-local corfu-echo-delay nil)
-               (corfu-mode)))
-  :custom (corfu-cycle t)
-  :bind (:map corfu-map
-              ("SPC" . corfu-insert-separator))
-  :hook ((after-init . global-corfu-mode)
-         (minibuffer-setup . corfu-enable-in-minibuffer)
-         (corfu-mode . corfu-echo-mode)
-         (corfu-mode . corfu-popupinfo-mode)))
+(ensure-package 'corfu)
+(setopt corfu-cycle t
+        corfu-echo-delay t
+        corfu-popupinfo-delay nil)
 
+(defun corfu-enable-in-minibuffer ()
+  "Enable for M-: and M-!"
+  (when (where-is-internal #'completion-at-point
+                           (list (current-local-map)))
+    (setq-local corfu-echo-delay nil)
+    (corfu-mode)))
 
-(use-package corfu-echo
-  :after corfu
-  :functions corfu-echo-mode
-  :custom (corfu-echo-delay t))
+(with-eval-after-load 'corfu
+  (keymap-set corfu-map "SPC" 'corfu-insert-separator))
 
-(use-package corfu-popupinfo
-  :after corfu
-  :functions corfu-popupinfo-mode
-  :custom (corfu-popupinfo-delay nil))
+(add-hook 'corfu-mode-hook 'corfu-echo-mode)
+(add-hook 'corfu-mode-hook 'corfu-popupinfo-mode)
+(add-hook 'minibuffer-setup-hook 'corfu-enable-in-minibuffer)
 
-(use-package cape
-  :ensure t
-  :bind ([remap dabbrev-expand] . cape-dabbrev))
+(global-corfu-mode)
 
-(use-package consult
-  :ensure t
-  :custom
-  (xref-show-xrefs-function #'consult-xref)
-  (xref-show-definitions-function #'consult-xref)
-  :bind (([remap yank-pop] . consult-yank-from-kill-ring)
-         ([remap goto-line] . consult-goto-line)))
+(ensure-package 'cape)
+(keymap-global-set "M-/" 'cape-dabbrev)
+
+(ensure-package 'consult)
+(setopt xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+(keymap-global-set "M-y" 'consult-yank-from-kill-ring)
+(keymap-global-set "<remap> <goto-line>" 'consult-goto-line)
 
 ;;;
 ;;; Shell
