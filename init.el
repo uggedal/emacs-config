@@ -307,6 +307,7 @@
   (interactive)
   (require 'vc-git)
   (require 'diff-hl)
+  (require 'magit)
 
   (if (not (buffer-file-name))
       (error "Non-file buffer!"))
