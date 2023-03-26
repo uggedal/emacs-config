@@ -189,6 +189,7 @@
 (keymap-global-set "C-x C-b" 'ibuffer-list-buffers)
 
 (with-eval-after-load 'dired
+  (eval-when-compile (require 'dired))
   (keymap-set dired-mode-map "RET" 'dired-find-alternate-file)
   (keymap-set dired-mode-map "^" (lambda ()
                                    (interactive)
@@ -208,9 +209,11 @@
 
 (ensure-package 'vertico)
 (setopt vertico-cycle t)
-(vertico-mode)
+(when (fboundp 'vertico-mode)
+  (vertico-mode))
 
 (with-eval-after-load 'vertico
+  (eval-when-compile (require 'vertico))
   (keymap-set vertico-map "RET" 'vertico-directory-enter)
   (keymap-set vertico-map "DEL" 'vertico-directory-delete-char)
   (keymap-set vertico-map "M-DEL" 'vertico-directory-delete-word))
@@ -228,7 +231,8 @@
               (lambda (time)
                 (let ((system-time-locale "C"))
                   (format-time-string "%Y-%m-%d %H:%M" time)))))
-(marginalia-mode)
+(when (fboundp 'marginalia-mode)
+  (marginalia-mode))
 
 (ensure-package 'corfu)
 (setopt corfu-cycle t
@@ -236,11 +240,14 @@
         corfu-popupinfo-delay nil)
 
 (with-eval-after-load 'corfu
+  (eval-when-compile (require 'corfu))
+
   (defun corfu-enable-in-minibuffer ()
     "Enable for M-: and M-!"
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (setq-local corfu-echo-delay nil)
-      (corfu-mode)))
+      (when (fboundp 'corfu-mode)
+        (corfu-mode))))
 
   (keymap-set corfu-map "SPC" 'corfu-insert-separator)
 
@@ -248,7 +255,8 @@
   (add-hook 'corfu-mode-hook 'corfu-echo-mode)
   (add-hook 'corfu-mode-hook 'corfu-popupinfo-mode))
 
-(global-corfu-mode)
+(when (fboundp 'global-corfu-mode)
+  (global-corfu-mode))
 
 (ensure-package 'cape)
 (keymap-global-set "M-/" 'cape-dabbrev)
@@ -265,6 +273,7 @@
 
 (ensure-package 'vterm)
 (with-eval-after-load 'vterm
+  (eval-when-compile (require 'vterm))
   (keymap-set vterm-mode-map "M-`" nil)
   (keymap-set vterm-mode-map "C-q" 'vterm-send-next-key))
 
@@ -287,6 +296,7 @@
   "Search for previous commit messages from history."
   (interactive)
   (require 'dash)
+
   (insert (completing-read "History: "
                            (-remove
                             (lambda (item)
@@ -299,6 +309,7 @@
                                       log-edit-comment-ring)))))))
 
 (with-eval-after-load 'git-commit
+  (eval-when-compile (require 'git-commit))
   (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
 
 (ensure-package 'magit)
@@ -354,6 +365,7 @@
 (setopt eglot-autoshutdown t)
 
 (with-eval-after-load 'eglot
+  (eval-when-compile (require 'eglot))
   (keymap-set eglot-mode-map "C-c l f" 'eglot-format)
   (keymap-set eglot-mode-map "C-c l r" 'eglot-rename)
   (keymap-set eglot-mode-map "C-c l c" 'eglot-code-actions))
@@ -391,6 +403,7 @@
 
 (ensure-package 'flyspell-correct)
 (with-eval-after-load 'flyspell
+  (eval-when-compile (require 'flyspell))
   (keymap-set flyspell-mode-map "C-;" 'flyspell-correct-wrapper))
 
 (setopt calendar-week-start-day 1)
@@ -408,6 +421,7 @@
         org-directory "~/src/notes"
         org-agenda-files '("work.org" "personal.org" "tech.org"))
 (with-eval-after-load 'org
+  (eval-when-compile (require 'org))
   (keymap-set org-mode-map "C-M-<up>" 'org-up-element))
 
 (setopt org-todo-keyword-faces '(("NEXT" . '(org-level-3 org-todo))
@@ -457,6 +471,7 @@
 (setopt help-window-select t)
 
 (with-eval-after-load 'info
+  (defvar Info-directory-list)
   (add-to-list 'Info-directory-list "/opt/homebrew/share/info"))
 
 (ensure-package 'which-key)
