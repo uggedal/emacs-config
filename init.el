@@ -153,24 +153,18 @@
 ;;; History
 ;;;
 
-(use-package recentf
-  :custom (recentf-max-saved-items 1000)
-  :bind ([remap find-file-read-only] . recentf-open)
-  :config (recentf-mode))
+(setopt recentf-max-saved-items 1000)
+(global-set-key "C-x C-r" 'recentf-open)
+(recentf-mode)
 
-(use-package savehist
-  :custom (savehist-additional-variables '(search-ring
-                                           regexp-search-ring
-                                           last-kbd-macro
-                                           shell-command-history
-                                           log-edit-comment-ring))
-  :config (savehist-mode 1))
-
-(use-package saveplace
-  :config (save-place-mode 1))
-
-(use-package desktop
-  :config (desktop-save-mode))
+(setopt savehist-additional-variables '(search-ring
+                                        regexp-search-ring
+                                        last-kbd-macro
+                                        shell-command-history
+                                        log-edit-comment-ring))
+(savehist-mode)
+(save-place-mode)
+(desktop-save-mode)
 
 ;;;
 ;;; Navigation and Search
