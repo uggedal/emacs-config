@@ -292,7 +292,7 @@
 
 (ensure-package 'git-commit)
 
-(autoload 'ring-elements "ring" nil t)
+(autoload 'ring-elements "ring")
 
 (defun commit-message-completion ()
   "Search for previous commit messages from history."
