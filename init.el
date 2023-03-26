@@ -262,24 +262,16 @@
 ;;; Shell
 ;;;
 
-(use-package vterm
-  :ensure t
-  :preface
-  (defun unbind-vterm-meta-backtick ()
-    "For making other-frame binding work"
-    (keymap-set vterm-mode-map "M-`" nil))
-  :defines vterm-mode-map
-  :bind (:map vterm-mode-map
-              ("C-q" . vterm-send-next-key))
-  :hook (vterm-mode . unbind-vterm-meta-backtick))
+(ensure-package 'vterm)
+(with-eval-after-load 'vterm
+  (keymap-set vterm-mode-map "M-`" nil)
+  (keymap-set vterm-mode-map "C-q" 'vterm-send-next-key))
 
-(use-package multi-vterm
-  :ensure t
-  :bind ([remap project-shell] . multi-vterm-project))
+(ensure-package 'multi-vterm)
+(keymap-global-set "C-x p s" 'multi-vterm-project)
 
-(use-package with-editor
-  :ensure t
-  :hook (vterm-mode . with-editor-export-editor))
+(ensure-package 'with-editor)
+(add-hook 'vterm-mode-hook 'with-editor-export-editor)
 
 ;;;
 ;;; VCS
