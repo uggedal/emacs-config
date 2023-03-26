@@ -281,7 +281,6 @@
 
 (ensure-package 'git-commit)
 
-;; FIXME: not working:
 (defun commit-message-completion ()
   "Search for previous commit messages from history."
   (interactive)
