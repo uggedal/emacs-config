@@ -278,7 +278,7 @@
 ;;;
 
 (setopt vc-handled-backends '(Git)
-        log-edit-comment-ring (make-ring 1000))
+        log-edit-maximum-comment-ring-size 1000)
 
 (ensure-package 'git-commit)
 
