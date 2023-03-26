@@ -460,6 +460,9 @@
 ;;; Programming modes
 ;;;
 
+(ensure-package 'hl-todo)
+(add-hook 'prog-mode-hook 'hl-todo-mode)
+
 (defun enable-indent-tabs-mode ()
   "Enable tab indent."
   (setq-local indent-tabs-mode t))
