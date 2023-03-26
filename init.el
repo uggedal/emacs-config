@@ -277,67 +277,58 @@
 ;;; VCS
 ;;;
 
-(use-package vc-hooks
-  :custom (vc-handled-backends '(Git) "Only enable git backend"))
+(setopt vc-handled-backends '(Git)
+        log-edit-comment-ring (make-ring 1000))
 
-(use-package log-edit
-  :custom
-  (log-edit-comment-ring (make-ring 1000)))
+(ensure-package 'git-commit)
 
-(use-package git-commit
-  :ensure t
-  :defines git-commit-mode-map
-  :functions ring-elements
-  :preface (defun commit-message-completion ()
-             (interactive)
-             (require 'dash)
-             (insert (completing-read
-                      "History: "
-                      (delete-dups
-                       ;; Remove unnecessary newlines (at beg and end).
-                       (mapcar (lambda (text) (string-trim text))
-                               (ring-elements log-edit-comment-ring))))))
-  :bind (:map git-commit-mode-map
-              ("M-r" . commit-message-completion)))
+(defun commit-message-completion ()
+  (interactive)
+  (require 'dash)
+  (insert (completing-read
+           "History: "
+           (delete-dups
+            ;; Remove unnecessary newlines (at beg and end).
+            (mapcar (lambda (text) (string-trim text))
+                    (ring-elements log-edit-comment-ring))))))
+(with-eval-after-load 'git-commit
+  (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
 
-(use-package magit
-  :ensure t
-  :functions magit-unstaged-files
-  :custom (magit-diff-refine-hunk 'all)
-  :bind (("C-x g" . magit-status)
-         ("C-x v p" . automatic-commit-and-push))
-  :config
+(ensure-package 'magit)
+(keymap-global-set "C-x g" 'magit-status)
+
+(defun automatic-commit-and-push ()
+  "Automatically commit and push."
+  (interactive)
   (require 'vc-git)
   (require 'diff-hl)
-  (declare-function vc-git-command "vc-git" (buffer okstatus file-or-list
-                                                    &rest flags))
-  (declare-function diff-hl-update "diff-hl" ())
-  (defun automatic-commit-and-push ()
-    (interactive)
 
-    (if (not (buffer-file-name))
-        (error "Non-file buffer!"))
-    (cond ((= 0 (length (magit-unstaged-files)))
-           (message "No changes to commit"))
-          (t
-           (vc-git-command nil 0 nil "commit" "-am" "sync")
-           (vc-git-command nil 0 nil "push")
-           (diff-hl-update)
-           (message "Committed and pushed")
-           t))))
+  (if (not (buffer-file-name))
+      (error "Non-file buffer!"))
+  (cond ((= 0 (length (magit-unstaged-files)))
+         (message "No changes to commit"))
+        (t
+         (vc-git-command nil 0 nil "commit" "-am" "sync")
+         (vc-git-command nil 0 nil "push")
+         (diff-hl-update)
+         (message "Committed and pushed")
+         t)))
+(keymap-global-set "C-x v p" 'automatic-commit-and-push)
 
-(use-package diff-mode
-  :defer
-  :custom (diff-font-lock-prettify t))
+(setopt diff-font-lock-prettify t)
 
-(use-package diff-hl
-  :ensure t
-  :hook (((prog-mode conf-mode text-mode vc-dir-mode) . turn-on-diff-hl-mode)
-         (magit-pre-refresh . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh)))
+(ensure-package 'diff-hl)
+(with-eval-after-load 'prog-mode
+  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
+(with-eval-after-load 'vc-dir
+  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
+(add-hook 'text-mode-hook 'turn-on-diff-hl-mode)
 
-(use-package diff-hl-dired
-  :hook (dired-mode))
+(with-eval-after-load 'magit
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
+(add-hook 'dired-mode-hook 'diff-hl-dired)
 
 ;;;
 ;;; IDE
