@@ -292,10 +292,14 @@
 
 (ensure-package 'git-commit)
 
+(autoload 'ring-elements "ring" nil t)
+
 (defun commit-message-completion ()
   "Search for previous commit messages from history."
   (interactive)
-  (require 'dash)
+  (eval-and-compile (require 'dash)
+                    (require 'log-edit))
+
 
   (insert (completing-read "History: "
                            (-remove
@@ -315,12 +319,16 @@
 (ensure-package 'magit)
 (keymap-global-set "C-x g" 'magit-status)
 
+(autoload 'magit-unstaged-files "magit-git")
+(autoload 'vc-git-command "vc-git")
+(autoload 'diff-hl-update "diff-hl")
+
 (defun automatic-commit-and-push ()
   "Automatically commit and push."
   (interactive)
   (require 'vc-git)
   (require 'diff-hl)
-  (require 'magit)
+  (require 'magit-git)
 
   (if (not (buffer-file-name))
       (error "Non-file buffer!"))
