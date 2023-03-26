@@ -282,6 +282,7 @@
 
 (ensure-package 'git-commit)
 
+;; FIXME: not working:
 (defun commit-message-completion ()
   (interactive)
   (require 'dash)
@@ -334,29 +335,32 @@
 ;;; IDE
 ;;;
 
-(use-package eglot
-  :preface (defun toggle-eglot-format-hook ()
-             (if (and (fboundp 'eglot-managed-p) (eglot-managed-p))
-                 ;; Places hook before (-10) Eglot's willSave notification,
-                 ;; so that that notification reports the actual contents that
-                 ;; will be saved:
-                 (add-hook 'before-save-hook 'eglot-format-buffer -10 t)
-               (remove-hook 'before-save-hook 'eglot-format-buffer)))
-  :custom (eglot-autoshutdown t)
-  :bind (("C-c l f" . eglot-format)
-         ("C-c l r" . eglot-rename)
-         ("C-c l c" . eglot-code-actions))
-  :hook ((python-base-mode . eglot-ensure)
-         (eglot-managed-mode . toggle-eglot-format-hook)))
+(defun toggle-eglot-format-hook ()
+  (if (and (fboundp 'eglot-managed-p) (eglot-managed-p))
+      ;; Places hook before (-10) Eglot's willSave notification,
+      ;; so that that notification reports the actual contents that
+      ;; will be saved:
+      (add-hook 'before-save-hook 'eglot-format-buffer -10 t)
+    (remove-hook 'before-save-hook 'eglot-format-buffer)))
 
-(use-package flymake
-  :bind (:map flymake-mode-map
-              ("M-n" . flymake-goto-next-error)
-              ("M-p" . flymake-goto-prev-error))
-  :hook (emacs-lisp-mode-hook . flymake-mode))
+(setopt eglot-autoshutdown t)
 
-(use-package eldoc
-  :custom (eldoc-echo-area-use-multiline-p nil "Single-line doc string"))
+(with-eval-after-load 'eglot
+  (keymap-set eglot-mode-map "C-c l f" 'eglot-format)
+  (keymap-set eglot-mode-map "C-c l r" 'eglot-rename)
+  (keymap-set eglot-mode-map "C-c l c" 'eglot-code-actions))
+
+(add-hook 'python-base-mode-hook 'eglot-ensure)
+(add-hook 'eglot-managed-mode-hook 'toggle-eglot-format-hook)
+
+(with-eval-after-load 'flymake
+  (keymap-set flymake-mode-map "M-n" 'flymake-goto-next-error)
+  (keymap-set flymake-mode-map "M-p" 'flymake-goto-prev-error))
+
+(add-hook 'emacs-lisp-mode-hook 'flymake-mode)
+
+;; Single line doc string:
+(setopt eldoc-echo-area-use-multiline-p nil)
 
 ;;;
 ;;; Writing
