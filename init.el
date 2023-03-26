@@ -233,19 +233,18 @@
         corfu-echo-delay t
         corfu-popupinfo-delay nil)
 
-(defun corfu-enable-in-minibuffer ()
-  "Enable for M-: and M-!"
-  (when (where-is-internal #'completion-at-point
-                           (list (current-local-map)))
-    (setq-local corfu-echo-delay nil)
-    (corfu-mode)))
-
 (with-eval-after-load 'corfu
-  (keymap-set corfu-map "SPC" 'corfu-insert-separator))
+  (defun corfu-enable-in-minibuffer ()
+    "Enable for M-: and M-!"
+    (when (where-is-internal #'completion-at-point (list (current-local-map)))
+      (setq-local corfu-echo-delay nil)
+      (corfu-mode)))
 
-(add-hook 'corfu-mode-hook 'corfu-echo-mode)
-(add-hook 'corfu-mode-hook 'corfu-popupinfo-mode)
-(add-hook 'minibuffer-setup-hook 'corfu-enable-in-minibuffer)
+  (keymap-set corfu-map "SPC" 'corfu-insert-separator)
+
+  (add-hook 'minibuffer-setup-hook 'corfu-enable-in-minibuffer)
+  (add-hook 'corfu-mode-hook 'corfu-echo-mode)
+  (add-hook 'corfu-mode-hook 'corfu-popupinfo-mode))
 
 (global-corfu-mode)
 
