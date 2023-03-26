@@ -366,82 +366,64 @@
 ;;; Writing
 ;;;
 
-(use-package ispell
-  :custom
-  (ispell-program-name "hunspell")
-  (ispell-silently-savep t)
-  (ispell-dictionary "en_US,nb_NO")
-  :init
-  (setenv "LANG" "en_US.UTF-8")
-  :config
+(setenv "LANG" "en_US.UTF-8")
+(setopt ispell-program-name "hunspell"
+  ispell-silently-savep t
+  ispell-dictionary "en_US,nb_NO")
+
+(with-eval-after-load 'ispell
   (if (fboundp 'ispell-set-spellchecker-params)
       (ispell-set-spellchecker-params))
   (if (fboundp 'ispell-hunspell-add-multi-dic)
       (ispell-hunspell-add-multi-dic "en_US,nb_NO")))
 
-(use-package flyspell
-  :hook ((text-mode)
-         (prog-mode . flyspell-prog-mode)))
+(add-hook 'text-mode-hook 'flyspell-mode)
+(with-eval-after-load 'prog-mode
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-(use-package flyspell-correct
-  :ensure t
-  :after flyspell
-  :bind (:map flyspell-mode-map
-              ([remap flyspell-auto-correct-previous-word] .
-               flyspell-correct-wrapper)))
+(ensure-package 'flyspell-correct)
+(with-eval-after-load 'flyspell
+  (keymap-set flyspell-mode-map "C-;" 'flyspell-correct-wrapper))
 
-(use-package calendar
-  :custom (calendar-week-start-day 1))
+(setopt calendar-week-start-day 1)
 
-(use-package org
-  :defer t
-  :custom
-  (org-hide-emphasis-markers t)
-  (org-startup-indented t)
-  (org-startup-folded t)
-  (org-blank-before-new-entry (quote ((heading .t) (plain-list-item . nil))))
-  (org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE")))
-  (org-startup-with-inline-images t)
-  (org-ellipsis " …")
-  (org-image-actual-width nil)
-  (org-special-ctrl-a/e t)
-  (org-directory "~/src/notes")
-  (org-agenda-files '("work.org" "personal.org" "tech.org"))
-  :bind (:map org-mode-map
-              ("C-M-<up>" . org-up-element)))
+(setopt org-hide-emphasis-markers t
+        org-startup-indented t
+        org-startup-folded t
+        org-blank-before-new-entry (quote ((heading .t)
+                                           (plain-list-item . nil)))
+        org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
+        org-startup-with-inline-images t
+        org-ellipsis " …"
+        org-image-actual-width nil
+        org-special-ctrl-a/e t
+        org-directory "~/src/notes"
+        org-agenda-files '("work.org" "personal.org" "tech.org"))
+(with-eval-after-load 'org
+  (keymap-set org-mode-map "C-M-<up>" 'org-up-element))
 
-(use-package org-faces
-  :after org
-  :custom (org-todo-keyword-faces '(("NEXT" . '(org-level-3 org-todo))
-                                    ("DOING" . '(org-level-4 org-todo)))))
+(setopt org-todo-keyword-faces '(("NEXT" . '(org-level-3 org-todo))
+                                 ("DOING" . '(org-level-4 org-todo))))
 
-(use-package org-cycle
-  :after org
-  :custom (org-cycle-separator-lines 1))
+(setopt org-cycle-separator-lines 1)
 
-(use-package org-goto
-  :after org
-  :custom (org-goto-interface 'outline-path-completion))
+(setopt org-goto-interface 'outline-path-completion)
 
-(use-package org-agenda
-  :custom (org-agenda-span 14)
-  :bind ("C-c a" . org-agenda))
+(setopt org-agenda-span 14)
+(keymap-global-set "C-c a" 'org-agenda)
 
-(use-package org-capture
-  :custom (org-capture-templates
-           '(
-             ("j" "Journal Entry"
-              entry (file+olp+datetree "~/src/notes/work.org")
-              "* %?"
-              :empty-lines 1)))
-  :bind ("C-c c" . org-capture))
+(setopt org-capture-templates
+        '(
+          ("j" "Journal Entry"
+           entry (file+olp+datetree "~/src/notes/work.org")
+           "* %?"
+           :empty-lines 1)))
 
-(use-package ol
-  :bind ("C-c l" . org-store-link))
+(keymap-global-set "C-c c" 'org-capture)
+(keymap-global-set "C-c l" 'org-store-link)
 
-(use-package org-appear
-  :ensure t
-  :hook org-mode)
+(ensure-package 'org-appear)
+(add-hook 'org-mode-hook 'org-appear-mode)
 
 ;;;
 ;;; Programming modes
