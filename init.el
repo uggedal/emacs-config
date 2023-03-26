@@ -154,7 +154,7 @@
 ;;;
 
 (setopt recentf-max-saved-items 1000)
-(global-set-key "C-x C-r" 'recentf-open)
+(keymap-global-set "C-x C-r" 'recentf-open)
 (recentf-mode)
 
 (setopt savehist-additional-variables '(search-ring
@@ -170,37 +170,35 @@
 ;;; Navigation and Search
 ;;;
 
-(use-package frame
-  :config
-  (blink-cursor-mode 0)
-  ;; Disable suspend frame:
-  (keymap-global-unset "C-z")
-  :bind (("C-<tab>" . next-multiframe-window)
-         ("C-S-<tab>" . previous-multiframe-window)))
+(setopt blink-cursor-mode 0)
+;; Disable suspend frame:
+(keymap-global-unset "C-z")
 
-(use-package ns-win
-  :bind (("M-`" . ns-next-frame)
-         ("M-~" . ns-prev-frame)))
+;; MacOS like window and frame switching:
+(keymap-global-set "C-<tab>" 'next-multiframe-window)
+(keymap-global-set "C-S-<tab>" 'previous-multiframe-window)
+(keymap-global-set "M-`" 'ns-next-frame)
+(keymap-global-set "M-~" 'ns-prev-frame)
 
-(use-package isearch
-  :custom (isearch-lazy-count t)
-  :bind (:map isearch-mode-map
-              ([remap isearch-delete-char] . isearch-del-char)))
+(setopt isearch-lazy-count t)
+;; Sane isearch query editing:
+(keymap-set isearch-mode-map "DEL" 'isearch-del-char)
 
-(use-package ibuffer
-  :bind ([remap list-buffers] . ibuffer-list-buffers))
+(keymap-global-set "C-x C-b" 'ibuffer-list-buffers)
 
-(use-package dired
-  :custom (dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
-  :bind (:map dired-mode-map
-         ("RET" . dired-find-alternate-file)
-         ("^" . (lambda () (interactive) (find-alternate-file ".."))))
-  :config (put 'dired-find-alternate-file 'disabled nil))
+(setopt dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "RET" 'dired-find-alternate-file)
+  (keymap-set dired-mode-map "^" (lambda ()
+                                   (interactive)
+                                   (find-alternate-file "..")))
+  (put 'dired-find-alternate-file 'disabled nil))
 
-(use-package goto-addr
-  :custom (goto-address-uri-schemes '("http://" "https://"))
-  :hook ((vterm-mode . goto-address-mode)
-         ((prog-mode conf-mode) . goto-address-prog-mode)))
+(setopt goto-address-uri-schemes '("http://" "https://"))
+(with-eval-after-load 'vterm
+  (add-hook 'vterm-mode-hook 'goto-address-mode))
+(with-eval-after-load 'prog-mode
+  (add-hook 'prog-mode 'goto-address-prog-mode))
 
 ;;;
 ;;; Completion
