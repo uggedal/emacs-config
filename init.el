@@ -341,6 +341,7 @@
 ;;;
 
 (defun toggle-eglot-format-hook ()
+  "Run Eglot format on save and disable when Eglot is tuned off."
   (if (and (fboundp 'eglot-managed-p) (eglot-managed-p))
       ;; Places hook before (-10) Eglot's willSave notification,
       ;; so that that notification reports the actual contents that
