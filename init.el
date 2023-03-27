@@ -53,14 +53,16 @@
           (border-mode-line-inactive unspecified)))
 
 (defun modus-themes-custom-faces ()
-  "Add padding to mode line."
+  "Add padding to mode line and dim DONE org headings."
   (modus-themes-with-colors
     (let ((padding 6))
       (custom-set-faces
        `(mode-line
          ((,c :box (:line-width ,padding :color ,bg-mode-line-active))))
        `(mode-line-inactive
-         ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))))))
+         ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))
+       `(org-done
+         ((,c :foreground ,fg-dim)))))))
 
 (add-hook 'modus-themes-after-load-theme-hook #'modus-themes-custom-faces)
 
