@@ -48,9 +48,13 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
+(ensure-package 'diminish)
+(require 'diminish)
+
 (setopt whitespace-line-column 79
         whitespace-style '(face tabs lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
+(add-hook 'whitespace-mode-hook (lambda () (diminish 'whitespace-mode)))
 
 (setopt pixel-scroll-precision-large-scroll-height 35.0)
 (pixel-scroll-mode)
@@ -128,6 +132,8 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(diminish 'auto-fill-function)
 
 (subword-mode)
 
@@ -407,6 +413,8 @@
 ;; Single line doc string:
 (setopt eldoc-echo-area-use-multiline-p nil)
 
+(add-hook 'eldoc-mode-hook (lambda () (diminish 'eldoc-mode)))
+
 ;;;
 ;;; Writing
 ;;;
@@ -425,6 +433,8 @@
 (add-hook 'text-mode-hook 'flyspell-mode)
 (with-eval-after-load 'prog-mode
   (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+
+(add-hook 'flyspell-mode-hook (lambda () (diminish 'flyspell-mode)))
 
 (ensure-package 'flyspell-correct)
 (with-eval-after-load 'flyspell
@@ -470,6 +480,9 @@
 (keymap-global-set "C-c c" 'org-capture)
 (keymap-global-set "C-c l" 'org-store-link)
 
+(with-eval-after-load 'org-indent
+  (diminish 'org-indent-mode))
+
 (ensure-package 'org-appear)
 (add-hook 'org-mode-hook 'org-appear-mode)
 
@@ -505,6 +518,7 @@
 
 (ensure-package 'which-key)
 (add-hook 'after-init-hook 'which-key-mode)
+(add-hook 'which-key-mode-hook (lambda () (diminish 'which-key-mode)))
 
 ;; Make flymake know about our load path (ELPA):
 (setq elisp-flymake-byte-compile-load-path load-path)
