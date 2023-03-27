@@ -53,16 +53,22 @@
           (border-mode-line-inactive unspecified)))
 
 (defun modus-themes-custom-faces ()
-  "Add padding to mode line and dim DONE org headings."
+  "Custom overrides of Modus Operandi theme."
   (modus-themes-with-colors
     (let ((padding 6))
       (custom-set-faces
+       ;; Padding for mode line:
        `(mode-line
          ((,c :box (:line-width ,padding :color ,bg-mode-line-active))))
        `(mode-line-inactive
-         ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))
-       `(org-done
-         ((,c :foreground ,fg-dim)))))))
+         ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))))
+    (custom-set-faces
+     ;; Dim DONE Org headlines:
+     `(org-done
+       ((,c :foreground ,fg-dim)))
+     ;; Bring back dashed fill column indicator (relative height and no bg):
+     `(fill-column-indicator ((,c :height 1.0 :background ,nil
+                                  :foreground ,bg-active))))))
 
 (add-hook 'modus-themes-after-load-theme-hook #'modus-themes-custom-faces)
 
