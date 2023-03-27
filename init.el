@@ -58,6 +58,9 @@
 
           ;; Some color for region background:
           (bg-region bg-yellow-nuanced)
+
+          ;; Some color for active mode line:
+          (bg-mode-line-active bg-blue-subtle)
         ))
 
 (defun modus-themes-custom-faces ()
