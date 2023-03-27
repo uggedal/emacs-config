@@ -71,6 +71,11 @@
           (fg-heading-6 fg-alt)
           (fg-heading-7 fg-alt)
           (fg-heading-8 fg-alt)
+
+          ;; Lighter fringe diff highlights:
+          (bg-added-fringe bg-added)
+          (bg-changed-fringe bg-changed)
+          (bg-removed-fringe bg-removed)
         ))
 
 (defun modus-themes-custom-faces ()
