@@ -56,6 +56,8 @@
           (border-mode-line-active unspecified)
           (border-mode-line-inactive unspecified)
 
+          ;; Some color for region background:
+          (bg-region bg-yellow-nuanced)
         ))
 
 (defun modus-themes-custom-faces ()
