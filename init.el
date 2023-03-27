@@ -492,6 +492,8 @@
 
 (ensure-package 'terraform-mode)
 
+(ensure-package 'systemd)
+
 ;;;
 ;;; Misc
 ;;;
