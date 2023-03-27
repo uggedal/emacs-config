@@ -35,6 +35,7 @@
 
 (setopt modus-themes-subtle-line-numbers t
         modus-themes-links '(no-underline)
+        modus-themes-fringes nil
         modus-themes-mode-line '(borderless (padding . 6)))
 
 (load-theme 'modus-operandi)
