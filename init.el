@@ -33,12 +33,38 @@
 ;;; Appearance
 ;;;
 
-(setopt modus-themes-subtle-line-numbers t
-        modus-themes-links '(no-underline)
-        modus-themes-fringes nil
-        modus-themes-mode-line '(borderless (padding . 6)))
+(ensure-package 'modus-themes)
+(require 'modus-themes)
 
-(load-theme 'modus-operandi)
+(setopt modus-themes-common-palette-overrides
+        '(;; Subtle line numbers:
+          (fg-line-number-active fg-main)
+          (fg-line-number-inactive "gray50")
+          (bg-line-number-active unspecified)
+          (bg-line-number-inactive unspecified)
+          ;; Disable link underline:
+          (underline-link unspecified)
+          (underline-link-visited unspecified)
+          (underline-link-symbolic unspecified)
+          ;; Subtle fringe:
+          (fringe unspecified)
+          ;; Border-less mode line:
+          (border-mode-line-active unspecified)
+          (border-mode-line-inactive unspecified)))
+
+(defun modus-themes-custom-faces ()
+  "Add padding to mode line."
+  (modus-themes-with-colors
+    (let ((padding 6))
+      (custom-set-faces
+       `(mode-line
+         ((,c :box (:line-width ,padding :color ,bg-mode-line-active))))
+       `(mode-line-inactive
+         ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))))))
+
+(add-hook 'modus-themes-after-load-theme-hook #'modus-themes-custom-faces)
+
+(modus-themes-load-theme 'modus-operandi)
 
 (with-eval-after-load 'faces
   (set-face-attribute 'default nil :font "SF Mono" :height 150))
