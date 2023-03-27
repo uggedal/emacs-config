@@ -500,7 +500,7 @@
                                     (plain-list-item . nil))
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
         org-startup-with-inline-images t
-        org-ellipsis " …"
+        org-ellipsis " ▾"
         org-image-actual-width nil
         org-special-ctrl-a/e t
         org-directory "~/src/notes"
