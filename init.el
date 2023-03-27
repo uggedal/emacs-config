@@ -89,6 +89,7 @@
        `(mode-line-inactive
          ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))))
     (custom-set-faces
+     `(org-todo ((,c :foreground ,red :background ,bg-red-nuanced)))
      ;; Dim DONE Org headlines:
      `(org-done ((,c :foreground ,fg-dim)))
      ;; Bring back dashed fill column indicator (relative height and no bg):
@@ -503,9 +504,11 @@
   (keymap-set org-mode-map "C-M-<up>" 'org-up-element))
 
 (setopt org-todo-keyword-faces '(("NEXT" .
-                                  '(modus-themes-intense-blue org-todo))
+                                  '(modus-themes-fg-green
+                                    modus-themes-nuanced-green org-todo))
                                  ("DOING" .
-                                  '(modus-themes-intense-yellow org-todo))))
+                                  '(modus-themes-fg-yellow
+                                    modus-themes-nuanced-yellow org-todo))))
 
 (setopt org-cycle-separator-lines 1)
 
