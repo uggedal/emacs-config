@@ -557,6 +557,14 @@
 (ensure-package 'systemd)
 
 ;;;
+;;; Web
+;;;
+
+(ensure-package 'rainbow-mode)
+(setopt rainbow-html-colors nil
+        rainbow-x-colors nil)
+
+;;;
 ;;; Misc
 ;;;
 
