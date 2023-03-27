@@ -2,7 +2,7 @@
 (custom-set-variables '(tool-bar-mode . nil)
                       '(scroll-bar-mode nil))
 
-(modify-all-frames-parameters '((ns-appearance . dark)
+(modify-all-frames-parameters '((ns-apperance . light)
                                 (ns-transparent-titlebar . t)
                                 (width . 80)
                                 (height . 40)))

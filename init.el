@@ -33,17 +33,14 @@
 ;;; Appearance
 ;;;
 
-(ensure-package 'nimbus-theme)
-(load-theme 'nimbus t)
+(setopt modus-themes-subtle-line-numbers t
+        modus-themes-links '(no-underline)
+        modus-themes-mode-line '(borderless (padding . 6)))
+
+(load-theme 'modus-operandi)
 
 (with-eval-after-load 'faces
-  (set-face-attribute 'default nil :font "SF Mono" :height 130)
-  ;; Remove link underline:
-  (set-face-attribute 'link nil :underline nil)
-  ;; Mode line padding:
-  (set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#2b2b47"))
-  (set-face-attribute 'mode-line-inactive nil :box
-                      '(:line-width 6 :color "#2b2b2b")))
+  (set-face-attribute 'default nil :font "SF Mono" :height 150))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
@@ -445,8 +442,10 @@
   (eval-when-compile (require 'org))
   (keymap-set org-mode-map "C-M-<up>" 'org-up-element))
 
-(setopt org-todo-keyword-faces '(("NEXT" . '(org-level-3 org-todo))
-                                 ("DOING" . '(org-level-4 org-todo))))
+(setopt org-todo-keyword-faces '(("NEXT" .
+                                  '(modus-themes-intense-blue org-todo))
+                                 ("DOING" .
+                                  '(modus-themes-intense-yellow org-todo))))
 
 (setopt org-cycle-separator-lines 1)
 
