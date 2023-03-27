@@ -3,7 +3,9 @@
                       '(scroll-bar-mode nil))
 
 (modify-all-frames-parameters '((ns-appearance . dark)
-                                  (ns-transparent-titlebar . t)))
+                                (ns-transparent-titlebar . t)
+                                (width . 80)
+                                (height . 40)))
 
 ;; No startup screen or echo message:
 (setq inhibit-startup-screen t
