@@ -90,8 +90,7 @@
          ((,c :box (:line-width ,padding :color ,bg-mode-line-inactive))))))
     (custom-set-faces
      ;; Dim DONE Org headlines:
-     `(org-done
-       ((,c :foreground ,fg-dim)))
+     `(org-done ((,c :foreground ,fg-dim)))
      ;; Bring back dashed fill column indicator (relative height and no bg):
      `(fill-column-indicator ((,c :height 1.0 :background ,nil
                                   :foreground ,bg-active))))))
