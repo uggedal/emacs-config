@@ -280,8 +280,22 @@
   (keymap-set vterm-mode-map "M-`" nil)
   (keymap-set vterm-mode-map "C-q" 'vterm-send-next-key))
 
-(ensure-package 'multi-vterm)
-(keymap-global-set "C-x p s" 'multi-vterm-project)
+(autoload 'project-root "project")
+(autoload 'project-prefixed-buffer-name "project")
+
+(defun project-vterm ()
+  "Open dedicated vterm instance for active project."
+  (interactive)
+
+  (let* ((default-directory (project-root (project-current t)))
+         (default-project-vterm-name (project-prefixed-buffer-name "vterm"))
+         (vterm-buffer (get-buffer default-project-vterm-name)))
+    (if (and vterm-buffer (not current-prefix-arg))
+        (pop-to-buffer vterm-buffer display-comint-buffer-action)
+      (when (fboundp 'vterm)
+        (vterm (generate-new-buffer-name default-project-vterm-name))))))
+
+(keymap-global-set "C-x p s" 'project-vterm)
 
 (ensure-package 'with-editor)
 (add-hook 'vterm-mode-hook 'with-editor-export-editor)
