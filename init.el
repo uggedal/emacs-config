@@ -67,7 +67,7 @@
 (modus-themes-load-theme 'modus-operandi)
 
 (with-eval-after-load 'faces
-  (set-face-attribute 'default nil :font "SF Mono" :height 150))
+  (set-face-attribute 'default nil :font "SF Mono" :height 140))
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
