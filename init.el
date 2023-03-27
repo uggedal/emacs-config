@@ -384,6 +384,12 @@
   (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
 
 (ensure-package 'magit)
+
+(with-eval-after-load 'magit-status
+  (eval-when-compile (require 'magit-status))
+  ;; Conflicts with MacOS like window switching:
+  (keymap-set magit-status-mode-map "C-<tab>" nil))
+
 (keymap-global-set "C-x g" 'magit-status)
 
 (autoload 'magit-unstaged-files "magit-git")
