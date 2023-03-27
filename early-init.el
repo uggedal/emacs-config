@@ -7,6 +7,9 @@
                                 (width . 80)
                                 (height . 40)))
 
+;; Do not restrict resize to columns and lines:
+(setq frame-resize-pixelwise t)
+
 ;; No startup screen or echo message:
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message user-login-name)
