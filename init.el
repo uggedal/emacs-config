@@ -455,7 +455,7 @@
 
 (setopt org-hide-emphasis-markers t
         org-startup-indented t
-        org-startup-folded t
+        org-startup-folded 'content
         org-blank-before-new-entry '((heading . t)
                                     (plain-list-item . nil))
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
