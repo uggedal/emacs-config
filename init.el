@@ -61,6 +61,16 @@
 
           ;; Some color for active mode line:
           (bg-mode-line-active bg-blue-subtle)
+
+          ;; Normalize heading colors:
+          (fg-heading-1 fg-alt)
+          (fg-heading-2 fg-alt)
+          (fg-heading-3 fg-alt)
+          (fg-heading-4 fg-alt)
+          (fg-heading-5 fg-alt)
+          (fg-heading-6 fg-alt)
+          (fg-heading-7 fg-alt)
+          (fg-heading-8 fg-alt)
         ))
 
 (defun modus-themes-custom-faces ()
