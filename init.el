@@ -37,20 +37,26 @@
 (require 'modus-themes)
 
 (setopt modus-themes-common-palette-overrides
-        '(;; Subtle line numbers:
+        '(
+          ;; Subtle line numbers:
           (fg-line-number-active fg-main)
           (fg-line-number-inactive "gray50")
           (bg-line-number-active unspecified)
           (bg-line-number-inactive unspecified)
+
           ;; Disable link underline:
           (underline-link unspecified)
           (underline-link-visited unspecified)
           (underline-link-symbolic unspecified)
+
           ;; Subtle fringe:
           (fringe unspecified)
+
           ;; Border-less mode line:
           (border-mode-line-active unspecified)
-          (border-mode-line-inactive unspecified)))
+          (border-mode-line-inactive unspecified)
+
+        ))
 
 (defun modus-themes-custom-faces ()
   "Custom overrides of Modus Operandi theme."
