@@ -172,8 +172,8 @@
 (with-eval-after-load 'faces
   (set-face-attribute 'default nil :font "SF Mono" :height 130))
 
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+(add-prog-and-conf-modes-hook 'display-line-numbers-mode)
+(add-prog-and-conf-modes-hook 'display-fill-column-indicator-mode)
 
 (ensure-package 'diminish)
 (require 'diminish)
@@ -284,8 +284,7 @@
 (setopt goto-address-uri-schemes '("http://" "https://"))
 (with-eval-after-load 'vterm
   (add-hook 'vterm-mode-hook 'goto-address-mode))
-(with-eval-after-load 'prog-mode
-  (add-hook 'prog-mode 'goto-address-prog-mode))
+(add-prog-and-conf-modes-hook 'goto-address-prog-mode)
 
 ;;;
 ;;; Completion
@@ -451,11 +450,9 @@
 (setopt diff-font-lock-prettify t)
 
 (ensure-package 'diff-hl)
-(with-eval-after-load 'prog-mode
-  (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode))
+(add-editing-modes-hook 'turn-on-diff-hl-mode)
 (with-eval-after-load 'vc-dir
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
-(add-hook 'text-mode-hook 'turn-on-diff-hl-mode)
 
 (with-eval-after-load 'magit
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
@@ -514,8 +511,7 @@
       (ispell-hunspell-add-multi-dic "en_US,nb_NO")))
 
 (add-hook 'text-mode-hook 'flyspell-mode)
-(with-eval-after-load 'prog-mode
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+(add-prog-and-conf-modes-hook 'flyspell-prog-mode)
 
 (add-hook 'flyspell-mode-hook (lambda () (diminish 'flyspell-mode)))
 
@@ -578,7 +574,7 @@
 ;;;
 
 (ensure-package 'hl-todo)
-(add-hook 'prog-mode-hook 'hl-todo-mode)
+(add-prog-and-conf-modes-hook 'hl-todo-mode)
 
 (defun enable-indent-tabs-mode ()
   "Enable tab indent."
