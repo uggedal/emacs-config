@@ -46,6 +46,58 @@
   (add-hook 'text-mode-hook function)
   (add-prog-and-conf-modes-hook function))
 
+
+;;;
+;;; Core
+;;;
+
+(setopt ring-bell-function 'ignore
+        use-short-answers t
+        create-lockfiles nil
+        ;; Hide commands in M-x not applicable to active mode:
+        read-extended-command-predicate
+        #'command-completion-default-include-p
+        enable-recursive-minibuffers t
+        ;; Disable right-to-left text:
+        bidi-paragraph-direction 'left-to-right
+        bidi-inhibit-bpa t
+        ;;TAB first indents then completes:
+        tab-always-indent 'complete
+        ;;Make cursor fill entire tab width:
+        x-stretch-cursor t
+        sentence-end-double-space nil
+        ;;Make point follow scrolling:
+        scroll-conservatively 101
+        scroll-margin 3
+        fill-column 79
+        ;;Dashed indicator line"
+        display-fill-column-indicator-character ?\u254e
+        ;;Do not display line continuation lines:
+        truncate-lines t
+        ;;Show unfinished keystrokes immediately:
+        echo-keystrokes 1e-6
+        initial-scratch-message nil
+        ;;Don't ask to kill buffers with processes:
+        kill-buffer-query-functions nil
+        history-delete-duplicates t
+        history-length 1000
+        ns-alternate-modifier nil
+        ns-command-modifier 'meta)
+
+
+(add-editing-modes-hook (lambda () (setq-local show-trailing-whitespace t
+                                               indicate-empty-lines t)))
+
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+;; Don't need confirmation/selection when killing buffers:
+(keymap-global-set "C-x k" 'kill-this-buffer)
+
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;;;
 ;;; Appearance
 ;;;
@@ -136,58 +188,6 @@
 (pixel-scroll-precision-mode 1)
 
 (setopt uniquify-buffer-name-style 'forward)
-
-;;;
-;;; Core
-;;;
-
-(setopt ring-bell-function 'ignore
-        use-short-answers t
-        create-lockfiles nil
-        ;; Hide commands in M-x not applicable to active mode:
-        read-extended-command-predicate
-        #'command-completion-default-include-p
-        enable-recursive-minibuffers t
-        ;; Disable right-to-left text:
-        bidi-paragraph-direction 'left-to-right
-        bidi-inhibit-bpa t
-        ;;TAB first indents then completes:
-        tab-always-indent 'complete
-        ;;Make cursor fill entire tab width:
-        x-stretch-cursor t
-        sentence-end-double-space nil
-        ;;Make point follow scrolling:
-        scroll-conservatively 101
-        scroll-margin 3
-        fill-column 79
-        ;;Dashed indicator line"
-        display-fill-column-indicator-character ?\u254e
-        ;;Do not display line continuation lines:
-        truncate-lines t
-        ;;Show unfinished keystrokes immediately:
-        echo-keystrokes 1e-6
-        initial-scratch-message nil
-        ;;Don't ask to kill buffers with processes:
-        kill-buffer-query-functions nil
-        history-delete-duplicates t
-        history-length 1000
-        ns-alternate-modifier nil
-        ns-command-modifier 'meta)
-
-(dolist (mode-hook '(prog-mode-hook text-mode-hook conf-mode-hook))
-         (add-hook mode-hook
-                   (lambda () (setq-local show-trailing-whitespace t
-                                          indicate-empty-lines t))))
-
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-
-;; Don't need confirmation/selection when killing buffers:
-(keymap-global-set "C-x k" 'kill-this-buffer)
-
-(require 'server)
-(unless (server-running-p)
-  (server-start))
 
 ;;;
 ;;; Editing
