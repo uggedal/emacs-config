@@ -441,7 +441,7 @@
          (message "No changes to commit"))
         (t
          (vc-git-command nil 0 nil "commit" "-am" "sync")
-         (vc-git-command nil 0 nil "push")
+         (vc-git-command nil 'async nil "push")
          (diff-hl-update)
          (message "Committed and pushed")
          t)))
