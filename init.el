@@ -5,6 +5,8 @@
 
 ;;; Code:
 
+(toggle-debug-on-error)
+
 ;;;
 ;;; Bootstrap
 ;;;
@@ -33,6 +35,16 @@
     (unless (memq package package-archive-contents)
       (package-refresh-contents))
     (package-install package)))
+
+(defun add-prog-and-conf-modes-hook (function)
+  "Add FUNCTION as hook to prog and conf modes."
+    (add-hook 'prog-mode-hook function)
+    (add-hook 'conf-mode-hook function))
+
+(defun add-editing-modes-hook (function)
+  "Add FUNCTION as hook to prog, conf and text modes."
+  (add-hook 'text-mode-hook function)
+  (add-prog-and-conf-modes-hook function))
 
 ;;;
 ;;; Appearance
