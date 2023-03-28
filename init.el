@@ -22,6 +22,11 @@
                                    ("nongnu" . 80)
                                    ("melpa" . 70)))
 
+;;;
+;;; Utilities
+;;;
+
+
 (defun ensure-package (package)
   "Install PACKAGE if not already installed."
   (unless (package-installed-p package)
