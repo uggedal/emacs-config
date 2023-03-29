@@ -21,3 +21,6 @@
 (let ((local_bin (expand-file-name "~/.local/bin")))
   (setenv "PATH" (concat local_bin ":" (getenv "PATH")))
   (setq exec-path (push local_bin exec-path)))
+
+;; Extend MANPATH:
+(setenv "MANPATH" (concat "/opt/local/share/man:" (getenv "MANPATH")))
