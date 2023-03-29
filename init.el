@@ -20,9 +20,9 @@
   (package-initialize))
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
-(setq package-archive-priorities '(("gnu"    . 99)
-                                   ("nongnu" . 80)
-                                   ("melpa" . 70)))
+(setq package-archive-priorities '(("melpa" . 3)
+                                   ("gnu"    . 2)
+                                   ("nongnu" . 1)))
 
 ;;;
 ;;; Utilities
