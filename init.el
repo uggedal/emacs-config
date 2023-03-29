@@ -380,8 +380,7 @@
 (defun commit-message-completion ()
   "Search for previous commit messages from history."
   (interactive)
-  (eval-and-compile (require 'dash)
-                    (require 'log-edit))
+  (eval-and-compile (require 'log-edit))
 
 
   (insert (completing-read "History: "
