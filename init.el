@@ -319,7 +319,7 @@
 
 (ensure-package 'corfu)
 (setopt corfu-cycle t
-        corfu-echo-delay t
+        corfu-echo-delay 0.1
         corfu-popupinfo-delay nil)
 
 (with-eval-after-load 'corfu
