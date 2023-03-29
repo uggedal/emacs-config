@@ -499,26 +499,12 @@
 ;;; Writing
 ;;;
 
-(setenv "LANG" "en_US.UTF-8")
-(setopt ispell-program-name "hunspell"
-  ispell-silently-savep t
-  ispell-dictionary "en_US,nb_NO")
+(ensure-package 'jinx)
 
-(with-eval-after-load 'ispell
-  (if (fboundp 'ispell-set-spellchecker-params)
-      (ispell-set-spellchecker-params))
-  (if (fboundp 'ispell-hunspell-add-multi-dic)
-      (ispell-hunspell-add-multi-dic "en_US,nb_NO")))
+(setopt jinx-languages '("en_US" "nb_NO"))
+(add-editing-modes-hook 'jinx-mode)
 
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-prog-and-conf-modes-hook 'flyspell-prog-mode)
-
-(add-hook 'flyspell-mode-hook (lambda () (diminish 'flyspell-mode)))
-
-(ensure-package 'flyspell-correct)
-(with-eval-after-load 'flyspell
-  (eval-when-compile (require 'flyspell))
-  (keymap-set flyspell-mode-map "C-;" 'flyspell-correct-wrapper))
+(keymap-global-set "C-;" 'jinx-correct)
 
 (setopt calendar-week-start-day 1)
 
