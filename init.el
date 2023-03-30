@@ -573,6 +573,16 @@
 ;;; Programming modes
 ;;;
 
+;; Setup MacPorts provided tree-sitter parsers:
+(defun ts-remap (regex-mode ts-mode)
+  "Remap from REGEX-MODE to TS-MODE."
+  (add-to-list 'major-mode-remap-alist `(,regex-mode . ,ts-mode)))
+
+(ts-remap 'conf-toml-mode 'toml-ts-mode)
+(ts-remap 'python-mode 'python-ts-mode)
+(ts-remap 'sh-mode 'bash-ts-mode)
+(add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode))
+
 (ensure-package 'hl-todo)
 (add-prog-and-conf-modes-hook 'hl-todo-mode)
 
