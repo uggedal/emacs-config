@@ -489,7 +489,7 @@
   (keymap-set eglot-mode-map "C-c l r" 'eglot-rename)
   (keymap-set eglot-mode-map "C-c l c" 'eglot-code-actions))
 
-(dolist (hook '(python-base-mode-hook sh-mode-hook))
+(dolist (hook '(python-base-mode-hook sh-base-mode-hook))
   (add-hook hook 'eglot-ensure))
 (add-hook 'eglot-managed-mode-hook 'toggle-eglot-format-hook)
 
