@@ -516,7 +516,9 @@
 (setopt jinx-languages '("en_US" "nb_NO"))
 (add-editing-modes-hook 'jinx-mode)
 
-(keymap-global-set "C-;" 'jinx-correct)
+(with-eval-after-load 'jinx
+    (eval-when-compile (require 'jinx))
+    (keymap-set jinx-mode-map "C-;" 'jinx-correct))
 
 (setopt calendar-week-start-day 1)
 
