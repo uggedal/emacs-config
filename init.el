@@ -163,7 +163,9 @@
      `(org-done ((,c :foreground ,fg-dim)))
      ;; Bring back dashed fill column indicator (relative height and no bg):
      `(fill-column-indicator ((,c :height 1.0 :background ,nil
-                                  :foreground ,bg-active))))))
+                                  :foreground ,bg-active)))
+     ;; Less invasive Eglot highlights:
+     `(eglot-highlight-symbol-face ((,c :background , bg-green-nuanced))))))
 
 (add-hook 'modus-themes-after-load-theme-hook #'modus-themes-custom-faces)
 
