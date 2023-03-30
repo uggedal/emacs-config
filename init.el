@@ -623,10 +623,6 @@
 
 (setopt help-window-select t)
 
-(with-eval-after-load 'info
-  (defvar Info-directory-list)
-  (add-to-list 'Info-directory-list "/opt/homebrew/share/info"))
-
 (ensure-package 'which-key)
 (add-hook 'after-init-hook 'which-key-mode)
 (add-hook 'which-key-mode-hook (lambda () (diminish 'which-key-mode)))
