@@ -38,8 +38,8 @@
 
 (defun add-prog-and-conf-modes-hook (function)
   "Add FUNCTION as hook to prog and conf modes."
-    (add-hook 'prog-mode-hook function)
-    (add-hook 'conf-mode-hook function))
+  (add-hook 'prog-mode-hook function)
+  (add-hook 'conf-mode-hook function))
 
 (defun add-editing-modes-hook (function)
   "Add FUNCTION as hook to prog, conf and text modes."
@@ -145,7 +145,7 @@
           (bg-added-fringe bg-added)
           (bg-changed-fringe bg-changed)
           (bg-removed-fringe bg-removed)
-        ))
+          ))
 
 (defun modus-themes-custom-faces ()
   "Custom overrides of Modus Operandi theme."
@@ -407,19 +407,19 @@
 
 (setopt magit-repository-directories `(("~/src" . 1)))
 (with-eval-after-load 'magit-repos
-    (setopt magit-repolist-columns
-            '(("Name" 25 magit-repolist-column-ident nil)
-              ("Version" 35 magit-repolist-column-version nil)
-              ("Flag" 4 magit-repolist-column-flag
-               ((:right-align t)
-                (:help-echo "U[N]tracked [U]nstaged [S]taged")))
-              ("⇣" 3 magit-repolist-column-unpulled-from-upstream
-               ((:right-align t)
-                (:help-echo "Upstream changes not in branch")))
-              ("⇡" 3 magit-repolist-column-unpushed-to-upstream
-               ((:right-align t)
-                (:help-echo "Local changes not in upstream")))
-              ("Path" 99 magit-repolist-column-path nil))))
+  (setopt magit-repolist-columns
+          '(("Name" 25 magit-repolist-column-ident nil)
+            ("Version" 35 magit-repolist-column-version nil)
+            ("Flag" 4 magit-repolist-column-flag
+             ((:right-align t)
+              (:help-echo "U[N]tracked [U]nstaged [S]taged")))
+            ("⇣" 3 magit-repolist-column-unpulled-from-upstream
+             ((:right-align t)
+              (:help-echo "Upstream changes not in branch")))
+            ("⇡" 3 magit-repolist-column-unpushed-to-upstream
+             ((:right-align t)
+              (:help-echo "Local changes not in upstream")))
+            ("Path" 99 magit-repolist-column-path nil))))
 
 (with-eval-after-load 'magit-status
   (eval-when-compile (require 'magit-status))
@@ -529,7 +529,7 @@
         org-startup-indented t
         org-startup-folded 'content
         org-blank-before-new-entry '((heading . t)
-                                    (plain-list-item . nil))
+                                     (plain-list-item . nil))
         org-todo-keywords '((sequence "TODO" "NEXT" "DOING" "|" "DONE"))
         org-startup-with-inline-images t
         org-ellipsis " ▾"
