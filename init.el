@@ -479,11 +479,16 @@
 
 (with-eval-after-load 'eglot
   (eval-when-compile (require 'eglot))
+
+  (add-to-list 'eglot-server-programs
+               '(sh-mode . ("efm-langserver")))
+
   (keymap-set eglot-mode-map "C-c l f" 'eglot-format)
   (keymap-set eglot-mode-map "C-c l r" 'eglot-rename)
   (keymap-set eglot-mode-map "C-c l c" 'eglot-code-actions))
 
-(add-hook 'python-base-mode-hook 'eglot-ensure)
+(dolist (hook '(python-base-mode-hook sh-mode-hook))
+  (add-hook hook 'eglot-ensure))
 (add-hook 'eglot-managed-mode-hook 'toggle-eglot-format-hook)
 
 (with-eval-after-load 'flymake
