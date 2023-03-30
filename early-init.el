@@ -14,6 +14,9 @@
 (setq inhibit-startup-screen t
       inhibit-startup-echo-area-message user-login-name)
 
+;; No frame resizing when setting font:
+(setq frame-inhibit-implied-resize t)
+
 ;; Disable native compilation warnings:
 (setq native-comp-async-report-warnings-errors 'silent)
 
