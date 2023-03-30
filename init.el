@@ -504,6 +504,13 @@
 
 (add-hook 'eldoc-mode-hook (lambda () (diminish 'eldoc-mode)))
 
+(ensure-package 'format-all)
+
+(add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
+
+(dolist (hook '(sh-base-mode-hook))
+  (add-hook hook 'format-all-mode))
+
 ;;;
 ;;; Writing
 ;;;
