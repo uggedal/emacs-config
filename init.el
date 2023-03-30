@@ -517,8 +517,14 @@
 (add-editing-modes-hook 'jinx-mode)
 
 (with-eval-after-load 'jinx
-    (eval-when-compile (require 'jinx))
-    (keymap-set jinx-mode-map "C-;" 'jinx-correct))
+  (eval-when-compile (require 'jinx))
+
+  ;; Disable for strings:
+  (setopt jinx-include-faces   '((prog-mode font-lock-comment-face
+                                            font-lock-doc-face)
+                                 (conf-mode font-lock-comment-face)))
+
+  (keymap-set jinx-mode-map "C-;" 'jinx-correct))
 
 (setopt calendar-week-start-day 1)
 
