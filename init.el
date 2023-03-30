@@ -504,12 +504,10 @@
 
 (add-hook 'eldoc-mode-hook (lambda () (diminish 'eldoc-mode)))
 
-(ensure-package 'format-all)
+(ensure-package 'reformatter)
 
-(add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
-
-(dolist (hook '(sh-base-mode-hook))
-  (add-hook hook 'format-all-mode))
+(reformatter-define shfmt :program "shfmt")
+(add-hook 'sh-base-mode-hook 'shfmt-on-save-mode)
 
 ;;;
 ;;; Writing
