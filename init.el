@@ -5,8 +5,6 @@
 
 ;;; Code:
 
-(toggle-debug-on-error)
-
 ;;;
 ;;; Bootstrap
 ;;;
