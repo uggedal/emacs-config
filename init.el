@@ -347,7 +347,7 @@
 (ensure-package 'consult)
 (setopt xref-show-xrefs-function 'consult-xref
         xref-show-definitions-function 'consult-xref)
-(keymap-global-set "M-y" 'consult-yank-from-kill-ring)
+(keymap-global-set "M-y" 'consult-yank-pop)
 (keymap-global-set "<remap> <goto-line>" 'consult-goto-line)
 
 ;;;
