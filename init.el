@@ -508,7 +508,6 @@
 (add-hook 'sh-base-mode-hook 'shfmt-on-save-mode)
 
 (ensure-package 'elisp-autofmt)
-(setopt elisp-autofmt-python-bin "python3")
 (add-hook 'emacs-lisp-mode-hook 'elisp-autofmt-mode)
 
 ;;;
