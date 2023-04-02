@@ -24,7 +24,6 @@
 ;;; Utilities
 ;;;
 
-
 (defun ensure-package (package)
   "Install PACKAGE if not already installed."
   (unless (package-installed-p package)
@@ -41,7 +40,6 @@
   "Add FUNCTION as hook to prog, conf and text modes."
   (add-hook 'text-mode-hook function)
   (add-prog-and-conf-modes-hook function))
-
 
 ;;;
 ;;; Core
@@ -101,7 +99,6 @@
  nil
  ns-command-modifier
  'meta)
-
 
 (add-editing-modes-hook
  (lambda ()
@@ -275,6 +272,7 @@
    last-kbd-macro
    shell-command-history
    log-edit-comment-ring))
+
 (savehist-mode)
 (save-place-mode)
 (desktop-save-mode)
@@ -284,6 +282,7 @@
 ;;;
 
 (setopt blink-cursor-mode 0)
+
 ;; Disable suspend frame:
 (keymap-global-unset "C-z")
 
@@ -294,6 +293,7 @@
 (keymap-global-set "M-~" 'ns-prev-frame)
 
 (setopt isearch-lazy-count t)
+
 ;; Sane isearch query editing:
 (keymap-set isearch-mode-map "DEL" 'isearch-del-char)
 
@@ -313,6 +313,7 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (setopt goto-address-uri-schemes '("http://" "https://"))
+
 (with-eval-after-load 'vterm
   (add-hook 'vterm-mode-hook 'goto-address-mode))
 (add-prog-and-conf-modes-hook 'goto-address-prog-mode)
@@ -323,6 +324,7 @@
 
 (ensure-package 'vertico)
 (setopt vertico-cycle t)
+
 (when (fboundp 'vertico-mode)
   (vertico-mode))
 
@@ -386,6 +388,7 @@
  'consult-xref
  xref-show-definitions-function
  'consult-xref)
+
 (keymap-global-set "M-y" 'consult-yank-pop)
 (keymap-global-set "<remap> <goto-line>" 'consult-goto-line)
 
@@ -425,7 +428,6 @@
     (require 'dash)
     (require 'log-edit))
 
-
   (insert
    (completing-read
     "History: "
@@ -445,6 +447,7 @@
 (ensure-package 'magit)
 
 (setopt magit-repository-directories `(("~/src" . 1)))
+
 (with-eval-after-load 'magit-repos
   (setopt
    magit-repolist-columns
@@ -494,12 +497,14 @@
     (diff-hl-update)
     (message "Committed and pushed")
     t)))
+
 (keymap-global-set "C-x v p" 'automatic-commit-and-push)
 
 (setopt diff-font-lock-prettify t)
 
 (ensure-package 'diff-hl)
 (add-editing-modes-hook 'turn-on-diff-hl-mode)
+
 (with-eval-after-load 'vc-dir
   (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
 
@@ -605,6 +610,7 @@
  "~/src/notes"
  org-agenda-files
  '("work.org" "personal.org" "tech.org"))
+
 (with-eval-after-load 'org
   (eval-when-compile
     (require 'org))
