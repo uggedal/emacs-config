@@ -507,6 +507,9 @@
 (reformatter-define shfmt :program "shfmt")
 (add-hook 'sh-base-mode-hook 'shfmt-on-save-mode)
 
+(ensure-package 'elisp-autofmt)
+(add-hook 'emacs-lisp-mode-hook 'elisp-autofmt-mode)
+
 ;;;
 ;;; Writing
 ;;;
