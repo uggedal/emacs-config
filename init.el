@@ -16,7 +16,7 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (setq package-archive-priorities '(("melpa" . 3)
-                                   ("gnu"    . 2)
+                                   ("gnu" . 2)
                                    ("nongnu" . 1)))
 
 (unless (bound-and-true-p package--initialized)
@@ -520,9 +520,9 @@
   (eval-when-compile (require 'jinx))
 
   ;; Disable for strings:
-  (setopt jinx-include-faces   '((prog-mode font-lock-comment-face
-                                            font-lock-doc-face)
-                                 (conf-mode font-lock-comment-face)))
+  (setopt jinx-include-faces '((prog-mode font-lock-comment-face
+                                          font-lock-doc-face)
+                               (conf-mode font-lock-comment-face)))
 
   (keymap-set jinx-mode-map "C-;" 'jinx-correct))
 
