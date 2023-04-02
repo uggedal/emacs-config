@@ -9,6 +9,7 @@
 /auto-save/
 /auto-save-list/
 /backups/
+/elisp-autofmt-cache/
 /elpa/
 /eln-cache/
 /image-dired/
