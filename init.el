@@ -266,7 +266,8 @@
 (keymap-global-set "M-`" 'ns-next-frame)
 (keymap-global-set "M-~" 'ns-prev-frame)
 
-(setopt isearch-lazy-count t)
+(setopt isearch-lazy-count t
+        isearch-wrap-pause 'no)
 ;; Sane isearch query editing:
 (keymap-set isearch-mode-map "DEL" 'isearch-del-char)
 
