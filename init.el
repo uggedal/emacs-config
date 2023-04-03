@@ -247,7 +247,8 @@
                                         regexp-search-ring
                                         last-kbd-macro
                                         shell-command-history
-                                        log-edit-comment-ring))
+                                        log-edit-comment-ring
+                                        corfu-history))
 (savehist-mode)
 (save-place-mode)
 (desktop-save-mode)
@@ -338,7 +339,8 @@
 
   (add-hook 'minibuffer-setup-hook 'corfu-enable-in-minibuffer)
   (add-hook 'corfu-mode-hook 'corfu-echo-mode)
-  (add-hook 'corfu-mode-hook 'corfu-popupinfo-mode))
+  (add-hook 'corfu-mode-hook 'corfu-popupinfo-mode)
+  (add-hook 'corfu-mode-hook 'corfu-history-mode))
 
 (when (fboundp 'global-corfu-mode)
   (global-corfu-mode))
