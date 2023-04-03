@@ -365,7 +365,7 @@
   (keymap-set vterm-mode-map "C-q" 'vterm-send-next-key))
 
 (ensure-package 'multi-vterm)
-(keymap-global-set "C-x p s" 'multi-vterm-project)
+(keymap-set project-prefix-map "s" 'multi-vterm-project)
 
 (ensure-package 'with-editor)
 (add-hook 'vterm-mode-hook 'with-editor-export-editor)
@@ -373,6 +373,12 @@
 ;;;
 ;;; VCS
 ;;;
+
+(setopt project-switch-commands '((project-find-file "Find file")
+                                  (project-find-regexp "Find regexp")
+                                  (project-find-dir "Find directory")
+                                  (project-vc-dir "VC-Dir")
+                                  (multi-vterm-project "Shell")))
 
 (setopt vc-handled-backends '(Git)
         log-edit-maximum-comment-ring-size 1000)
