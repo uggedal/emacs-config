@@ -476,6 +476,8 @@
 ;;; IDE
 ;;;
 
+(setopt xref-search-program 'ripgrep)
+
 (defun toggle-eglot-format-hook ()
   "Run Eglot format on save and disable when Eglot is tuned off."
   (if (and (fboundp 'eglot-managed-p)
