@@ -199,6 +199,7 @@
         kill-do-not-save-duplicates t
         indent-tabs-mode nil)
 
+(keymap-global-set "M-=" 'count-words)
 (keymap-global-set "M-z" 'zap-up-to-char)
 (keymap-global-set "M-u" 'upcase-dwim)
 (keymap-global-set "M-l" 'downcase-dwim)
