@@ -354,6 +354,14 @@
         xref-show-definitions-function 'consult-xref)
 (keymap-global-set "M-y" 'consult-yank-pop)
 (keymap-global-set "<remap> <goto-line>" 'consult-goto-line)
+(keymap-unset goto-map "M-g") ;; Remove double binding
+(keymap-set goto-map "f" 'consult-flymake)
+(keymap-set goto-map "o" 'consult-outline)
+(with-eval-after-load 'org
+  (eval-when-compile (require 'org))
+  (keymap-set org-mode-map "M-g o" 'consult-org-heading))
+(keymap-set search-map "g" 'consult-ripgrep)
+
 
 ;;;
 ;;; Shell
