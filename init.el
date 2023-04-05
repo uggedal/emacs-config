@@ -495,7 +495,6 @@
 (with-eval-after-load 'eglot
   (eval-when-compile (require 'eglot))
 
-  (keymap-set eglot-mode-map "C-c l f" 'eglot-format)
   (keymap-set eglot-mode-map "C-c l r" 'eglot-rename)
   (keymap-set eglot-mode-map "C-c l c" 'eglot-code-actions))
 
