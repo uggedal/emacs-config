@@ -537,7 +537,8 @@
 
   (keymap-set jinx-mode-map "C-;" 'jinx-correct))
 
-(setopt calendar-week-start-day 1)
+(setopt calendar-week-start-day 1
+        calendar-date-style 'iso)
 
 (setopt org-hide-emphasis-markers t
         org-startup-indented t
