@@ -533,7 +533,7 @@
 
 (ensure-package 'jinx)
 
-(setopt jinx-languages '("en_US" "nb_NO"))
+(setopt jinx-languages "en_US nb_NO")
 (add-editing-modes-hook 'jinx-mode)
 
 (with-eval-after-load 'jinx
