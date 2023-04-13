@@ -164,8 +164,8 @@
          ((,c :box (:line-width ,tab-bar-padding :color ,bg-yellow-nuanced)
               :background ,bg-yellow-nuanced)))
        `(tab-bar-tab-inactive
-         ((,c :box (:line-width ,tab-bar-padding :color ,bg-mode-line-inactive)
-              :background ,bg-mode-line-inactive)))
+         ((,c :box (:line-width ,tab-bar-padding :color ,bg-dim)
+              :background ,bg-dim)))
        ))
     (custom-set-faces
      `(org-todo ((,c :foreground ,red :background ,bg-red-nuanced)))
