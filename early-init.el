@@ -5,7 +5,7 @@
 (modify-all-frames-parameters '((ns-apperance . light)
                                 (ns-transparent-titlebar . t)
                                 (width . 200)
-                                (height . 80)))
+                                (height . 60)))
 
 ;; Do not restrict resize to columns and lines:
 (setq frame-resize-pixelwise t)
