@@ -620,6 +620,7 @@
 (ts-remap 'python-mode 'python-ts-mode)
 (ts-remap 'sh-mode 'bash-ts-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode))
+(add-to-list 'auto-mode-alist '("Dockerfile.*\\'" . dockerfile-ts-mode))
 
 (ensure-package 'hl-todo)
 (add-prog-and-conf-modes-hook 'hl-todo-mode)
