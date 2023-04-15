@@ -183,7 +183,8 @@
 
 (with-eval-after-load 'faces
   (set-face-attribute 'default nil :font "SF Mono" :height 120)
-  (set-face-attribute 'variable-pitch nil :font "New York" :height 120))
+  (set-face-attribute 'fixed-pitch nil :font "SF Mono")
+  (set-face-attribute 'variable-pitch nil :font "New York"))
 
 (add-prog-and-conf-modes-hook 'display-line-numbers-mode)
 (add-prog-and-conf-modes-hook 'display-fill-column-indicator-mode)
