@@ -652,6 +652,8 @@
 (setopt markdown-fontify-code-blocks-natively t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 
+(ensure-package 'lua-mode)
+
 (ensure-package 'terraform-mode)
 
 (ensure-package 'systemd)
