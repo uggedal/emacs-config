@@ -616,11 +616,27 @@
   "Remap from REGEX-MODE to TS-MODE."
   (add-to-list 'major-mode-remap-alist `(,regex-mode . ,ts-mode)))
 
-(ts-remap 'conf-toml-mode 'toml-ts-mode)
-(ts-remap 'python-mode 'python-ts-mode)
 (ts-remap 'sh-mode 'bash-ts-mode)
+(ts-remap 'csharp-mode 'csharp-ts-mode)
+(ts-remap 'c++-mode 'c++-ts-mode)
+(ts-remap 'css-mode 'css-ts-mode)
+(ts-remap 'mhtml-mode 'html-ts-mode)
+(ts-remap 'java-mode 'java-ts-mode)
+(ts-remap 'js-json-mode 'json-ts-mode)
+(ts-remap 'python-mode 'python-ts-mode)
+(ts-remap 'ruby-mode 'ruby-ts-mode)
+(ts-remap 'conf-toml-mode 'toml-ts-mode)
+(add-to-list 'auto-mode-alist
+             '("\\(?:CMakeLists\\.txt\\|\\.cmake\\)\\'" . cmake-ts-mode))
+(add-to-list 'auto-mode-alist
+             '("\\(?:Dockerfile\\(?:\\..*\\)?\\|\\.[Dd]ockerfile\\)\\'"
+               . dockerfile-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode))
-(add-to-list 'auto-mode-alist '("Dockerfile.*\\'" . dockerfile-ts-mode))
 
 (ensure-package 'hl-todo)
 (add-prog-and-conf-modes-hook 'hl-todo-mode)
