@@ -550,6 +550,8 @@
 (with-eval-after-load 'jinx
   (eval-when-compile (require 'jinx))
 
+  (diminish 'jinx-mode)
+
   ;; Disable for strings:
   (setopt jinx-include-faces '((prog-mode font-lock-comment-face
                                           font-lock-doc-face)
