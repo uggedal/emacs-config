@@ -92,7 +92,7 @@
 (put 'downcase-region 'disabled nil)
 
 ;; Don't need confirmation/selection when killing buffers:
-(keymap-global-set "C-x k" 'kill-this-buffer)
+(keymap-global-set "C-x k" 'kill-current-buffer)
 
 (require 'server)
 (unless (server-running-p)
