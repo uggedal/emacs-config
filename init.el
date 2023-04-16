@@ -460,27 +460,17 @@
 
 (keymap-global-set "C-x g" 'magit-status)
 
-(autoload 'magit-unstaged-files "magit-git")
-(autoload 'vc-git-command "vc-git")
-(autoload 'diff-hl-update "diff-hl")
+(autoload 'magit-call-git "magit-process")
+(autoload 'magit-refresh "magit-mode")
 
 (defun automatic-commit-and-push ()
   "Automatically commit and push."
   (interactive)
-  (require 'vc-git)
-  (require 'diff-hl)
-  (require 'magit-git)
 
-  (if (not (buffer-file-name))
-      (error "Non-file buffer!"))
-  (cond ((= 0 (length (magit-unstaged-files)))
-         (message "No changes to commit"))
-        (t
-         (vc-git-command nil 0 nil "commit" "-am" "sync")
-         (vc-git-command nil 'async nil "push")
-         (diff-hl-update)
-         (message "Committed and pushed")
-         t)))
+  (magit-call-git "commit" "-am" "sync")
+  (magit-refresh)
+  (message "Committed and pushed"))
+
 (keymap-global-set "C-x v p" 'automatic-commit-and-push)
 
 (setopt diff-font-lock-prettify t)
