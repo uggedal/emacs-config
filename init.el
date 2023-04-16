@@ -675,10 +675,11 @@
         rainbow-x-colors nil)
 
 ;;;
-;;; Misc
+;;; Help
 ;;;
 
-(setopt help-window-select t)
+(setopt help-window-select t
+        what-cursor-show-names t)
 
 (add-hook 'Info-mode-hook 'variable-pitch-mode)
 
