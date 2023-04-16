@@ -600,6 +600,11 @@
 (keymap-global-set "C-c c" 'org-capture)
 (keymap-global-set "C-c l" 'org-store-link)
 
+(setopt org-refile-targets '((nil :maxlevel . 5)
+                             (org-agenda-files :maxlevel . 5))
+        org-refile-use-outline-path t
+        org-outline-path-complete-in-steps nil)
+
 (with-eval-after-load 'org-indent
   (diminish 'org-indent-mode))
 
