@@ -300,6 +300,7 @@
                                    (find-alternate-file "..")))
   (setopt dired-listing-switches "-alFh \"-D%Y-%m-%d %H:%M\"")
   (put 'dired-find-alternate-file 'disabled nil))
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
 (setopt goto-address-uri-schemes '("http://" "https://"))
 (with-eval-after-load 'vterm
