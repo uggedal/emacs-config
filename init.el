@@ -566,6 +566,7 @@
         org-ellipsis " ▾"
         org-image-actual-width nil
         org-special-ctrl-a/e t
+        org-deadline-warning-days 7
         org-directory "~/src/notes"
         org-agenda-files '("work.org" "personal.org" "tech.org"))
 (with-eval-after-load 'org
