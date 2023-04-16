@@ -275,6 +275,8 @@
 ;; Disable suspend frame:
 (keymap-global-unset "C-z")
 
+(keymap-global-set "M-o" 'other-window)
+
 ;; MacOS like tab and frame switching:
 (keymap-global-set "C-<tab>" 'tab-next)
 (keymap-global-set "C-S-<tab>" 'tab-previous)
