@@ -593,7 +593,9 @@
 
 (setopt org-goto-interface 'outline-path-completion)
 
-(setopt org-agenda-span 14)
+(setopt org-agenda-span 14
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done t)
 (keymap-global-set "C-c a" 'org-agenda)
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
