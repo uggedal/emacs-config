@@ -678,6 +678,8 @@
 
 (setopt help-window-select t)
 
+(add-hook 'Info-mode-hook 'variable-pitch-mode)
+
 (ensure-package 'which-key)
 (add-hook 'after-init-hook 'which-key-mode)
 (add-hook 'which-key-mode-hook (lambda () (diminish 'which-key-mode)))
