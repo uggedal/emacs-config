@@ -51,6 +51,7 @@
 
 (setopt ring-bell-function 'ignore
         use-short-answers t
+        y-or-n-p-use-read-key t
         use-dialog-box nil
         create-lockfiles nil
         ;; Hide commands in M-x not applicable to active mode:
