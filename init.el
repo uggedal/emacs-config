@@ -653,7 +653,7 @@
   (setq-local indent-tabs-mode t))
 
 (setopt sh-basic-offset 8)
-(add-hook 'sh-mode-hook 'enable-indent-tabs-mode)
+(add-hook 'bash-ts-mode-hook 'enable-indent-tabs-mode)
 
 (ensure-package 'markdown-mode)
 (setopt markdown-fontify-code-blocks-natively t)
