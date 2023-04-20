@@ -463,6 +463,7 @@
 (keymap-global-set "C-x g" 'magit-status)
 
 (autoload 'magit-call-git "magit-process")
+(autoload 'magit-run-git-async "magit-process")
 (autoload 'magit-refresh "magit-mode")
 
 (defun automatic-commit-and-push ()
@@ -470,8 +471,8 @@
   (interactive)
 
   (magit-call-git "commit" "-am" "sync")
-  (magit-refresh)
-  (message "Committed and pushed"))
+  (magit-run-git-async "push")
+  (magit-refresh))
 
 (keymap-global-set "C-x v p" 'automatic-commit-and-push)
 
