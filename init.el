@@ -302,7 +302,8 @@
   (put 'dired-find-alternate-file 'disabled nil))
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
-(setopt goto-address-uri-schemes '("http://" "https://"))
+(setopt goto-address-uri-schemes '("http://" "https://")
+        goto-address-mail-regexp "XXXXXXXXXXXXXXXX")
 (with-eval-after-load 'vterm
   (add-hook 'vterm-mode-hook 'goto-address-mode))
 (add-prog-and-conf-modes-hook 'goto-address-prog-mode)
