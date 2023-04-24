@@ -401,7 +401,8 @@
 ;;; VCS
 ;;;
 
-(setopt project-switch-commands '((project-find-file "Find file")
+(setopt project-prompter 'project-prompt-project-name
+        project-switch-commands '((project-find-file "Find file")
                                   (project-find-regexp "Find regexp")
                                   (project-find-dir "Find directory")
                                   (project-vc-dir "VC-Dir")
