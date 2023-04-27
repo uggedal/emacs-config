@@ -631,6 +631,7 @@
 (ts-remap 'css-mode 'css-ts-mode)
 (ts-remap 'mhtml-mode 'html-ts-mode)
 (ts-remap 'java-mode 'java-ts-mode)
+(ts-remap 'js-mode 'js-ts-mode)
 (ts-remap 'js-json-mode 'json-ts-mode)
 (ts-remap 'python-mode 'python-ts-mode)
 (ts-remap 'ruby-mode 'ruby-ts-mode)
