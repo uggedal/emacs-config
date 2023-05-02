@@ -441,7 +441,8 @@
 
 (ensure-package 'magit)
 
-(setopt magit-repository-directories `(("~/src" . 1)))
+(setopt magit-repository-directories `(("~/src" . 1))
+        magit-clone-default-directory "~/src/")
 (with-eval-after-load 'magit-repos
   (setopt magit-repolist-columns
           '(("Name" 25 magit-repolist-column-ident nil)
