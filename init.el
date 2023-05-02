@@ -321,7 +321,9 @@
   (eval-when-compile (require 'vertico))
   (keymap-set vertico-map "RET" 'vertico-directory-enter)
   (keymap-set vertico-map "DEL" 'vertico-directory-delete-char)
-  (keymap-set vertico-map "M-DEL" 'vertico-directory-delete-word))
+  (keymap-set vertico-map "M-DEL" 'vertico-directory-delete-word)
+  (add-hook 'rfn-eshadow-update-overlay-hook 'vertico-directory-tidy))
+
 
 (ensure-package 'orderless)
 (setopt completion-styles '(orderless basic)
