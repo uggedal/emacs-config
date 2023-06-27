@@ -272,7 +272,7 @@
 ;;; Navigation and Search
 ;;;
 
-(setopt blink-cursor-mode 0)
+(setopt blink-cursor-blinks 0)
 ;; Disable suspend frame:
 (keymap-global-unset "C-z")
 
