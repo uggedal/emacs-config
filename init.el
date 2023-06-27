@@ -217,6 +217,7 @@
 (subword-mode)
 
 (use-package move-text
+  :ensure t
   :bind (:map prog-mode-map
               ("M-<up>" . move-text-up)
               ("M-<down>" . move-text-down)))
