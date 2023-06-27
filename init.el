@@ -381,6 +381,7 @@
               ("C-q" . vterm-send-next-key)))
 
 (use-package multi-vterm
+  :ensure t
   :bind (:map project-prefix-map
               ("s" . multi-vterm-project)))
 
