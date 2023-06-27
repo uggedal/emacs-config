@@ -15,34 +15,15 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(setq package-archive-priorities '(("melpa" . 3)
-                                   ("gnu" . 2)
-                                   ("nongnu" . 1)))
+(setopt package-archive-priorities '(("melpa" . 3)
+                                     ("gnu" . 2)
+                                     ("nongnu" . 1)))
 
 (unless (bound-and-true-p package--initialized)
   (package-initialize))
 
-;;;
-;;; Utilities
-;;;
-
-
-(defun ensure-package (package)
-  "Install PACKAGE if not already installed."
-  (unless (package-installed-p package)
-    (unless (memq package package-archive-contents)
-      (package-refresh-contents))
-    (package-install package)))
-
-(defun add-prog-and-conf-modes-hook (function)
-  "Add FUNCTION as hook to prog and conf modes."
-  (add-hook 'prog-mode-hook function)
-  (add-hook 'conf-mode-hook function))
-
-(defun add-editing-modes-hook (function)
-  "Add FUNCTION as hook to prog, conf and text modes."
-  (add-hook 'text-mode-hook function)
-  (add-prog-and-conf-modes-hook function))
+(defvar prog-and-conf-modes '(prog-mode conf-mode))
+(defvar editing-modes '(text-mode prog-mode conf-mode))
 
 
 ;;;
@@ -84,9 +65,9 @@
         ns-alternate-modifier nil
         ns-command-modifier 'meta)
 
-
-(add-editing-modes-hook (lambda () (setq-local show-trailing-whitespace t
-                                               indicate-empty-lines t)))
+(use-package emacs
+  :hook (editing-modes . (lambda () (setq-local show-trailing-whitespace t
+                                               indicate-empty-lines t))))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -102,8 +83,7 @@
 ;;; Appearance
 ;;;
 
-(ensure-package 'modus-themes)
-(require 'modus-themes)
+(require-theme 'modus-themes)
 
 (setopt modus-themes-common-palette-overrides
         '(
@@ -187,16 +167,21 @@
   (set-face-attribute 'fixed-pitch nil :font "SF Mono")
   (set-face-attribute 'variable-pitch nil :font "New York"))
 
-(add-prog-and-conf-modes-hook 'display-line-numbers-mode)
-(add-prog-and-conf-modes-hook 'display-fill-column-indicator-mode)
+(use-package display-line-numbers
+  :hook (prog-and-conf-modes . display-line-numbers-mode))
 
-(ensure-package 'diminish)
-(require 'diminish)
+(use-package display-fill-column-indicator
+  :hook (prog-and-conf-modes . display-fill-column-indicator-mode))
+
+(use-package diminish
+  :ensure t)
 
 (setopt whitespace-line-column 79
         whitespace-style '(face tabs lines-tail))
-(add-hook 'prog-mode-hook 'whitespace-mode)
-(add-hook 'whitespace-mode-hook (lambda () (diminish 'whitespace-mode)))
+
+(use-package whitespace
+  :diminish
+  :hook (prog-mode . whitespace-mode))
 
 (setopt pixel-scroll-precision-large-scroll-height 35.0)
 (pixel-scroll-mode)
@@ -221,17 +206,20 @@
 
 (keymap-global-set "M-;" 'comment-line)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(use-package simple
+  :hook
+  (text-mode . turn-on-auto-fill)
+  (before-save . delete-trailing-whitespace))
 
-(diminish 'auto-fill-function)
+(use-package emacs
+  :diminish auto-fill-function)
 
 (subword-mode)
 
-(ensure-package 'move-text)
-(with-eval-after-load 'prog-mode
-  (keymap-set prog-mode-map "M-<up>" 'move-text-up)
-  (keymap-set prog-mode-map "M-<down>" 'move-text-down))
+(use-package move-text
+  :bind (:map prog-mode-map
+              ("M-<up>" . move-text-up)
+              ("M-<down>" . move-text-down)))
 
 ;;;
 ;;; Files
@@ -306,98 +294,99 @@
         goto-address-mail-regexp "XXXXXXXXXXXXXXXX")
 (with-eval-after-load 'vterm
   (add-hook 'vterm-mode-hook 'goto-address-mode))
-(add-prog-and-conf-modes-hook 'goto-address-prog-mode)
+
+(use-package goto-addr
+  :hook (prog-and-conf-modes . goto-address-prog-mode))
 
 ;;;
 ;;; Completion
 ;;;
 
-(ensure-package 'vertico)
-(setopt vertico-cycle t)
-(when (fboundp 'vertico-mode)
-  (vertico-mode))
+(use-package vertico
+  :ensure t
+  :init (setopt vertico-cycle t)
+  :hook ((after-init . vertico-mode)
+         (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word)))
 
-(with-eval-after-load 'vertico
-  (eval-when-compile (require 'vertico))
-  (keymap-set vertico-map "RET" 'vertico-directory-enter)
-  (keymap-set vertico-map "DEL" 'vertico-directory-delete-char)
-  (keymap-set vertico-map "M-DEL" 'vertico-directory-delete-word)
-  (add-hook 'rfn-eshadow-update-overlay-hook 'vertico-directory-tidy))
+(use-package orderless
+  :ensure t
+  :init
+  (setopt completion-styles '(orderless basic)
+          completion-category-defaults nil
+          completion-category-overrides '((file (styles partial-completion)))))
 
-
-(ensure-package 'orderless)
-(setopt completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion))))
-
-(ensure-package 'marginalia)
-(setopt marginalia-max-relative-age 0)
-(with-eval-after-load 'marginalia
+(use-package marginalia
+  :ensure t
+  :init (setopt marginalia-max-relative-age 0)
+  :hook (after-init . marginalia-mode)
+  :config
   (advice-add 'marginalia--time-absolute
               :override
               (lambda (time)
                 (let ((system-time-locale "C"))
                   (format-time-string "%Y-%m-%d %H:%M" time)))))
-(when (fboundp 'marginalia-mode)
-  (marginalia-mode))
 
-(ensure-package 'corfu)
-(setopt corfu-cycle t
-        corfu-echo-delay 0.1
-        corfu-popupinfo-delay nil)
-
-(with-eval-after-load 'corfu
-  (eval-when-compile (require 'corfu))
-
+(use-package corfu
+  :ensure t
+  :init (setopt corfu-cycle t
+                corfu-echo-delay 0.1
+                corfu-popupinfo-delay nil)
+  :bind (:map corfu-map
+              ("SPC" . corfu-insert-separator))
+  :hook ((minibuffer-setup . corfu-enable-in-minibuffer)
+         (corfu-mode . corfu-echo-mode)
+         (corfu-mode . corfu-popupinfo-mode)
+         (corfu-mode . corfu-history-mode)
+         (after-init . global-corfu-mode))
+  :config
   (defun corfu-enable-in-minibuffer ()
     "Enable for M-: and M-!"
     (when (where-is-internal #'completion-at-point (list (current-local-map)))
       (setq-local corfu-echo-delay nil)
       (when (fboundp 'corfu-mode)
-        (corfu-mode))))
+        (corfu-mode)))))
 
-  (keymap-set corfu-map "SPC" 'corfu-insert-separator)
+(use-package cape
+  :ensure t
+  :bind ("M-/" . cape-dabbrev))
 
-  (add-hook 'minibuffer-setup-hook 'corfu-enable-in-minibuffer)
-  (add-hook 'corfu-mode-hook 'corfu-echo-mode)
-  (add-hook 'corfu-mode-hook 'corfu-popupinfo-mode)
-  (add-hook 'corfu-mode-hook 'corfu-history-mode))
-
-(when (fboundp 'global-corfu-mode)
-  (global-corfu-mode))
-
-(ensure-package 'cape)
-(keymap-global-set "M-/" 'cape-dabbrev)
-
-(ensure-package 'consult)
-(setopt xref-show-xrefs-function 'consult-xref
-        xref-show-definitions-function 'consult-xref)
-(keymap-global-set "M-y" 'consult-yank-pop)
-(keymap-global-set "<remap> <goto-line>" 'consult-goto-line)
-(keymap-unset goto-map "M-g") ;; Remove double binding
-(keymap-set goto-map "f" 'consult-flymake)
-(keymap-set goto-map "o" 'consult-outline)
-(with-eval-after-load 'org
-  (eval-when-compile (require 'org))
-  (keymap-set org-mode-map "M-g o" 'consult-org-heading))
-(keymap-set search-map "g" 'consult-ripgrep)
+(use-package consult
+  :ensure t
+  :init
+  (setopt xref-show-xrefs-function 'consult-xref
+          xref-show-definitions-function 'consult-xref)
+  :bind (("M-y" . consult-yank-pop)
+         ([remap goto-line] . consult-goto-line)
+         :map goto-map
+         ("f" . consult-flymake)
+         ("o" . consult-outline)
+         :map org-mode-map
+         ("M-g o" . consult-org-heading)
+         :map search-map
+         ("g" . consult-ripgrep)))
 
 
 ;;;
 ;;; Shell
 ;;;
 
-(ensure-package 'vterm)
-(with-eval-after-load 'vterm
-  (eval-when-compile (require 'vterm))
-  (keymap-set vterm-mode-map "M-`" nil)
-  (keymap-set vterm-mode-map "C-q" 'vterm-send-next-key))
+(use-package vterm
+  :ensure t
+  :bind (:map vterm-mode-map
+              ("M-`" . nil)
+              ("C-q" . vterm-send-next-key)))
 
-(ensure-package 'multi-vterm)
-(keymap-set project-prefix-map "s" 'multi-vterm-project)
+(use-package multi-vterm
+  :bind (:map project-prefix-map
+              ("s" . multi-vterm-project)))
 
-(ensure-package 'with-editor)
-(add-hook 'vterm-mode-hook 'with-editor-export-editor)
+(use-package with-editor
+  :ensure t
+  :hook (vterm-mode . with-editor-export-editor))
 
 ;;;
 ;;; VCS
@@ -413,11 +402,13 @@
 (setopt vc-handled-backends '(Git)
         log-edit-maximum-comment-ring-size 1000)
 
-(ensure-package 'git-commit)
+(use-package git-commit
+  :ensure t)
 
 (autoload 'ring-elements "ring")
 
-(ensure-package 'dash)
+(use-package dash
+  :ensure t)
 
 (defun commit-message-completion ()
   "Search for previous commit messages from history."
@@ -441,31 +432,29 @@
   (eval-when-compile (require 'git-commit))
   (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
 
-(ensure-package 'magit)
+(use-package magit
+  :ensure t
+  :init (setopt magit-repository-directories `(("~/src" . 1))
+                magit-clone-default-directory "~/src/")
+  :bind (("C-x g" . magit-status)
+         :map magit-status-mode-map
+         ;; Conflicts with MacOS like window switching:
+         ("C-<tab>" . nil)))
 
-(setopt magit-repository-directories `(("~/src" . 1))
-        magit-clone-default-directory "~/src/")
-(with-eval-after-load 'magit-repos
-  (setopt magit-repolist-columns
-          '(("Name" 25 magit-repolist-column-ident nil)
-            ("Version" 35 magit-repolist-column-version nil)
-            ("Flag" 4 magit-repolist-column-flag
-             ((:right-align t)
-              (:help-echo "U[N]tracked [U]nstaged [S]taged")))
-            ("⇣" 3 magit-repolist-column-unpulled-from-upstream
-             ((:right-align t)
-              (:help-echo "Upstream changes not in branch")))
-            ("⇡" 3 magit-repolist-column-unpushed-to-upstream
-             ((:right-align t)
-              (:help-echo "Local changes not in upstream")))
-            ("Path" 99 magit-repolist-column-path nil))))
-
-(with-eval-after-load 'magit-status
-  (eval-when-compile (require 'magit-status))
-  ;; Conflicts with MacOS like window switching:
-  (keymap-set magit-status-mode-map "C-<tab>" nil))
-
-(keymap-global-set "C-x g" 'magit-status)
+(use-package magit-repos
+  :config (setopt magit-repolist-columns
+                '(("Name" 25 magit-repolist-column-ident nil)
+                  ("Version" 35 magit-repolist-column-version nil)
+                  ("Flag" 4 magit-repolist-column-flag
+                   ((:right-align t)
+                    (:help-echo "U[N]tracked [U]nstaged [S]taged")))
+                  ("⇣" 3 magit-repolist-column-unpulled-from-upstream
+                   ((:right-align t)
+                    (:help-echo "Upstream changes not in branch")))
+                  ("⇡" 3 magit-repolist-column-unpushed-to-upstream
+                   ((:right-align t)
+                    (:help-echo "Local changes not in upstream")))
+                  ("Path" 99 magit-repolist-column-path nil))))
 
 (autoload 'magit-call-git "magit-process")
 (autoload 'magit-run-git-async "magit-process")
@@ -483,16 +472,13 @@
 
 (setopt diff-font-lock-prettify t)
 
-(ensure-package 'diff-hl)
-(add-editing-modes-hook 'turn-on-diff-hl-mode)
-(with-eval-after-load 'vc-dir
-  (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
-
-(with-eval-after-load 'magit
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-
-(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(use-package diff-hl
+  :ensure t
+  :hook ((editing-modes . turn-on-diff-hl-mode)
+         (vc-dir-mode . turn-on-diff-hl-mode)
+         (magit-pre-refresh . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh)
+         (dired-mode . diff-hl-dired-mode)))
 
 ;;;
 ;;; IDE
@@ -533,36 +519,33 @@
 ;; Single line doc string:
 (setopt eldoc-echo-area-use-multiline-p nil)
 
-(add-hook 'eldoc-mode-hook (lambda () (diminish 'eldoc-mode)))
+(use-package eldoc
+  :diminish)
 
-(ensure-package 'reformatter)
+(use-package reformatter
+  :ensure t
+  :init
+  (reformatter-define shfmt :program "shfmt")
+  :hook (sh-base-mode . shfmt-on-save-mode))
 
-(reformatter-define shfmt :program "shfmt")
-(add-hook 'sh-base-mode-hook 'shfmt-on-save-mode)
-
-(ensure-package 'envrc)
-(envrc-global-mode)
+(use-package envrc
+  :ensure t
+  :hook (after-init . envrc-global-mode))
 
 ;;;
 ;;; Writing
 ;;;
 
-(ensure-package 'jinx)
-
-(setopt jinx-languages "en_US nb_NO")
-(add-editing-modes-hook 'jinx-mode)
-
-(with-eval-after-load 'jinx
-  (eval-when-compile (require 'jinx))
-
-  (diminish 'jinx-mode)
-
-  ;; Disable for strings:
-  (setopt jinx-include-faces '((prog-mode font-lock-comment-face
+(use-package jinx
+  :ensure t
+  :diminish
+  :init
+  (setopt jinx-languages "en_US nb_NO"
+          jinx-include-faces '((prog-mode font-lock-comment-face
                                           font-lock-doc-face)
                                (conf-mode font-lock-comment-face)))
-
-  (keymap-set jinx-mode-map "C-;" 'jinx-correct))
+  :hook (editing-modes . jinx-mode)
+  :bind (:map jinx-mode-map ("C-;" . jinx-correct)))
 
 (setopt calendar-week-start-day 1
         calendar-date-style 'iso)
@@ -616,11 +599,11 @@
         org-refile-use-outline-path t
         org-outline-path-complete-in-steps nil)
 
-(with-eval-after-load 'org-indent
-  (diminish 'org-indent-mode))
+(use-package org-indent
+  :diminish)
 
-(ensure-package 'org-appear)
-(add-hook 'org-mode-hook 'org-appear-mode)
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
 
 ;;;
 ;;; Programming modes
@@ -654,8 +637,9 @@
 (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode))
 
-(ensure-package 'hl-todo)
-(add-prog-and-conf-modes-hook 'hl-todo-mode)
+(use-package hl-todo
+  :ensure t
+  :hook (prog-and-conf-modes . hl-todo-mode))
 
 (defun enable-indent-tabs-mode ()
   "Enable tab indent."
@@ -664,25 +648,32 @@
 (setopt sh-basic-offset 8)
 (add-hook 'bash-ts-mode-hook 'enable-indent-tabs-mode)
 
-(ensure-package 'markdown-mode)
-(setopt markdown-fontify-code-blocks-natively t)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+(use-package markdown-mode
+  :ensure t
+  :init
+  (setopt markdown-fontify-code-blocks-natively t)
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
 
-(ensure-package 'git-modes)
+(use-package git-modes
+  :ensure t)
 
-(ensure-package 'lua-mode)
+(use-package lua-mode
+  :ensure t)
 
-(ensure-package 'terraform-mode)
+(use-package terraform-mode
+  :ensure t)
 
-(ensure-package 'systemd)
+(use-package systemd
+  :ensure t)
 
 ;;;
 ;;; Web
 ;;;
 
-(ensure-package 'rainbow-mode)
-(setopt rainbow-html-colors nil
-        rainbow-x-colors nil)
+(use-package rainbow-mode
+  :ensure t
+  :init (setopt rainbow-html-colors nil
+                rainbow-x-colors nil))
 
 ;;;
 ;;; Help
@@ -693,9 +684,10 @@
 
 (add-hook 'Info-mode-hook 'variable-pitch-mode)
 
-(ensure-package 'which-key)
-(add-hook 'after-init-hook 'which-key-mode)
-(add-hook 'which-key-mode-hook (lambda () (diminish 'which-key-mode)))
+(use-package which-key
+  :ensure t
+  :diminish
+  :hook (after-init . which-key-mode))
 
 ;; Make flymake know about our load path (ELPA):
 (setq elisp-flymake-byte-compile-load-path load-path)
