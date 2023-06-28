@@ -69,8 +69,9 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;; Don't need confirmation/selection when killing buffers:
-(keymap-global-set "C-x k" 'kill-current-buffer)
+(use-package simple
+  ;; Don't need confirmation/selection when killing buffers:
+  :bind ("C-x k" . kill-current-buffer))
 
 (require 'server)
 (unless (server-running-p)
