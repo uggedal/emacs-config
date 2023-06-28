@@ -174,16 +174,17 @@
 (use-package diminish
   :ensure t)
 
-(setopt whitespace-line-column 79
-        whitespace-style '(face tabs lines-tail))
-
 (use-package whitespace
   :diminish
+  :init (setopt whitespace-line-column 79
+                whitespace-style '(face tabs lines-tail))
   :hook (prog-mode . whitespace-mode))
 
-(setopt pixel-scroll-precision-large-scroll-height 35.0)
-(pixel-scroll-mode)
-(pixel-scroll-precision-mode 1)
+(use-package pixel-scroll
+  :init
+  (setopt pixel-scroll-precision-large-scroll-height 35.0)
+  :hook ((after-init . pixel-scroll-mode)
+         (after-init . pixel-scroll-precision-mode)))
 
 (setopt uniquify-buffer-name-style 'forward)
 
@@ -191,28 +192,26 @@
 ;;; Editing
 ;;;
 
-(setopt column-number-mode t
-        save-interprogram-paste-before-kill t
-        kill-do-not-save-duplicates t
-        indent-tabs-mode nil)
-
-(keymap-global-set "M-=" 'count-words)
 (keymap-global-set "M-z" 'zap-up-to-char)
-(keymap-global-set "M-u" 'upcase-dwim)
-(keymap-global-set "M-l" 'downcase-dwim)
-(keymap-global-set "M-c" 'capitalize-dwim)
-
 (keymap-global-set "M-;" 'comment-line)
 
 (use-package simple
-  :hook
-  (text-mode . turn-on-auto-fill)
-  (before-save . delete-trailing-whitespace))
+  :init (setopt column-number-mode t
+                save-interprogram-paste-before-kill t
+                kill-do-not-save-duplicates t
+                indent-tabs-mode nil)
+  :hook ((text-mode . turn-on-auto-fill)
+	 (before-save . delete-trailing-whitespace))
+  :bind (("M-=" . count-words)
+         ("M-u" . upcase-dwim)
+         ("M-l" . downcase-dwim)
+         ("M-c" . capitalize-dwim)))
 
 (use-package emacs
   :diminish auto-fill-function)
 
-(subword-mode)
+(use-package subword
+  :hook (after-init subword-mode))
 
 (use-package move-text
   :ensure t
@@ -232,34 +231,43 @@
   (setopt auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
   (make-directory (expand-file-name auto-save-dir) t))
 
-(global-so-long-mode)
+(use-package su-long
+  :hook (after-init . global-so-long-mode))
 
-(setopt global-auto-revert-non-file-buffers t)
-(global-auto-revert-mode)
+(use-package autorevert
+  :init (setopt global-auto-revert-non-file-buffers t)
+  :hook (after-init . global-auto-revert-mode))
 
 ;;;
 ;;; History
 ;;;
 
-(setopt recentf-max-saved-items 1000)
-(keymap-global-set "C-x C-r" 'recentf-open)
-(recentf-mode)
+(use-package recentf
+  :init (setopt recentf-max-saved-items 1000)
+  :hook (after-init recentf-mode)
+  :bind ("C-x C-r" . recentf-open))
 
-(setopt savehist-additional-variables '(search-ring
-                                        regexp-search-ring
-                                        last-kbd-macro
-                                        shell-command-history
-                                        log-edit-comment-ring
-                                        corfu-history))
-(savehist-mode)
-(save-place-mode)
-(desktop-save-mode)
+(use-package savehist
+  :init (setopt savehist-additional-variables '(search-ring
+                                                regexp-search-ring
+                                                last-kbd-macro
+                                                shell-command-history
+                                                log-edit-comment-ring
+                                                corfu-history))
+  :hook (after-init . savehist-mode))
+
+(use-package saveplace
+  :hook (after-init . save-place-mode))
+
+(use-package desktop
+  :hook (after-init . desktop-save-mode))
 
 ;;;
 ;;; Navigation and Search
 ;;;
 
 (setopt blink-cursor-blinks 0)
+
 ;; Disable suspend frame:
 (keymap-global-unset "C-z")
 
