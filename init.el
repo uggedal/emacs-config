@@ -63,8 +63,9 @@
         ns-command-modifier 'meta)
 
 (use-package emacs
-  :hook ((text-mode prog-mode conf-mode) . (lambda () (setq-local show-trailing-whitespace t
-                                               indicate-empty-lines t))))
+  :hook ((text-mode prog-mode conf-mode) .
+         (lambda () (setq-local show-trailing-whitespace t
+                                indicate-empty-lines t))))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
