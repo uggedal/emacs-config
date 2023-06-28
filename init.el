@@ -157,7 +157,7 @@
 
 (add-hook 'modus-themes-after-load-theme-hook #'modus-themes-custom-faces)
 
-(modus-themes-load-theme 'modus-operandi)
+(load-theme 'modus-operandi :noconfirm)
 
 (with-eval-after-load 'faces
   (set-face-attribute 'default nil :font "SF Mono" :height 120)
