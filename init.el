@@ -259,8 +259,7 @@
 (use-package saveplace
   :hook (after-init . save-place-mode))
 
-(use-package desktop
-  :hook (after-init . desktop-save-mode))
+(desktop-save-mode)
 
 ;;;
 ;;; Navigation and Search
