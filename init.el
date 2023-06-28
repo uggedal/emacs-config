@@ -211,7 +211,7 @@
   :diminish auto-fill-function)
 
 (use-package subword
-  :hook (after-init subword-mode))
+  :hook (after-init . subword-mode))
 
 (use-package move-text
   :ensure t
@@ -244,7 +244,7 @@
 
 (use-package recentf
   :init (setopt recentf-max-saved-items 1000)
-  :hook (after-init recentf-mode)
+  :hook (after-init . recentf-mode)
   :bind ("C-x C-r" . recentf-open))
 
 (use-package savehist
