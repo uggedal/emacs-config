@@ -15,9 +15,9 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(setopt package-archive-priorities '(("melpa" . 3)
-                                     ("gnu" . 2)
-                                     ("nongnu" . 1)))
+(setopt package-archive-priorities '(("gnu" . 3)
+                                     ("nongnu" . 2)
+                                     ("melpa" . 1)))
 
 (unless (bound-and-true-p package--initialized)
   (package-initialize))
@@ -404,9 +404,6 @@
 (setopt vc-handled-backends '(Git)
         log-edit-maximum-comment-ring-size 1000)
 
-(use-package git-commit
-  :ensure t)
-
 (autoload 'ring-elements "ring")
 
 (use-package dash
@@ -430,12 +427,9 @@
                                      (ring-elements
                                       log-edit-comment-ring)))))))
 
-(with-eval-after-load 'git-commit
-  (eval-when-compile (require 'git-commit))
-  (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
-
 (use-package magit
   :ensure t
+  :pin melpa
   :init (setopt magit-repository-directories `(("~/src" . 1))
                 magit-clone-default-directory "~/src/")
   :bind (("C-x g" . magit-status)
@@ -471,6 +465,11 @@
   (magit-refresh))
 
 (keymap-global-set "C-x v p" 'automatic-commit-and-push)
+
+(with-eval-after-load 'git-commit
+  (eval-when-compile (require 'git-commit))
+  (keymap-set git-commit-mode-map "M-r" 'commit-message-completion))
+
 
 (setopt diff-font-lock-prettify t)
 
