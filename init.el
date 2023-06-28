@@ -568,7 +568,7 @@
         org-image-actual-width nil
         org-special-ctrl-a/e t
         org-deadline-warning-days 7
-        org-directory "~/src/notes"
+        org-directory "~/src/org"
         org-agenda-files '("work.org" "personal.org" "tech.org"))
 (with-eval-after-load 'org
   (eval-when-compile (require 'org))
