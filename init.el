@@ -22,9 +22,6 @@
 (unless (bound-and-true-p package--initialized)
   (package-initialize))
 
-(defvar prog-and-conf-modes '(prog-mode conf-mode))
-(defvar editing-modes '(text-mode prog-mode conf-mode))
-
 
 ;;;
 ;;; Core
@@ -66,7 +63,7 @@
         ns-command-modifier 'meta)
 
 (use-package emacs
-  :hook (editing-modes . (lambda () (setq-local show-trailing-whitespace t
+  :hook ((text-mode prog-mode conf-mode) . (lambda () (setq-local show-trailing-whitespace t
                                                indicate-empty-lines t))))
 
 (put 'upcase-region 'disabled nil)
@@ -168,10 +165,10 @@
   (set-face-attribute 'variable-pitch nil :font "New York"))
 
 (use-package display-line-numbers
-  :hook (prog-and-conf-modes . display-line-numbers-mode))
+  :hook ((prog-mode conf-mode) . display-line-numbers-mode))
 
 (use-package display-fill-column-indicator
-  :hook (prog-and-conf-modes . display-fill-column-indicator-mode))
+  :hook ((prog-mode conf-mode) . display-fill-column-indicator-mode))
 
 (use-package diminish
   :ensure t)
@@ -297,7 +294,7 @@
   (add-hook 'vterm-mode-hook 'goto-address-mode))
 
 (use-package goto-addr
-  :hook (prog-and-conf-modes . goto-address-prog-mode))
+  :hook ((prog-mode conf-mode) . goto-address-prog-mode))
 
 ;;;
 ;;; Completion
@@ -473,9 +470,10 @@
 
 (setopt diff-font-lock-prettify t)
 
+
 (use-package diff-hl
   :ensure t
-  :hook ((editing-modes . turn-on-diff-hl-mode)
+  :hook (((text-mode prog-mode conf-mode) . turn-on-diff-hl-mode)
          (vc-dir-mode . turn-on-diff-hl-mode)
          (magit-pre-refresh . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh)
@@ -545,7 +543,7 @@
           jinx-include-faces '((prog-mode font-lock-comment-face
                                           font-lock-doc-face)
                                (conf-mode font-lock-comment-face)))
-  :hook (editing-modes . jinx-mode)
+  :hook ((text-mode prog-mode conf-mode) . jinx-mode)
   :bind (:map jinx-mode-map ("C-;" . jinx-correct)))
 
 (setopt calendar-week-start-day 1
@@ -641,7 +639,7 @@
 
 (use-package hl-todo
   :ensure t
-  :hook (prog-and-conf-modes . hl-todo-mode))
+  :hook ((prog-mode conf-mode) . hl-todo-mode))
 
 (defun enable-indent-tabs-mode ()
   "Enable tab indent."
