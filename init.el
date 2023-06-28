@@ -231,7 +231,7 @@
   (setopt auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
   (make-directory (expand-file-name auto-save-dir) t))
 
-(use-package su-long
+(use-package so-long
   :hook (after-init . global-so-long-mode))
 
 (use-package autorevert
