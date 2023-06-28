@@ -73,9 +73,8 @@
   ;; Don't need confirmation/selection when killing buffers:
   :bind ("C-x k" . kill-current-buffer))
 
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+(use-package server
+  :hook (after-init . server-start))
 
 ;;;
 ;;; Appearance
