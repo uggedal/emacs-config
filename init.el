@@ -569,7 +569,7 @@
         org-special-ctrl-a/e t
         org-deadline-warning-days 7
         org-directory "~/src/org"
-        org-agenda-files "~/src/org")
+        org-agenda-files '("~/src/org"))
 (with-eval-after-load 'org
   (eval-when-compile (require 'org))
   (keymap-set org-mode-map "C-M-<up>" 'org-up-element))
