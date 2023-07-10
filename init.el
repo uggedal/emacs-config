@@ -318,6 +318,10 @@
               ("DEL" . vertico-directory-delete-char)
               ("M-DEL" . vertico-directory-delete-word)))
 
+(use-package vertico-multiform
+  :after vertico
+  :hook (after-init . vertico-multiform))
+
 (use-package orderless
   :ensure t
   :init
@@ -552,7 +556,12 @@
                                           font-lock-doc-face)
                                (conf-mode font-lock-comment-face)))
   :hook ((text-mode prog-mode conf-mode) . jinx-mode)
-  :bind (:map jinx-mode-map ("C-;" . jinx-correct)))
+  :bind (:map jinx-mode-map ("C-;" . jinx-correct))
+  :config
+  (with-eval-after-load 'vertico-multiform
+    (eval-when-compile (require 'vertico-multiform)
+    (add-to-list 'vertico-multiform-categories
+                 '(jinx grid (vertico-grid-annotate . 20)))))
 
 (setopt calendar-week-start-day 1
         calendar-date-style 'iso)
