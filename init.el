@@ -558,10 +558,9 @@
   :hook ((text-mode prog-mode conf-mode) . jinx-mode)
   :bind (:map jinx-mode-map ("C-;" . jinx-correct))
   :config
-  (with-eval-after-load 'vertico-multiform
-    (eval-when-compile (require 'vertico-multiform)
-    (add-to-list 'vertico-multiform-categories
-                 '(jinx grid (vertico-grid-annotate . 20)))))
+  (require 'vertico-multiform)
+  (add-to-list 'vertico-multiform-categories
+               '(jinx grid (vertico-grid-annotate . 20))))
 
 (setopt calendar-week-start-day 1
         calendar-date-style 'iso)
