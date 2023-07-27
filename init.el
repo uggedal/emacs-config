@@ -256,6 +256,9 @@
   :init (setopt global-auto-revert-non-file-buffers t)
   :hook (after-init . global-auto-revert-mode))
 
+;; Timeout TRAMP file access:
+(setopt remote-file-name-access-timeout 5)
+
 ;;;
 ;;; History
 ;;;
