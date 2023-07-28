@@ -125,40 +125,36 @@
           (bg-removed-fringe bg-removed)
           ))
 
-(defun modus-themes-custom-faces ()
-  "Custom overrides of Modus Operandi theme."
-  (modus-themes-with-colors
-    (let ((mode-line-padding 6)
-          (tab-bar-padding 4))
-      (custom-set-faces
-       ;; Padding for mode line and tab-bar:
-       `(mode-line
-         ((,c :box
-              (:line-width ,mode-line-padding :color ,bg-mode-line-active))))
-       `(mode-line-inactive
-         ((,c :box
-              (:line-width ,mode-line-padding :color ,bg-mode-line-inactive))))
-       `(tab-bar ((,c :background ,bg-tab-current)))
-       `(tab-bar-tab
-         ((,c :box (:line-width ,tab-bar-padding :color ,bg-yellow-nuanced)
-              :background ,bg-yellow-nuanced)))
-       `(tab-bar-tab-inactive
-         ((,c :box (:line-width ,tab-bar-padding :color ,bg-dim)
-              :background ,bg-dim)))
-       ))
-    (custom-set-faces
-     `(org-todo ((,c :foreground ,red :background ,bg-red-nuanced)))
-     ;; Dim DONE Org headlines:
-     `(org-done ((,c :foreground ,fg-dim)))
-     ;; Bring back dashed fill column indicator (relative height and no bg):
-     `(fill-column-indicator ((,c :height 1.0 :background ,bg-main
-                                  :foreground ,bg-active)))
-     ;; Less invasive Eglot highlights:
-     `(eglot-highlight-symbol-face ((,c :background , bg-green-nuanced))))))
-
-(add-hook 'modus-themes-after-load-theme-hook #'modus-themes-custom-faces)
-
 (load-theme 'modus-operandi :noconfirm)
+
+(modus-themes-with-colors
+  (let ((mode-line-padding 6)
+        (tab-bar-padding 4))
+    (custom-set-faces
+     ;; Padding for mode line and tab-bar:
+     `(mode-line
+       ((,c :box
+            (:line-width ,mode-line-padding :color ,bg-mode-line-active))))
+     `(mode-line-inactive
+       ((,c :box
+            (:line-width ,mode-line-padding :color ,bg-mode-line-inactive))))
+     `(tab-bar ((,c :background ,bg-tab-current)))
+     `(tab-bar-tab
+       ((,c :box (:line-width ,tab-bar-padding :color ,bg-yellow-nuanced)
+            :background ,bg-yellow-nuanced)))
+     `(tab-bar-tab-inactive
+       ((,c :box (:line-width ,tab-bar-padding :color ,bg-dim)
+            :background ,bg-dim)))
+     ))
+  (custom-set-faces
+   `(org-todo ((,c :foreground ,red :background ,bg-red-nuanced)))
+   ;; Dim DONE Org headlines:
+   `(org-done ((,c :foreground ,fg-dim)))
+   ;; Bring back dashed fill column indicator (relative height and no bg):
+   `(fill-column-indicator ((,c :height 1.0 :background ,bg-main
+                                :foreground ,bg-active)))
+   ;; Less invasive Eglot highlights:
+   `(eglot-highlight-symbol-face ((,c :background , bg-green-nuanced)))))
 
 (with-eval-after-load 'faces
   (set-face-attribute 'default nil :font "SF Mono" :height 120)
