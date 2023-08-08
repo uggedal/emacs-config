@@ -703,11 +703,6 @@
 
 (add-hook 'Info-mode-hook 'variable-pitch-mode)
 
-(use-package which-key
-  :ensure t
-  :diminish
-  :hook (after-init . which-key-mode))
-
 ;; Make flymake know about our load path (ELPA):
 (setq elisp-flymake-byte-compile-load-path load-path)
 
