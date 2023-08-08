@@ -555,6 +555,7 @@
 
 (use-package envrc
   :ensure t
+  :diminish
   :hook (after-init . envrc-global-mode))
 
 ;;;
