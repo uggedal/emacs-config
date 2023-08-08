@@ -696,14 +696,6 @@
 (use-package systemd
   :ensure t)
 
-;;;
-;;; Web
-;;;
-
-(use-package rainbow-mode
-  :ensure t
-  :init (setopt rainbow-html-colors nil
-                rainbow-x-colors nil))
 
 ;;;
 ;;; Help
