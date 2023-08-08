@@ -374,10 +374,6 @@
       (when (fboundp 'corfu-mode)
         (corfu-mode)))))
 
-(use-package cape
-  :ensure t
-  :bind ("M-/" . cape-dabbrev))
-
 (use-package consult
   :ensure t
   :init
