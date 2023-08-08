@@ -127,6 +127,8 @@
 
 (load-theme 'modus-operandi :noconfirm)
 
+(autoload 'modus-themes-with-colors "modus-themes")
+
 (modus-themes-with-colors
   (let ((mode-line-padding 6)
         (tab-bar-padding 4))
