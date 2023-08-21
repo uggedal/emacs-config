@@ -20,6 +20,8 @@
 ;; Disable native compilation warnings:
 (setq native-comp-async-report-warnings-errors 'silent)
 
+(setopt load-prefer-newer t)
+
 ;; Extend PATH:
 (let ((local_bin (expand-file-name "~/.local/bin")))
   (setenv "PATH" (concat local_bin ":" (getenv "PATH")))
