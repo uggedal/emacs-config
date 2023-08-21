@@ -668,7 +668,9 @@
 
 (use-package hl-todo
   :ensure t
-  :hook ((prog-mode conf-mode) . hl-todo-mode))
+  :hook ((prog-mode conf-mode) . hl-todo-mode)
+  :config
+  (add-hook 'flymake-diagnostic-functions #'hl-todo-flymake nil 'local))
 
 (defun enable-indent-tabs-mode ()
   "Enable tab indent."
