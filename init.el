@@ -615,7 +615,7 @@
 (setopt org-capture-templates
         '(
           ("j" "Journal Entry"
-           entry (file+olp+datetree "~/src/notes/work.org")
+           entry (file+olp+datetree "~/src/org/work.org")
            "* %?"
            :empty-lines 1)))
 
