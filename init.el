@@ -285,7 +285,8 @@
 ;;; Navigation and Search
 ;;;
 
-(setopt blink-cursor-blinks 0)
+(use-package frame
+  :init (setopt blink-cursor-blinks 1))
 
 ;; Disable suspend frame:
 (keymap-global-unset "C-z")
