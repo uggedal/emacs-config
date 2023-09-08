@@ -85,82 +85,80 @@
 ;;; Appearance
 ;;;
 
-(require-theme 'modus-themes)
+(use-package modus-themes
+  :init
+  (require-theme 'modus-themes)
+  (setopt modus-themes-common-palette-overrides
+          '(
+            ;; Subtle line numbers:
+            (fg-line-number-active fg-main)
+            (fg-line-number-inactive "gray50")
+            (bg-line-number-active unspecified)
+            (bg-line-number-inactive unspecified)
 
-(setopt modus-themes-common-palette-overrides
-        '(
-          ;; Subtle line numbers:
-          (fg-line-number-active fg-main)
-          (fg-line-number-inactive "gray50")
-          (bg-line-number-active unspecified)
-          (bg-line-number-inactive unspecified)
+            ;; Disable link underline:
+            (underline-link unspecified)
+            (underline-link-visited unspecified)
+            (underline-link-symbolic unspecified)
 
-          ;; Disable link underline:
-          (underline-link unspecified)
-          (underline-link-visited unspecified)
-          (underline-link-symbolic unspecified)
+            ;; Subtle fringe:
+            (fringe unspecified)
 
-          ;; Subtle fringe:
-          (fringe unspecified)
+            ;; Border-less mode line:
+            (border-mode-line-active unspecified)
+            (border-mode-line-inactive unspecified)
 
-          ;; Border-less mode line:
-          (border-mode-line-active unspecified)
-          (border-mode-line-inactive unspecified)
+            ;; Some color for region background:
+            (bg-region bg-yellow-nuanced)
 
-          ;; Some color for region background:
-          (bg-region bg-yellow-nuanced)
+            ;; Some color for active mode line:
+            (bg-mode-line-active bg-blue-subtle)
 
-          ;; Some color for active mode line:
-          (bg-mode-line-active bg-blue-subtle)
+            ;; Normalize heading colors:
+            (fg-heading-1 fg-alt)
+            (fg-heading-2 fg-alt)
+            (fg-heading-3 fg-alt)
+            (fg-heading-4 fg-alt)
+            (fg-heading-5 fg-alt)
+            (fg-heading-6 fg-alt)
+            (fg-heading-7 fg-alt)
+            (fg-heading-8 fg-alt)
 
-          ;; Normalize heading colors:
-          (fg-heading-1 fg-alt)
-          (fg-heading-2 fg-alt)
-          (fg-heading-3 fg-alt)
-          (fg-heading-4 fg-alt)
-          (fg-heading-5 fg-alt)
-          (fg-heading-6 fg-alt)
-          (fg-heading-7 fg-alt)
-          (fg-heading-8 fg-alt)
-
-          ;; Lighter fringe diff highlights:
-          (bg-added-fringe bg-added)
-          (bg-changed-fringe bg-changed)
-          (bg-removed-fringe bg-removed)
-          ))
-
-(load-theme 'modus-operandi :noconfirm)
-
-(autoload 'modus-themes-with-colors "modus-themes")
-
-(modus-themes-with-colors
-  (let ((mode-line-padding 6)
-        (tab-bar-padding 4))
+            ;; Lighter fringe diff highlights:
+            (bg-added-fringe bg-added)
+            (bg-changed-fringe bg-changed)
+            (bg-removed-fringe bg-removed)
+            ))
+  (load-theme 'modus-operandi :noconfirm)
+  :config
+  (modus-themes-with-colors
+    (let ((mode-line-padding 6)
+          (tab-bar-padding 4))
+      (custom-set-faces
+       ;; Padding for mode line and tab-bar:
+       `(mode-line
+         ((,c :box
+              (:line-width ,mode-line-padding :color ,bg-mode-line-active))))
+       `(mode-line-inactive
+         ((,c :box
+              (:line-width ,mode-line-padding :color ,bg-mode-line-inactive))))
+       `(tab-bar ((,c :background ,bg-tab-current)))
+       `(tab-bar-tab
+         ((,c :box (:line-width ,tab-bar-padding :color ,bg-yellow-nuanced)
+              :background ,bg-yellow-nuanced)))
+       `(tab-bar-tab-inactive
+         ((,c :box (:line-width ,tab-bar-padding :color ,bg-dim)
+              :background ,bg-dim)))
+       ))
     (custom-set-faces
-     ;; Padding for mode line and tab-bar:
-     `(mode-line
-       ((,c :box
-            (:line-width ,mode-line-padding :color ,bg-mode-line-active))))
-     `(mode-line-inactive
-       ((,c :box
-            (:line-width ,mode-line-padding :color ,bg-mode-line-inactive))))
-     `(tab-bar ((,c :background ,bg-tab-current)))
-     `(tab-bar-tab
-       ((,c :box (:line-width ,tab-bar-padding :color ,bg-yellow-nuanced)
-            :background ,bg-yellow-nuanced)))
-     `(tab-bar-tab-inactive
-       ((,c :box (:line-width ,tab-bar-padding :color ,bg-dim)
-            :background ,bg-dim)))
-     ))
-  (custom-set-faces
-   `(org-todo ((,c :foreground ,red :background ,bg-red-nuanced)))
-   ;; Dim DONE Org headlines:
-   `(org-done ((,c :foreground ,fg-dim)))
-   ;; Bring back dashed fill column indicator (relative height and no bg):
-   `(fill-column-indicator ((,c :height 1.0 :background ,bg-main
-                                :foreground ,bg-active)))
-   ;; Less invasive Eglot highlights:
-   `(eglot-highlight-symbol-face ((,c :background , bg-green-nuanced)))))
+     `(org-todo ((,c :foreground ,red :background ,bg-red-nuanced)))
+     ;; Dim DONE Org headlines:
+     `(org-done ((,c :foreground ,fg-dim)))
+     ;; Bring back dashed fill column indicator (relative height and no bg):
+     `(fill-column-indicator ((,c :height 1.0 :background ,bg-main
+                                  :foreground ,bg-active)))
+     ;; Less invasive Eglot highlights:
+     `(eglot-highlight-symbol-face ((,c :background , bg-green-nuanced))))))
 
 (with-eval-after-load 'faces
   (set-face-attribute 'default nil :font "SF Mono" :height 120)
