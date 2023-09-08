@@ -240,12 +240,13 @@
 ;;;
 
 
-(setopt make-backup-files nil
-        require-final-newline t)
-
-(let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
-  (setopt auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
-  (make-directory (expand-file-name auto-save-dir) t))
+(use-package files
+  :init
+  (setopt make-backup-files nil
+          require-final-newline t)
+  (let ((auto-save-dir (concat user-emacs-directory "auto-save/")))
+    (setopt auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
+    (make-directory (expand-file-name auto-save-dir) t)))
 
 (use-package autorevert
   :init (setopt global-auto-revert-non-file-buffers t)
