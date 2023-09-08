@@ -249,7 +249,10 @@
     (make-directory (expand-file-name auto-save-dir) t)))
 
 (use-package autorevert
-  :init (setopt global-auto-revert-non-file-buffers t)
+  :init
+  (setopt global-auto-revert-non-file-buffers t
+          auto-revert-interval 2
+          auto-revert-check-vc-info t)
   :hook (after-init . global-auto-revert-mode))
 
 ;; Timeout TRAMP file access:
