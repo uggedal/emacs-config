@@ -64,21 +64,18 @@
           ;; Use Cmd as Meta on MacOS:
           ns-alternate-modifier nil
           ns-command-modifier 'meta)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
   :hook ((text-mode prog-mode conf-mode) .
          (lambda () (setq-local show-trailing-whitespace t
                                 indicate-empty-lines t))))
-
-
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
 
 (use-package simple
   :init
   ;; Hide commands in M-x not applicable to active mode:
   (setopt read-extended-command-predicate
           #'command-completion-default-include-p)
-
-  ;; Don't need confirmation/selection when killing buffers:
+  ;; Disable confirmation/selection when killing buffers:
   :bind ("C-x k" . kill-current-buffer))
 
 (use-package server
