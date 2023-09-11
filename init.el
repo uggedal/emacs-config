@@ -157,7 +157,8 @@
      ;; Less invasive Eglot highlights:
      `(eglot-highlight-symbol-face ((,c :background , bg-green-nuanced))))))
 
-(with-eval-after-load 'faces
+(use-package faces
+  :init
   (set-face-attribute 'default nil :font "SF Mono" :height 120)
   (set-face-attribute 'fixed-pitch nil :font "SF Mono")
   (set-face-attribute 'variable-pitch nil :font "New York"))
