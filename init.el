@@ -9,20 +9,17 @@
 ;;; Bootstrap
 ;;;
 
-(use-package cus-edit
-  :init
-  (setopt custom-file (locate-user-emacs-file "custom.el"))
-  (when (file-exists-p custom-file)
-    (load custom-file)))
+(setopt custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
-(use-package package
-  :init
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (setopt package-archive-priorities '(("gnu" . 3)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(setopt package-archive-priorities '(("gnu" . 3)
                                      ("nongnu" . 2)
                                      ("melpa" . 1)))
-  (unless (bound-and-true-p package--initialized)
-    (package-initialize)))
+(unless (bound-and-true-p package--initialized)
+  (package-initialize))
 
 
 ;;;
