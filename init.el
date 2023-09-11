@@ -394,10 +394,11 @@
          :map goto-map
          ("f" . consult-flymake)
          ("o" . consult-outline)
-         :map org-mode-map
-         ("M-g o" . consult-org-heading)
          :map search-map
-         ("g" . consult-ripgrep)))
+         ("g" . consult-ripgrep))
+  (use-package org
+    :bind (:map org-mode-map
+           ("M-g o" . consult-org-heading))))
 
 
 ;;;
