@@ -204,7 +204,8 @@
   :hook ((after-init . pixel-scroll-mode)
          (after-init . pixel-scroll-precision-mode)))
 
-(setopt uniquify-buffer-name-style 'forward)
+(use-package uniquify
+  :init (setopt uniquify-buffer-name-style 'forward))
 
 ;;;
 ;;; Editing
