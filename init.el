@@ -396,6 +396,7 @@
          ("o" . consult-outline)
          :map search-map
          ("g" . consult-ripgrep))
+  :config
   (use-package org
     :bind (:map org-mode-map
            ("M-g o" . consult-org-heading))))
