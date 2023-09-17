@@ -648,33 +648,43 @@
 ;;; Programming modes
 ;;;
 
-;; Setup MacPorts provided tree-sitter parsers:
-(defun ts-remap (regex-mode ts-mode)
-  "Remap from REGEX-MODE to TS-MODE."
-  (add-to-list 'major-mode-remap-alist `(,regex-mode . ,ts-mode)))
+;; Setup tree-sitter parsers:
 
-(ts-remap 'sh-mode 'bash-ts-mode)
-(ts-remap 'csharp-mode 'csharp-ts-mode)
-(ts-remap 'c++-mode 'c++-ts-mode)
-(ts-remap 'css-mode 'css-ts-mode)
-(ts-remap 'mhtml-mode 'html-ts-mode)
-(ts-remap 'java-mode 'java-ts-mode)
-(ts-remap 'js-mode 'js-ts-mode)
-(ts-remap 'js-json-mode 'json-ts-mode)
-(ts-remap 'python-mode 'python-ts-mode)
-(ts-remap 'ruby-mode 'ruby-ts-mode)
-(ts-remap 'conf-toml-mode 'toml-ts-mode)
-(add-to-list 'auto-mode-alist
-             '("\\(?:CMakeLists\\.txt\\|\\.cmake\\)\\'" . cmake-ts-mode))
-(add-to-list 'auto-mode-alist
-             '("\\(?:Dockerfile\\(?:\\..*\\)?\\|\\.[Dd]ockerfile\\)\\'"
-               . dockerfile-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
-(add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode))
+(use-package treesit
+  :init
+  (setopt treesit-language-source-alist
+          '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+            (css "https://github.com/tree-sitter/tree-sitter-css")
+            (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+            (go "https://github.com/tree-sitter/tree-sitter-go")
+            (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
+            (html "https://github.com/tree-sitter/tree-sitter-html")
+            (javascript "https://github.com/tree-sitter/tree-sitter-javascript"
+                        "master" "src")
+            (json "https://github.com/tree-sitter/tree-sitter-json")
+            (python "https://github.com/tree-sitter/tree-sitter-python")
+            (toml "https://github.com/tree-sitter/tree-sitter-toml")
+            (yaml "https://github.com/ikatyang/tree-sitter-yaml"))
+          major-mode-remap-alist
+          '((sh-mode . bash-ts-mode)
+            (css-mode . css-ts-mode)
+            (mhtml-mode . html-ts-mode)
+            (javascript-mode . js-ts-mode)
+            (js-json-mode . json-ts-mode)
+            (python-mode . python-ts-mode)
+            (conf-toml-mode . toml-ts-mode)))
+
+  ;; Require to get auto mode mappings:
+  (require 'dockerfile-ts-mode)
+  (require 'go-ts-mode)
+  (require 'yaml-ts-mode)
+
+  :config
+  (defun treesit-install-all-language-grammars ()
+    "Install all treesit language grammars defined with source."
+    (interactive)
+    (mapc #'treesit-install-language-grammar
+          (mapcar #'car treesit-language-source-alist))))
 
 (use-package hl-todo
   :ensure t
