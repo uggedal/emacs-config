@@ -545,6 +545,8 @@
   (keymap-set flymake-mode-map "M-n" 'flymake-goto-next-error)
   (keymap-set flymake-mode-map "M-p" 'flymake-goto-prev-error))
 
+(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+
 (add-hook 'emacs-lisp-mode-hook 'flymake-mode)
 
 ;; Single line doc string:
