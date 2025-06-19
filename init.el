@@ -14,6 +14,17 @@
   (load custom-file))
 
 ;;;
+;;; Core
+;;;
+
+(use-package emacs
+  :init
+  (setopt
+    ns-command-modifier 'meta
+    ns-option-modifier 'super
+    ns-right-option-modifier 'none))
+
+;;;
 ;;; Appearance
 ;;;
 
