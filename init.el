@@ -58,9 +58,8 @@
           kill-buffer-query-functions nil
           history-delete-duplicates t
           history-length 1000
-          ;; Use Cmd as Meta on MacOS:
-          ns-alternate-modifier nil
-          ns-command-modifier 'meta)
+          ;; Open up right option for typing non-ASCII on MacOS:
+          ns-right-alternate-modifier 'none)
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
   :hook ((text-mode prog-mode conf-mode) .
