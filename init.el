@@ -46,6 +46,14 @@
 
 
 ;;;
+;;; Third Party
+;;;
+
+(use-package magit
+  :ensure t
+  :init (setopt magit-define-global-key-bindings 'recommended))
+
+;;;
 ;;; Help
 ;;;
 
