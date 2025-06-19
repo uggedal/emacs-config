@@ -3,7 +3,8 @@
 (scroll-bar-mode -1)
 
 ;; Do not restrict resize to columns and lines:
-(setopt frame-resize-pixelwise t)
+(setopt frame-resize-pixelwise t
+	frame-inhibit-implied-resize t)
 
 ;; No startup screen or echo message:
 (setopt inhibit-startup-screen t
