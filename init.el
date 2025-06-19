@@ -42,5 +42,13 @@
         calendar-date-style 'iso)
 
 
+;;;
+;;; Help
+;;;
+
+(use-package which-key
+  :defer t
+  :hook (after-init-hook . which-key-mode))
+
 (provide 'init)
 ;;; init.el ends here
