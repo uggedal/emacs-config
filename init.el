@@ -21,11 +21,9 @@
 (unless (bound-and-true-p package--initialized)
   (package-initialize))
 
-
 ;;;
 ;;; Core
 ;;;
-
 
 (use-package emacs
   :init
@@ -240,7 +238,6 @@
 ;;;
 ;;; Files
 ;;;
-
 
 (use-package files
   :init
