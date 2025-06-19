@@ -19,6 +19,10 @@
 
 (use-package emacs
   :init (setopt
+	 ;; Disable backup files:
+	 create-lockfiles nil
+	 make-backup-files nil
+	 backup-inhibited t
 	 ;; ⌘ as Meta, left ⌥ for Super and right ⌥ for writing non-ASCII:
 	 ns-command-modifier 'meta
 	 ns-option-modifier 'super
