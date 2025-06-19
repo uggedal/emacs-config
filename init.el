@@ -19,6 +19,7 @@
 
 (use-package emacs
   :init (setopt
+	 ;; ⌘ as Meta, left ⌥ for Super and right ⌥ for writing non-ASCII:
 	 ns-command-modifier 'meta
 	 ns-option-modifier 'super
 	 ns-right-option-modifier 'none))
