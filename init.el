@@ -34,6 +34,9 @@
   (set-face-attribute 'fixed-pitch nil :font "SF Mono")
   (set-face-attribute 'variable-pitch nil :font "New York"))
 
+(use-package modus-themes
+  :init (load-theme 'modus-operandi t))
+
 ;;;
 ;;; Writing
 ;;;
