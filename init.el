@@ -48,6 +48,25 @@
 (setopt calendar-week-start-day 1
         calendar-date-style 'iso)
 
+;;;
+;;; Development
+;;;
+
+(use-package treesit)
+
+(use-package sh-script
+  :init
+  (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode))
+  (add-to-list 'treesit-language-source-alist '(bash "https://github.com/tree-sitter/tree-sitter-bash"))
+  (unless (treesit-language-available-p 'bash)
+    (treesit-install-language-grammar 'bash)))
+
+(use-package python-ts-mode
+  :mode "\\.py\\'"
+  :init
+  (add-to-list 'treesit-language-source-alist '(python "https://github.com/tree-sitter/tree-sitter-python"))
+  (unless (treesit-language-available-p 'bash)
+    (treesit-install-language-grammar 'bash)))
 
 ;;;
 ;;; Third Party
