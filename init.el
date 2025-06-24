@@ -68,6 +68,9 @@
   (unless (treesit-language-available-p 'bash)
     (treesit-install-language-grammar 'bash)))
 
+(use-package eglot
+  :hook ((python-base-mode sh-base-mode) . eglot-ensure))
+
 ;;;
 ;;; Third Party
 ;;;
