@@ -69,7 +69,8 @@
     (treesit-install-language-grammar 'bash)))
 
 (use-package eglot
-  :hook ((python-base-mode sh-base-mode) . eglot-ensure))
+  :hook ((python-base-mode sh-base-mode) . eglot-ensure)
+  :config (add-to-list 'eglot-server-programs '(python-mode . ("uv" "run" "pylsp"))))
 
 ;;;
 ;;; Third Party
