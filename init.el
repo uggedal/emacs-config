@@ -49,6 +49,18 @@
         calendar-date-style 'iso)
 
 ;;;
+;;; Remote
+;;;
+
+(use-package files-x
+  :init
+  (connection-local-set-profile-variables 'remote-bash
+					  '((explicit-shell-file-name . "/bin/bash")
+					    (tramp-remote-path . (tramp-own-remote-path))))
+
+  (connection-local-set-profiles '(:protocol "ssh") 'remote-bash))
+
+;;;
 ;;; Development
 ;;;
 
