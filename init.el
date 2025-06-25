@@ -49,6 +49,13 @@
         calendar-date-style 'iso)
 
 ;;;
+;;; Shell
+;;;
+
+(use-package shell
+  :custom (shell-kill-buffer-on-exit t))
+
+;;;
 ;;; Remote
 ;;;
 
