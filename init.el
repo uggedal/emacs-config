@@ -31,6 +31,9 @@
          (lambda () (setq-local show-trailing-whitespace t
                                 indicate-empty-lines t))))
 
+(use-package simple
+  :hook (before-save . delete-trailing-whitespace))
+
 ;;;
 ;;; Appearance
 ;;;
