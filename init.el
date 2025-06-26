@@ -32,6 +32,7 @@
                                 indicate-empty-lines t))))
 
 (use-package simple
+  :custom (column-number-mode t "display col number in mode line")
   :hook (before-save . delete-trailing-whitespace))
 
 ;;;
