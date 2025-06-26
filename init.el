@@ -46,7 +46,15 @@
   (set-face-attribute 'variable-pitch nil :font "New York"))
 
 (use-package modus-themes
-  :init (load-theme 'modus-operandi t))
+  :init (require-theme 'modus-themes)
+  :custom (modus-themes-common-palette-overrides
+	   `(
+	     ;; Dim and no background for line numbers:
+	     (fg-line-number-active fg-main)
+	     (fg-line-number-inactive "gray50")
+	     (bg-line-number-active unspecified)
+	     (bg-line-number-inactive unspecified)))
+  :config (load-theme 'modus-operandi :no-confirm))
 
 ;;;
 ;;; Writing
