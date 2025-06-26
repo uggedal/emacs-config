@@ -105,6 +105,14 @@
   :ensure t
   :init (setopt magit-define-global-key-bindings 'recommended))
 
+(use-package diff-hl
+  :ensure t
+  :hook (((text-mode prog-mode conf-mode) . turn-on-diff-hl-mode)
+         (vc-dir-mode . turn-on-diff-hl-mode)
+         (magit-pre-refresh . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh)
+         (dired-mode . diff-hl-dired-mode)))
+
 (use-package gptel
   :ensure t
   :init
