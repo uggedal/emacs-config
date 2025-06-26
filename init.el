@@ -26,7 +26,10 @@
 	 ;; ⌘ as Meta, left ⌥ for Super and right ⌥ for writing non-ASCII:
 	 ns-command-modifier 'meta
 	 ns-option-modifier 'super
-	 ns-right-option-modifier 'none))
+	 ns-right-option-modifier 'none)
+  :hook ((text-mode prog-mode conf-mode) .
+         (lambda () (setq-local show-trailing-whitespace t
+                                indicate-empty-lines t))))
 
 ;;;
 ;;; Appearance
