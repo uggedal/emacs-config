@@ -77,6 +77,9 @@
 ;;; Development
 ;;;
 
+(use-package display-line-numbers
+  :hook ((prog-mode conf-mode) . display-line-numbers-mode))
+
 (use-package treesit)
 
 (use-package sh-script
