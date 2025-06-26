@@ -99,6 +99,12 @@
   :ensure t
   :init (setopt magit-define-global-key-bindings 'recommended))
 
+(use-package gptel
+  :ensure t
+  :init
+  (setopt gptel-backend (gptel-make-gh-copilot "Copilot")
+	  gptel-model 'claude-3.7-sonnet))
+
 ;;;
 ;;; Help
 ;;;
