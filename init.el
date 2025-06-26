@@ -67,9 +67,10 @@
 
 (use-package files-x
   :init
-  (connection-local-set-profile-variables 'remote-bash
-					  '((explicit-shell-file-name . "/bin/bash")
-					    (tramp-remote-path . (tramp-own-remote-path))))
+  (connection-local-set-profile-variables
+   'remote-bash
+   '((explicit-shell-file-name . "/bin/bash")
+     (tramp-remote-path . (tramp-own-remote-path))))
 
   (connection-local-set-profiles '(:protocol "ssh") 'remote-bash))
 
@@ -85,20 +86,23 @@
 (use-package sh-script
   :init
   (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode))
-  (add-to-list 'treesit-language-source-alist '(bash "https://github.com/tree-sitter/tree-sitter-bash"))
+  (add-to-list 'treesit-language-source-alist
+	       '(bash "https://github.com/tree-sitter/tree-sitter-bash"))
   (unless (treesit-language-available-p 'bash)
     (treesit-install-language-grammar 'bash)))
 
 (use-package python-ts-mode
   :mode "\\.py\\'"
   :init
-  (add-to-list 'treesit-language-source-alist '(python "https://github.com/tree-sitter/tree-sitter-python"))
+  (add-to-list 'treesit-language-source-alist
+	       '(python "https://github.com/tree-sitter/tree-sitter-python"))
   (unless (treesit-language-available-p 'bash)
     (treesit-install-language-grammar 'bash)))
 
 (use-package eglot
   :hook ((python-base-mode sh-base-mode) . eglot-ensure)
-  :config (add-to-list 'eglot-server-programs '(python-mode . ("uv" "run" "pylsp"))))
+  :config (add-to-list 'eglot-server-programs
+		       '(python-mode . ("uv" "run" "pylsp"))))
 
 ;;;
 ;;; Third Party
