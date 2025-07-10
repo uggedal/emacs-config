@@ -132,12 +132,17 @@
          (magit-post-refresh . diff-hl-magit-post-refresh)
          (dired-mode . diff-hl-dired-mode)))
 
+(use-package markdown-mode
+  :ensure t
+  :custom
+  (markdown-fontify-code-blocks-natively t "syntax highlight code blocks"))
+
 (use-package gptel
   :ensure t
   :init
   (setopt gptel-backend (gptel-make-gh-copilot "Copilot")
-	  gptel-model 'claude-3.7-sonnet
-	  gptel-default-mode 'org-mode))
+	  gptel-model 'claude-3.7-sonnet))
+
 
 ;;;
 ;;; Help
