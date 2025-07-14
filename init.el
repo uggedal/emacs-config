@@ -141,7 +141,7 @@
   :ensure t
   :init
   (setopt gptel-backend (gptel-make-gh-copilot "Copilot")
-	  gptel-model 'claude-3.7-sonnet))
+	  gptel-model 'claude-sonnet-4))
 
 
 ;;;
